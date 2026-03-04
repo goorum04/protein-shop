@@ -42,6 +42,9 @@ function renderProducts() {
     else if (currentSort === 'price-desc') filtered.sort((a, b) => b.price - a.price);
     else if (currentSort === 'name-asc') filtered.sort((a, b) => a.name.localeCompare(b.name));
 
+    // Force out_of_stock to the end AFTER any other sort
+    filtered.sort((a, b) => (b.in_stock === a.in_stock ? 0 : a.in_stock ? -1 : 1));
+
     const catLabels = { all: 'Tots els Productes', proteinas: 'Proteïnes', creatina: 'Creatina', 'pre-workout': 'Pre-Workout', 'mass-gainer': 'Mass Gainer', vitaminas: 'Vitamines i Salut', alimentacion: 'Alimentació', 'control-peso': 'Control de Pes', carbohidratos: 'Carbohidrats', prehormonal: 'Prehormonal' };
     if (titleEl) titleEl.textContent = catLabels[currentCategory] || 'Tots els Productes';
 
@@ -54,14 +57,14 @@ function renderProducts() {
 }
 
 function productCard(p, small) {
-    const price = p.price.toFixed(2).replace('.', ',');
     const flavor = p.flavor ? `<div class="product-flavor">Sabor: ${p.flavor}</div>` : '';
+    const qtyMatch = p.name.match(/(\d+[,.]?\d*\s*(g|gr|kg|ml|caps|càpsules|tablets|tabs|litros|l))/i);
+    const quantity = qtyMatch ? `<div class="product-qty" style="color:var(--blue-light);font-size:0.85rem;margin-bottom:8px">Format: <strong>${qtyMatch[0].toLowerCase()}</strong></div>` : '';
+
     const badge = p.in_stock
         ? `<span class="product-badge badge-in">En estoc</span>`
         : `<span class="product-badge badge-out">Esgotat</span>`;
-    const addBtn = p.in_stock
-        ? `<button class="add-to-cart-btn" onclick="addToCart(event,'${p.id}')" aria-label="Afegir al carret">+</button>`
-        : `<button class="add-to-cart-btn" disabled title="No disponible">✕</button>`;
+    const addBtn = `<a href="https://wa.me/376645263?text=${encodeURIComponent('Hola! Estic interessat en: ' + p.name)}" class="btn-ghost" style="padding: 6px 12px; font-size: 0.8rem; width:100%; text-align:center" target="_blank" onclick="event.stopPropagation()">Contactar 💬</a>`;
 
     return `
     <article class="product-card" onclick="openModal('${p.id}')" id="card-${p.id}">
@@ -72,9 +75,9 @@ function productCard(p, small) {
       <div class="product-info">
         <div class="product-brand">${p.brand || ''}</div>
         <div class="product-name">${p.name}${p.flavor ? ' – ' + p.flavor : ''}</div>
+        ${quantity}
         ${flavor}
-        <div class="product-footer">
-          <span class="product-price">${price} €</span>
+        <div class="product-footer" style="justify-content:center; margin-top:12px;">
           ${addBtn}
         </div>
       </div>
@@ -88,7 +91,9 @@ function openModal(id) {
     if (!p) return;
     const overlay = document.getElementById('modal-overlay');
     const content = document.getElementById('modal-content');
-    const price = p.price.toFixed(2).replace('.', ',');
+    const qtyMatch = p.name.match(/(\d+[,.]?\d*\s*(g|gr|kg|ml|caps|càpsules|tablets|tabs|litros|l))/i);
+    const quantity = qtyMatch ? `<div class="modal-flavor" style="color:var(--blue-light); margin-top:4px;">Format: <strong>${qtyMatch[0].toLowerCase()}</strong></div>` : '';
+
     const stockBadge = p.in_stock
         ? `<span class="modal-stock-badge" style="background:rgba(34,197,94,.15);color:#86efac;border:1px solid rgba(34,197,94,.3)">✓ En estoc</span>`
         : `<span class="modal-stock-badge" style="background:rgba(239,68,68,.15);color:#fca5a5;border:1px solid rgba(239,68,68,.3)">Esgotat</span>`;
@@ -101,15 +106,13 @@ function openModal(id) {
       <div class="modal-details">
         <div class="modal-brand">${p.brand || ''}</div>
         <div class="modal-name">${p.name}</div>
+        ${quantity}
         ${p.flavor ? `<div class="modal-flavor">Sabor: <strong>${p.flavor}</strong></div>` : ''}
         ${stockBadge}
-        <div class="modal-price">${price} €</div>
-        <div class="modal-desc">${p.description || ''}</div>
-        ${p.in_stock
-            ? `<button class="modal-add-btn" onclick="addToCart(event,'${p.id}');closeModal()">Afegir al carret 🛒</button>`
-            : ''
-        }
-        <a href="https://wa.me/376645263?text=Hola! Estic interessat en: ${encodeURIComponent(p.name + (p.flavor ? ' – ' + p.flavor : ''))}" target="_blank" class="modal-wa-btn">💬 Preguntar per WhatsApp</a>
+        <div class="modal-desc" style="margin-top:12px;">${p.description || ''}</div>
+        <div style="margin-top:20px;">
+          <a href="https://wa.me/376645263?text=Hola! Estic interessat en: ${encodeURIComponent(p.name + (p.flavor ? ' – ' + p.flavor : ''))}" target="_blank" class="modal-wa-btn">💬 Contactar per WhatsApp</a>
+        </div>
       </div>
     </div>
   `;

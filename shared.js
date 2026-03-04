@@ -6,10 +6,11 @@ let cart = JSON.parse(localStorage.getItem('nlvip_cart') || '[]');
 
 // ===== RENDER PRODUCT CARD =====
 function renderCard(p) {
-  const price = p.price.toFixed(2).replace('.', ',');
   const statusClass = p.in_stock ? 'status-in' : 'status-out';
   const statusText = p.in_stock ? 'En estoc' : 'Esgotat';
   const flavor = p.flavor ? `<div class="product-flavor">Sabor: ${escHtml(p.flavor)}</div>` : '';
+  const qtyMatch = p.name.match(/(\d+[,.]?\d*\s*(g|gr|kg|ml|caps|càpsules|tablets|tabs|litros|l))/i);
+  const quantity = qtyMatch ? `<div class="product-qty" style="color:var(--blue-light);font-size:0.85rem;margin-bottom:8px">Format: <strong>${qtyMatch[0].toLowerCase()}</strong></div>` : '';
 
   return `
     <article class="product-card" onclick="openModal('${p.id}')" role="listitem" aria-label="${escHtml(p.name)}" tabindex="0" onkeydown="if(event.key==='Enter')openModal('${p.id}')">
@@ -21,13 +22,10 @@ function renderCard(p) {
       <div class="product-body">
         <div class="product-brand-tag">${escHtml(p.brand || '')}</div>
         <div class="product-name">${escHtml(p.name)}${p.flavor ? ' – ' + escHtml(p.flavor) : ''}</div>
+        ${quantity}
         ${flavor}
-        <div class="product-footer">
-          <span class="product-price">${price} €</span>
-          <button class="btn-add" onclick="addToCart(event,'${p.id}')" aria-label="Afegir ${escHtml(p.name)} al carret"
-            ${p.in_stock ? '' : 'disabled'}>
-            ${p.in_stock ? '+' : '✕'}
-          </button>
+        <div class="product-footer" style="justify-content:center; margin-top:12px;">
+          <a href="https://wa.me/376645263?text=${encodeURIComponent('Hola! Estic interessat en: ' + p.name)}" class="btn-ghost" style="padding: 6px 12px; font-size: 0.8rem; width:100%; text-align:center" target="_blank" onclick="event.stopPropagation()">Contactar 💬</a>
         </div>
       </div>
     </article>`;
@@ -97,11 +95,13 @@ function renderCartItems() {
 function openModal(id) {
   const p = PRODUCTS.find(x => x.id === id);
   if (!p) return;
-  const price = p.price.toFixed(2).replace('.', ',');
   const statusClass = p.in_stock ? 'status-in' : 'status-out';
   const overlay = document.getElementById('modal-overlay');
   const inner = document.getElementById('modal-inner');
   if (!overlay || !inner) return;
+
+  const qtyMatch = p.name.match(/(\d+[,.]?\d*\s*(g|gr|kg|ml|caps|càpsules|tablets|tabs|litros|l))/i);
+  const quantity = qtyMatch ? `<div class="modal-flavor" style="color:var(--blue-light); margin-top:4px;">Format: <strong>${qtyMatch[0].toLowerCase()}</strong></div>` : '';
 
   inner.innerHTML = `
     <div class="modal-grid">
@@ -112,13 +112,12 @@ function openModal(id) {
       <div class="modal-info">
         <div class="modal-brand">${escHtml(p.brand || '')}</div>
         <div class="modal-name">${escHtml(p.name)}</div>
+        ${quantity}
         ${p.flavor ? `<div class="modal-flavor">Sabor: <strong>${escHtml(p.flavor)}</strong></div>` : ''}
         <span class="modal-status ${statusClass}">${p.in_stock ? '✓ En estoc' : 'Esgotat'}</span>
-        <div class="modal-price">${price} €</div>
-        <div class="modal-desc">${escHtml(p.description || '')}</div>
-        <div class="modal-actions">
-          ${p.in_stock ? `<button class="modal-btn-add" onclick="addToCart(event,'${p.id}');closeModal()">🛒 Afegir al carret</button>` : ''}
-          <a href="https://wa.me/376645263?text=Hola!%20M%27interessa%3A%20${encodeURIComponent(p.name + (p.flavor ? ' – ' + p.flavor : ''))}" target="_blank" rel="noopener" class="modal-btn-wa">💬 Preguntar per WhatsApp</a>
+        <div class="modal-desc" style="margin-top:10px;">${escHtml(p.description || '')}</div>
+        <div class="modal-actions" style="margin-top:20px;">
+          <a href="https://wa.me/376645263?text=Hola!%20M%27interessa%3A%20${encodeURIComponent(p.name + (p.flavor ? ' – ' + p.flavor : ''))}" target="_blank" rel="noopener" class="modal-btn-wa">💬 Contactar per WhatsApp</a>
         </div>
       </div>
     </div>`;

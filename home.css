@@ -590,12 +590,13 @@
     right: -25%;
     top: 50%;
     z-index: -1;
-    -webkit-mask-image: radial-gradient(ellipse at center, black 65%, transparent 85%);
-    mask-image: radial-gradient(ellipse at center, black 65%, transparent 85%);
+    -webkit-mask-image: radial-gradient(ellipse at center, black 50%, transparent 95%);
+    mask-image: radial-gradient(ellipse at center, black 50%, transparent 95%);
     mix-blend-mode: screen;
     filter: brightness(1.2) contrast(1.1) saturate(1.4) drop-shadow(0 0 50px rgba(0, 87, 255, 0.4)) drop-shadow(0 0 50px rgba(0, 255, 100, 0.4));
     animation: visualFloatGiant 6s ease-in-out infinite;
     pointer-events: none;
+    opacity: 0.85;
 }
 
 @keyframes visualFloatGiant {
