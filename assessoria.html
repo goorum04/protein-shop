@@ -104,20 +104,43 @@
             .transformation-box {
                 grid-template-columns: 1fr;
                 gap: 24px;
+                text-align: center;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
             }
 
             .transformation-container {
-                height: 600px;
+                height: 700px;
                 flex-direction: column;
+                width: 100%;
+            }
+
+            /* Assign fixed height to children when stacked */
+            .transformation-container>div {
+                height: 350px;
+                width: 100%;
+                flex: none;
             }
 
             .transformation-results {
-                height: 400px;
+                height: 500px;
                 flex-direction: column;
+                width: 100%;
+            }
+
+            .transformation-results>div {
+                height: 250px;
+                width: 100%;
+                flex: none;
             }
 
             .divider-line {
                 display: none;
+            }
+
+            .container {
+                padding: 0 20px;
             }
         }
     </style>
