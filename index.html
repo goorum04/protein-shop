@@ -94,7 +94,8 @@
     <nav class="navbar" id="navbar" role="navigation" aria-label="Navegació principal">
         <div class="navbar-inner">
             <a href="index.html" class="nav-logo" aria-label="NL VIP Nutrition - Inici">
-                <img src="//nlvipnutrition.com/cdn/shop/files/ChatGPT_Image_10_abr_2025_00_14_22.png?v=1744237517&width=200" alt="NL VIP Nutrition" style="height:44px;width:auto;" />
+                <img src="//nlvipnutrition.com/cdn/shop/files/ChatGPT_Image_10_abr_2025_00_14_22.png?v=1744237517&width=200"
+                    alt="NL VIP Nutrition" style="height:44px;width:auto;" />
             </a>
 
             <ul class="nav-links" role="list">
@@ -388,9 +389,8 @@
                     </div>
                     <div class="why-visual">
                         <div class="why-img-wrap">
-                            <img src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=700&q=85"
-                                alt="Gimnasio NL VIP Nutrition Andorra" width="600" height="500"
-                                loading="lazy" />
+                            <img src="images/reals/botiga_interior.jpg" alt="Botiga NL VIP Nutrition Andorra"
+                                width="600" height="500" loading="lazy" />
                             <div class="why-img-badge">
                                 <div>
                                     <strong>+2.000</strong>
@@ -434,7 +434,8 @@
             <div class="footer-grid">
                 <div>
                     <a href="index.html" class="nav-logo" aria-label="NL VIP Nutrition">
-                        <img src="//nlvipnutrition.com/cdn/shop/files/ChatGPT_Image_10_abr_2025_00_14_22.png?v=1744237517&width=200" alt="NL VIP Nutrition" style="height:44px;width:auto;" />
+                        <img src="//nlvipnutrition.com/cdn/shop/files/ChatGPT_Image_10_abr_2025_00_14_22.png?v=1744237517&width=200"
+                            alt="NL VIP Nutrition" style="height:44px;width:auto;" />
                     </a>
                     <p class="footer-brand-desc">La teva botiga de suplements esportius de confiança a Andorra.
                         Qualitat, assessorament i els millors preus.</p>
@@ -551,7 +552,9 @@
             initShared();
             // Render featured
             const grid = document.getElementById('featured-grid');
-            const featured = FEATURED_IDS.map(id => PRODUCTS.find(p => p.id === id)).filter(Boolean);
+            const featured = FEATURED_IDS.map(id => PRODUCTS.find(p => p.id === id))
+                .filter(Boolean)
+                .sort((a, b) => (b.in_stock ? 1 : 0) - (a.in_stock ? 1 : 0));
             grid.innerHTML = featured.map(renderCard).join('');
         });
     </script>

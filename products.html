@@ -39,13 +39,8 @@
     <nav class="navbar" id="navbar">
         <div class="navbar-inner">
             <a href="index.html" class="nav-logo" aria-label="NL VIP Nutrition - Inici">
-                <svg viewBox="0 0 190 54" xmlns="http://www.w3.org/2000/svg">
-                    <text x="0" y="44" font-family="Arial Black,Arial,sans-serif" font-size="50" font-weight="900"
-                        fill="white" letter-spacing="-2">NL</text>
-                    <line x1="72" y1="30" x2="190" y2="30" stroke="white" stroke-width="2.5" />
-                    <text x="73" y="48" font-family="Arial,sans-serif" font-size="12.5" font-weight="700" fill="white"
-                        letter-spacing="2">VIP NUTRITION</text>
-                </svg>
+                <img src="//nlvipnutrition.com/cdn/shop/files/ChatGPT_Image_10_abr_2025_00_14_22.png?v=1744237517&width=200"
+                    alt="NL VIP Nutrition" style="height:44px;width:auto;" />
             </a>
             <ul class="nav-links">
                 <li><a href="index.html" class="nav-link">Inici</a></li>
@@ -317,6 +312,9 @@
             if (currentSort === 'price-asc') list.sort((a, b) => a.price - b.price);
             else if (currentSort === 'price-desc') list.sort((a, b) => b.price - a.price);
             else if (currentSort === 'name-asc') list.sort((a, b) => a.name.localeCompare(b.name, 'ca'));
+
+            // Siempre los productos "en stock" primero, sin importar el orden elegido anteriormente
+            list.sort((a, b) => (b.in_stock ? 1 : 0) - (a.in_stock ? 1 : 0));
 
             const grid = document.getElementById('products-grid');
             const countEl = document.getElementById('product-count');
