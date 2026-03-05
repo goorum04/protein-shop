@@ -533,8 +533,14 @@ body::before {
 
 .product-card:hover {
   border-color: var(--blue);
-  transform: translateY(-8px) scale(1.02);
-  box-shadow: 0 20px 48px rgba(0, 87, 255, 0.25);
+  transform: translateY(-8px) scale(1.03);
+  box-shadow: 0 20px 48px rgba(0, 87, 255, 0.3);
+}
+
+.product-card:active {
+  transform: translateY(-4px) scale(0.97);
+  box-shadow: 0 10px 24px rgba(0, 87, 255, 0.2);
+  transition: transform 0.1s ease;
 }
 
 .product-img {
