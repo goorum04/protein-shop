@@ -79,6 +79,47 @@
         .service-card-featured:hover .service-img-featured img {
             transform: scale(1.05);
         }
+
+        /* Responsive transformations */
+        .transformation-container {
+            display: flex;
+            height: 480px;
+            position: relative;
+        }
+
+        .transformation-box {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 48px;
+            align-items: center;
+            margin-bottom: 64px;
+        }
+
+        .transformation-results {
+            display: flex;
+            height: 240px;
+        }
+
+        @media (max-width: 768px) {
+            .transformation-box {
+                grid-template-columns: 1fr;
+                gap: 24px;
+            }
+
+            .transformation-container {
+                height: 600px;
+                flex-direction: column;
+            }
+
+            .transformation-results {
+                height: 400px;
+                flex-direction: column;
+            }
+
+            .divider-line {
+                display: none;
+            }
+        }
     </style>
     <link rel="icon" type="image/svg+xml"
         href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' fill='%230057FF'/><text y='.9em' font-size='90' font-family='Arial Black' font-weight='900' fill='white'>N</text></svg>" />
@@ -147,9 +188,9 @@
                         "Transforma el teu físic i la teva ment amb un entrenador real que t'entén."</p>
                 </div>
 
-                <div style="display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center;margin-bottom:64px;">
+                <div class="transformation-box">
                     <div style="border-radius:var(--r);overflow:hidden;">
-                        <div style="display:flex;height:480px;position:relative;">
+                        <div class="transformation-container">
                             <div style="flex:1;position:relative;">
                                 <img src="https://nacholostao.my.canva.site/_assets/media/f53624263f9989c72cc3ba69c4b332db.jpg"
                                     alt="Nacho Lostao - Abans"
@@ -163,7 +204,7 @@
                                 <span
                                     style="position:absolute;bottom:12px;right:12px;background:var(--blue);color:white;padding:5px 14px;border-radius:20px;font-size:0.75rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;">DESPRÉS</span>
                             </div>
-                            <div
+                            <div class="divider-line"
                                 style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:2px;height:80%;background:rgba(255,255,255,0.4);pointer-events:none;">
                             </div>
                         </div>
@@ -281,7 +322,7 @@
                     style="display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:24px;margin-bottom:32px;">
                     <div
                         style="background:var(--surface);border:1px solid var(--border-2);border-radius:var(--r);overflow:hidden;">
-                        <div style="display:flex;height:240px;">
+                        <div class="transformation-results">
                             <div style="flex:1;position:relative;">
                                 <img src="https://nacholostao.my.canva.site/_assets/media/f53624263f9989c72cc3ba69c4b332db.jpg"
                                     alt="Nacho Lostao - Abans"
