@@ -612,6 +612,7 @@
     width: 100%;
     max-width: 800px;
     object-fit: cover;
+    object-position: center;
     position: absolute;
     right: -5%;
     top: 50%;
@@ -620,9 +621,18 @@
     -webkit-mask-image: linear-gradient(to right, transparent 0%, black 20%, black 100%);
     mask-image: linear-gradient(to right, transparent 0%, black 20%, black 100%);
     filter: brightness(1.15) contrast(1.05) saturate(1.2);
-    animation: heroFloatAndGlow 8s ease-in-out infinite;
+    animation: heroFloatAndGlow 8s ease-in-out infinite, heroFadeIn 1.5s ease-out forwards;
     pointer-events: none;
-    opacity: 0;
+    opacity: 1;
+}
+
+@keyframes heroFadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
 }
 
 @keyframes heroFloatAndGlow {
@@ -945,6 +955,8 @@
         -webkit-mask-image: none;
         mask-image: none;
         animation: heroFloatMob 6s ease-in-out infinite;
+        opacity: 1;
+        object-fit: contain;
     }
 
     @keyframes heroFloatMob {
