@@ -28,25 +28,25 @@
 .hero-blob {
     position: absolute;
     border-radius: 50%;
-    filter: blur(100px);
-    opacity: 0.2;
+    filter: blur(120px);
+    opacity: 0.15;
 }
 
 .hero-blob-1 {
-    width: 700px;
-    height: 700px;
-    background: radial-gradient(circle, #0057FF, transparent 70%);
-    top: -200px;
-    left: -200px;
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle, #0057FF 0%, transparent 70%);
+    top: -150px;
+    left: -100px;
 }
 
 .hero-blob-2 {
-    width: 500px;
-    height: 500px;
-    background: radial-gradient(circle, #00C8FF, transparent 70%);
-    bottom: -100px;
-    right: 0;
-    opacity: 0.12;
+    width: 400px;
+    height: 400px;
+    background: radial-gradient(circle, #00C8FF 0%, transparent 70%);
+    bottom: -80px;
+    right: -50px;
+    opacity: 0.1;
 }
 
 .hero-grid-lines {
@@ -523,14 +523,30 @@
 /* ===== RESPONSIVE HOME ===== */
 @media (max-width: 1024px) {
     .hero-layout {
-        grid-template-columns: 1fr;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
         text-align: center;
         padding: 60px 0 40px;
+        width: 100%;
+        max-width: 100%;
+    }
+
+    .hero-left {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
     }
 
     .hero-right {
         order: -1;
-        min-height: 320px;
+        width: 100%;
+        min-height: auto;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
     }
 
     .hero-img-ring-1 {
@@ -583,30 +599,40 @@
 /* ===== ELECTRIC ANIMATIONS - NXT BEEF HERO ===== */
 .hero-custom-img {
     height: 100vh;
-    width: auto;
-    min-width: 120%;
-    object-fit: contain;
+    width: 100%;
+    max-width: 800px;
+    object-fit: cover;
     position: absolute;
-    right: -25%;
+    right: -5%;
     top: 50%;
-    z-index: -1;
-    -webkit-mask-image: radial-gradient(ellipse at center, rgba(0, 0, 0, 1) 20%, rgba(0, 0, 0, 0) 80%);
-    mask-image: radial-gradient(ellipse at center, rgba(0, 0, 0, 1) 20%, rgba(0, 0, 0, 0) 80%);
-    mix-blend-mode: screen;
-    filter: brightness(1.1) contrast(1.1) saturate(1.3) drop-shadow(0 0 60px rgba(0, 87, 255, 0.45));
-    animation: visualFloatGiant 6s ease-in-out infinite, heroFadeIn 1.5s ease-out forwards;
+    transform: translateY(-50%);
+    z-index: 0;
+    -webkit-mask-image: linear-gradient(to right, transparent 0%, black 20%, black 100%);
+    mask-image: linear-gradient(to right, transparent 0%, black 20%, black 100%);
+    filter: brightness(1.15) contrast(1.05) saturate(1.2);
+    animation: heroFloatAndGlow 8s ease-in-out infinite;
     pointer-events: none;
     opacity: 0;
+}
+
+@keyframes heroFloatAndGlow {
+    0%, 100% {
+        transform: translateY(-50%) scale(1);
+        filter: brightness(1.15) contrast(1.05) saturate(1.2) drop-shadow(0 0 80px rgba(0, 87, 255, 0.5));
+    }
+    50% {
+        transform: translateY(-53%) scale(1.03);
+        filter: brightness(1.25) contrast(1.1) saturate(1.3) drop-shadow(0 0 120px rgba(0, 200, 255, 0.7));
+    }
 }
 
 @keyframes heroFadeIn {
     from {
         opacity: 0;
-        transform: translateY(-48%) scale(0.95);
+        transform: translateY(-50%) scale(0.9);
     }
-
     to {
-        opacity: 0.95;
+        opacity: 1;
         transform: translateY(-50%) scale(1);
     }
 }
@@ -626,49 +652,49 @@
 .huge-ray {
     position: absolute;
     top: 50%;
-    width: 200%;
-    height: 120px;
-    filter: blur(50px);
-    z-index: -2;
+    width: 100%;
+    height: 150px;
+    filter: blur(80px);
+    z-index: 0;
     pointer-events: none;
-    mix-blend-mode: screen;
+    opacity: 0.6;
 }
 
 .ray-blue {
-    left: -20%;
-    background: linear-gradient(90deg, transparent, #0057ff, #00c8ff, transparent);
-    transform: translateY(-50%) rotate(-35deg);
-    animation: pulseRayBlue 3s infinite alternate;
+    left: 20%;
+    background: linear-gradient(90deg, transparent, rgba(0, 87, 255, 0.4), rgba(0, 200, 255, 0.3), transparent);
+    transform: translateY(-50%) rotate(-15deg);
+    animation: pulseRayBlue 4s ease-in-out infinite;
 }
 
 .ray-green {
-    right: -20%;
-    background: linear-gradient(90deg, transparent, #00ff66, #39ff14, transparent);
-    transform: translateY(-50%) rotate(35deg);
-    animation: pulseRayGreen 3.5s infinite alternate-reverse;
+    right: 30%;
+    background: linear-gradient(90deg, transparent, rgba(0, 255, 102, 0.35), rgba(57, 255, 20, 0.25), transparent);
+    transform: translateY(-50%) rotate(15deg);
+    animation: pulseRayGreen 4.5s ease-in-out infinite alternate-reverse;
 }
 
 @keyframes pulseRayBlue {
     0% {
-        transform: translateY(-50%) rotate(-35deg) scaleX(0.8);
-        opacity: 0.5;
+        transform: translateY(-50%) rotate(-15deg) scaleX(0.8);
+        opacity: 0.4;
     }
 
     100% {
-        transform: translateY(-50%) rotate(-35deg) scaleX(1.3);
-        opacity: 1;
+        transform: translateY(-50%) rotate(-15deg) scaleX(1.4);
+        opacity: 0.8;
     }
 }
 
 @keyframes pulseRayGreen {
     0% {
-        transform: translateY(-50%) rotate(35deg) scaleX(0.8);
-        opacity: 0.5;
+        transform: translateY(-50%) rotate(15deg) scaleX(0.8);
+        opacity: 0.3;
     }
 
     100% {
-        transform: translateY(-50%) rotate(35deg) scaleX(1.3);
-        opacity: 1;
+        transform: translateY(-50%) rotate(15deg) scaleX(1.3);
+        opacity: 0.6;
     }
 }
 
@@ -748,7 +774,8 @@
     position: absolute;
     border-radius: 50%;
     pointer-events: none;
-    z-index: 2;
+    z-index: 1;
+    opacity: 0.7;
 }
 
 .spark-1 {
@@ -890,33 +917,40 @@
 /* ===== ENSURE OVERRIDES FOR MOBILE ===== */
 @media (max-width: 1024px) {
     .huge-ray {
-        width: 150%;
-        height: 80px;
+        width: 100%;
+        height: 100px;
+        opacity: 0.4;
     }
 
     .hero-custom-img {
-        height: 50vh;
-        width: 85%;
-        min-width: 0;
+        height: 45vh;
+        width: 100%;
+        max-width: 100%;
         position: relative;
         right: auto;
-        top: auto;
         left: 50%;
+        top: auto;
         transform: translateX(-50%);
-        margin-bottom: 2rem;
-        animation: visualFloatGiantMob 6s ease-in-out infinite;
+        margin-bottom: 1.5rem;
+        -webkit-mask-image: none;
+        mask-image: none;
+        animation: heroFloatMob 6s ease-in-out infinite;
     }
 
-    @keyframes visualFloatGiantMob {
-
-        0%,
-        100% {
-            transform: translate(-50%, 0) scale(1);
+    @keyframes heroFloatMob {
+        0%, 100% {
+            transform: translateX(-50%) scale(1);
+            filter: brightness(1.1) drop-shadow(0 0 40px rgba(0, 87, 255, 0.4));
         }
-
         50% {
-            transform: translate(-50%, -10px) scale(1.02);
+            transform: translateX(-50%) translateY(-8px) scale(1.02);
+            filter: brightness(1.15) drop-shadow(0 0 60px rgba(0, 200, 255, 0.5));
         }
+    }
+
+    .hero-right {
+        min-height: auto;
+        padding: 20px 0;
     }
 }
 
@@ -938,8 +972,7 @@
     }
 
     .hero-custom-img {
-        height: 40vh;
-        width: 100%;
-        margin-bottom: 2rem;
+        height: 38vh;
+        margin-bottom: 1rem;
     }
 }
