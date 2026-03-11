@@ -144,6 +144,172 @@
             }
         }
     </style>
+    <style>
+        /* ===== NL VIP LUXURY MASSAGE – Pricing Section ===== */
+        .massage-hero-label {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: linear-gradient(135deg, rgba(212,175,55,0.15), rgba(255,215,0,0.08));
+            border: 1px solid rgba(212,175,55,0.4);
+            color: #d4af37;
+            padding: 6px 18px;
+            border-radius: 50px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 16px;
+        }
+        .massage-title-gold {
+            background: linear-gradient(135deg, #d4af37 0%, #f5e27a 50%, #d4af37 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .massage-pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 24px;
+            margin-top: 48px;
+        }
+        .price-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--r);
+            padding: 36px 32px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            transition: all var(--t);
+        }
+        .price-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #d4af37, #f5e27a, #d4af37);
+        }
+        .price-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 48px rgba(212,175,55,0.2);
+            border-color: rgba(212,175,55,0.5);
+        }
+        .price-card-vip {
+            background: linear-gradient(135deg, #0a0a0e 0%, #111118 100%);
+            border: 1px solid rgba(212,175,55,0.5);
+            transform: scale(1.03);
+        }
+        .price-card-vip::before {
+            height: 4px;
+            background: linear-gradient(90deg, #8b6914, #d4af37, #f5e27a, #d4af37, #8b6914);
+        }
+        .price-card-vip:hover {
+            transform: scale(1.03) translateY(-8px);
+            box-shadow: 0 24px 56px rgba(212,175,55,0.35);
+        }
+        .price-badge-vip {
+            position: absolute;
+            top: 18px;
+            right: 18px;
+            background: linear-gradient(135deg, #d4af37, #f5e27a);
+            color: #000;
+            font-size: 0.65rem;
+            font-weight: 800;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            padding: 4px 12px;
+            border-radius: 20px;
+        }
+        .price-card-icon {
+            font-size: 2.4rem;
+            margin-bottom: 16px;
+            display: block;
+        }
+        .price-card-label {
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: #d4af37;
+            margin-bottom: 8px;
+        }
+        .price-card-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--white);
+            margin-bottom: 20px;
+            line-height: 1.4;
+        }
+        .price-amount {
+            font-size: 3.2rem;
+            font-weight: 900;
+            color: var(--white);
+            line-height: 1;
+            margin-bottom: 4px;
+        }
+        .price-amount-gold {
+            background: linear-gradient(135deg, #d4af37 0%, #f5e27a 50%, #d4af37 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .price-period {
+            font-size: 0.85rem;
+            color: var(--text-2);
+            margin-bottom: 24px;
+        }
+        .price-divider {
+            height: 1px;
+            background: var(--border);
+            margin: 20px 0;
+        }
+        .price-note {
+            font-size: 0.82rem;
+            color: var(--text-2);
+            line-height: 1.6;
+            margin-bottom: 24px;
+        }
+        .price-note-gold {
+            color: rgba(212,175,55,0.8);
+        }
+        .btn-massage {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            background: linear-gradient(135deg, #1a1a2e, #16213e);
+            border: 1px solid rgba(212,175,55,0.5);
+            color: #d4af37;
+            padding: 12px 28px;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            font-weight: 700;
+            text-decoration: none;
+            letter-spacing: 0.5px;
+            transition: all 0.3s ease;
+            width: 100%;
+        }
+        .btn-massage:hover {
+            background: linear-gradient(135deg, #d4af37, #f5e27a);
+            color: #000;
+            border-color: #d4af37;
+            box-shadow: 0 8px 24px rgba(212,175,55,0.3);
+        }
+        .btn-massage-vip {
+            background: linear-gradient(135deg, #d4af37, #f5e27a);
+            color: #000;
+            border-color: transparent;
+        }
+        .btn-massage-vip:hover {
+            box-shadow: 0 8px 32px rgba(212,175,55,0.5);
+            transform: scale(1.02);
+        }
+        @media (max-width: 768px) {
+            .price-card-vip { transform: scale(1); }
+            .price-card-vip:hover { transform: translateY(-8px); }
+        }
+    </style>
     <link rel="icon" type="image/svg+xml"
         href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' fill='%230057FF'/><text y='.9em' font-size='90' font-family='Arial Black' font-weight='900' fill='white'>N</text></svg>" />
 </head>
@@ -344,19 +510,21 @@
                 </div>
                 <div
                     style="display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:24px;margin-bottom:32px;">
+
+                    <!-- Tarjeta Nacho: CORREGIT - abans i després en ordre correcte -->
                     <div
                         style="background:var(--surface);border:1px solid var(--border-2);border-radius:var(--r);overflow:hidden;">
                         <div class="transformation-results">
                             <div style="flex:1;position:relative;">
-                                <img src="https://nacholostao.my.canva.site/_assets/media/db02672dc257bcc8b1de532eca51a4f3.jpg"
-                                    alt="Client - Abans"
+                                <img src="https://nacholostao.my.canva.site/_assets/media/d890b4df3185c6bb975f3d4608eb6a79.jpg"
+                                    alt="Nacho - Abans"
                                     style="width:100%;height:100%;object-fit:cover;filter:grayscale(30%) brightness(0.9);" />
                                 <span
                                     style="position:absolute;bottom:10px;left:10px;background:rgba(0,0,0,0.7);color:white;padding:4px 12px;border-radius:20px;font-size:0.75rem;font-weight:600;">ABANS</span>
                             </div>
                             <div style="flex:1;position:relative;">
-                                <img src="https://nacholostao.my.canva.site/_assets/media/d890b4df3185c6bb975f3d4608eb6a79.jpg"
-                                    alt="Client - Després" style="width:100%;height:100%;object-fit:cover;" />
+                                <img src="https://nacholostao.my.canva.site/_assets/media/db02672dc257bcc8b1de532eca51a4f3.jpg"
+                                    alt="Nacho - Després" style="width:100%;height:100%;object-fit:cover;" />
                                 <span
                                     style="position:absolute;bottom:10px;right:10px;background:var(--green);color:white;padding:4px 12px;border-radius:20px;font-size:0.75rem;font-weight:600;">DESPRÉS</span>
                             </div>
@@ -365,25 +533,19 @@
                             <p style="color:var(--text-2);font-size:0.9rem;line-height:1.6;">"En 3 mesos he canviat la
                                 meva forma de viure. Més energia, més confiança i un cos que mai hagués pensat."</p>
                             <p style="color:var(--blue-light);font-size:0.85rem;margin-top:10px;font-weight:600;">-
-                                Marc, 32 anys</p>
+                                Nacho, entrenador NL VIP</p>
                         </div>
                     </div>
+
+                    <!-- Tarjeta client real: comparativa pantalons vaquers -->
                     <div
                         style="background:var(--surface);border:1px solid var(--border-2);border-radius:var(--r);overflow:hidden;">
-                        <div class="transformation-results">
-                            <div style="flex:1;position:relative;">
-                                <img src="https://nacholostao.my.canva.site/_assets/media/1ff8bfb5b0d24ce6d1bf2f46358c5c30.jpg"
-                                    alt="Clienta - Abans"
-                                    style="width:100%;height:100%;object-fit:cover;filter:grayscale(30%) brightness(0.9);" />
-                                <span
-                                    style="position:absolute;bottom:10px;left:10px;background:rgba(0,0,0,0.7);color:white;padding:4px 12px;border-radius:20px;font-size:0.75rem;font-weight:600;">ABANS</span>
-                            </div>
-                            <div style="flex:1;position:relative;">
-                                <img src="https://nacholostao.my.canva.site/_assets/media/6888996952e93fe0078a7232e2f8d8e3.jpg"
-                                    alt="Clienta - Després" style="width:100%;height:100%;object-fit:cover;" />
-                                <span
-                                    style="position:absolute;bottom:10px;right:10px;background:var(--green);color:white;padding:4px 12px;border-radius:20px;font-size:0.75rem;font-weight:600;">DESPRÉS</span>
-                            </div>
+                        <div style="position:relative;height:240px;">
+                            <img src="images/transformations/client2-comp.png"
+                                alt="Clienta - Transformació"
+                                style="width:100%;height:100%;object-fit:cover;object-position:top;" />
+                            <span style="position:absolute;bottom:10px;left:10px;background:rgba(0,0,0,0.7);color:white;padding:4px 12px;border-radius:20px;font-size:0.75rem;font-weight:600;">ABANS</span>
+                            <span style="position:absolute;bottom:10px;right:10px;background:var(--green);color:white;padding:4px 12px;border-radius:20px;font-size:0.75rem;font-weight:600;">DESPRÉS</span>
                         </div>
                         <div style="padding:20px;text-align:center;">
                             <p style="color:var(--text-2);font-size:0.9rem;line-height:1.6;">"Mai havia fet esport i ara
@@ -392,6 +554,50 @@
                                 Laura, 28 anys</p>
                         </div>
                     </div>
+
+                    <!-- Tarjeta client real: comparativa cos -->
+                    <div
+                        style="background:var(--surface);border:1px solid var(--border-2);border-radius:var(--r);overflow:hidden;">
+                        <div style="position:relative;height:240px;">
+                            <img src="images/transformations/client3-comp.png"
+                                alt="Clienta - Transformació cos"
+                                style="width:100%;height:100%;object-fit:cover;object-position:center;" />
+                            <span style="position:absolute;bottom:10px;left:10px;background:rgba(0,0,0,0.7);color:white;padding:4px 12px;border-radius:20px;font-size:0.75rem;font-weight:600;">ABANS</span>
+                            <span style="position:absolute;bottom:10px;right:10px;background:var(--green);color:white;padding:4px 12px;border-radius:20px;font-size:0.75rem;font-weight:600;">DESPRÉS</span>
+                        </div>
+                        <div style="padding:20px;text-align:center;">
+                            <p style="color:var(--text-2);font-size:0.9rem;line-height:1.6;">"Amb la guia de l'equip NL VIP, he transformat el meu cos de forma sana i sostenible."</p>
+                            <p style="color:var(--blue-light);font-size:0.85rem;margin-top:10px;font-weight:600;">-
+                                Clienta NL VIP</p>
+                        </div>
+                    </div>
+
+                    <!-- Tarjeta client real: foto gym -->
+                    <div
+                        style="background:var(--surface);border:1px solid var(--border-2);border-radius:var(--r);overflow:hidden;">
+                        <div class="transformation-results">
+                            <div style="flex:1;position:relative;">
+                                <img src="images/transformations/client4-abans.jpg"
+                                    alt="Clienta - Abans"
+                                    style="width:100%;height:100%;object-fit:cover;filter:grayscale(30%) brightness(0.9);" />
+                                <span
+                                    style="position:absolute;bottom:10px;left:10px;background:rgba(0,0,0,0.7);color:white;padding:4px 12px;border-radius:20px;font-size:0.75rem;font-weight:600;">ABANS</span>
+                            </div>
+                            <div style="flex:1;position:relative;">
+                                <img src="images/transformations/client1-despres.png"
+                                    alt="Clienta - Després"
+                                    style="width:100%;height:100%;object-fit:cover;" />
+                                <span
+                                    style="position:absolute;bottom:10px;right:10px;background:var(--green);color:white;padding:4px 12px;border-radius:20px;font-size:0.75rem;font-weight:600;">DESPRÉS</span>
+                            </div>
+                        </div>
+                        <div style="padding:20px;text-align:center;">
+                            <p style="color:var(--text-2);font-size:0.9rem;line-height:1.6;">"Vaig començar sense saber res de fitness. Ara no puc imaginar la meva vida sense entrenar."</p>
+                            <p style="color:var(--blue-light);font-size:0.85rem;margin-top:10px;font-weight:600;">-
+                                Sandra, 26 anys</p>
+                        </div>
+                    </div>
+
                 </div>
             </div>
         </section>
