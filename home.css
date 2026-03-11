@@ -24,6 +24,70 @@
     inset: 0;
     pointer-events: none;
     z-index: 0;
+    background-image: 
+        linear-gradient(135deg, rgba(0, 20, 60, 0.85) 0%, rgba(0, 10, 30, 0.9) 50%, rgba(0, 5, 20, 0.95) 100%),
+        url('assets/hero-gym.jpg');
+    background-size: cover;
+    background-position: center right;
+    background-repeat: no-repeat;
+}
+
+/* Ray effects - blue and green light rays */
+.hero-rays {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 1;
+    overflow: hidden;
+}
+
+.hero-rays::before,
+.hero-rays::after {
+    content: '';
+    position: absolute;
+    width: 200%;
+    height: 200%;
+    top: -50%;
+    left: -50%;
+    background: 
+        repeating-linear-gradient(
+            115deg,
+            transparent 0%,
+            transparent 40%,
+            rgba(0, 120, 255, 0.08) 40%,
+            rgba(0, 200, 255, 0.05) 42%,
+            transparent 44%,
+            transparent 60%
+        ),
+        repeating-linear-gradient(
+            75deg,
+            transparent 0%,
+            transparent 35%,
+            rgba(0, 255, 150, 0.06) 35%,
+            rgba(0, 255, 200, 0.04) 38%,
+            transparent 41%,
+            transparent 55%
+        );
+    animation: heroRaysMove 20s linear infinite;
+}
+
+.hero-rays::after {
+    background: 
+        repeating-linear-gradient(
+            135deg,
+            transparent 0%,
+            transparent 45%,
+            rgba(0, 100, 255, 0.05) 45%,
+            rgba(0, 180, 255, 0.03) 48%,
+            transparent 51%
+        );
+    animation: heroRaysMove 25s linear infinite reverse;
+    opacity: 0.7;
+}
+
+@keyframes heroRaysMove {
+    0% { transform: rotate(0deg) translateX(0); }
+    100% { transform: rotate(360deg) translateX(20px); }
 }
 
 /* Protein bottles centered on desktop */
