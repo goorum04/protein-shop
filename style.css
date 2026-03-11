@@ -415,11 +415,13 @@ body::before {
 }
 
 .section-title {
-  font-size: clamp(2rem, 4vw, 3rem);
+  font-size: clamp(1.6rem, 5vw, 3rem);
   font-weight: 900;
   line-height: 1.1;
   color: var(--white);
   margin-bottom: 8px;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
 }
 
 .section-title .highlight {
@@ -504,6 +506,7 @@ body::before {
   display: flex;
   gap: 48px;
   align-items: center;
+  flex-wrap: wrap;
 }
 
 .stat-item strong {
@@ -1592,6 +1595,17 @@ body::before {
     width: 100%;
   }
 
+  .grid-2 .stat-row {
+    justify-content: center;
+  }
+
+  .grid-2 .section-tag,
+  .grid-2 .btn-primary,
+  .grid-2 .btn-ghost,
+  .grid-2 .btn-wa {
+    align-self: center;
+  }
+
   .grid-4 {
     grid-template-columns: repeat(2, 1fr);
   }
@@ -1678,11 +1692,41 @@ body::before {
 
   .wa-cta-inner {
     flex-direction: column;
+    text-align: center;
   }
 
   .wa-cta-btns {
     flex-direction: column;
     width: 100%;
+    align-items: center;
+  }
+
+  /* Centrado de textos en secciones de dos columnas en móvil */
+  .grid-2 {
+    text-align: center;
+  }
+
+  .grid-2 .stat-row {
+    justify-content: center;
+    gap: 28px;
+  }
+
+  .section-title {
+    font-size: clamp(1.5rem, 7vw, 2.4rem);
+  }
+
+  .section-sub {
+    font-size: 0.92rem;
+  }
+
+  .page-hero-title {
+    font-size: clamp(1.8rem, 8vw, 3rem);
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+  }
+
+  .page-hero-sub {
+    font-size: 0.9rem;
   }
 }
 
