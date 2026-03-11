@@ -1588,6 +1588,10 @@ body::before {
     text-align: center;
   }
 
+  .grid-2 > div {
+    width: 100%;
+  }
+
   .grid-4 {
     grid-template-columns: repeat(2, 1fr);
   }
