@@ -74,13 +74,30 @@ function removeDiscount() {
 function renderCard(p) {
   const statusClass = p.in_stock ? 'status-in' : 'status-out';
   const statusText  = p.in_stock ? 'En estoc' : 'Esgotat';
-  const flavor  = p.flavor ? `<div class="product-flavor">Sabor: ${escHtml(p.flavor)}</div>` : '';
   const qtyMatch = p.name.match(/(\d+[,.]?\d*\s*(g|gr|kg|ml|caps|càpsules|tablets|tabs|litres|l))/i);
   const quantity = qtyMatch ? `<div class="product-qty" style="color:var(--blue-light);font-size:0.85rem;margin-bottom:8px">Format: <strong>${qtyMatch[0].toLowerCase()}</strong></div>` : '';
   const priceStr = p.price != null ? p.price.toFixed(2).replace('.', ',') + ' €' : '';
+  
+  const hasFlavors = p.allFlavors && p.allFlavors.length > 0;
+  const flavorSelector = hasFlavors ? `
+    <div class="flavor-selector" style="margin-bottom:12px;">
+      <label style="color:var(--text-2);font-size:0.8rem;display:block;margin-bottom:4px;">Sabor:</label>
+      <select class="flavor-select" onchange="updateCardFlavor(this, '${p.id}')" style="width:100%;padding:8px 12px;background:var(--bg-2);color:var(--white);border:1px solid var(--border);border-radius:8px;font-size:0.85rem;cursor:pointer;">
+        ${p.allFlavors.map((f, idx) => {
+          const variant = p.variants[idx];
+          const disabled = variant && !variant.in_stock ? 'disabled' : '';
+          const selected = p.defaultFlavor === f ? 'selected' : '';
+          return `<option value="${idx}" ${selected} ${disabled}>${escHtml(f)}${disabled ? ' (Esgotat)' : ''}</option>`;
+        }).join('')}
+      </select>
+    </div>
+  ` : (p.flavor ? `<div class="product-flavor">Sabor: ${escHtml(p.flavor)}</div>` : '');
+
+  const displayFlavor = hasFlavors ? p.defaultFlavor : p.flavor;
+  const productName = `${escHtml(p.name)}${displayFlavor ? ' – ' + escHtml(displayFlavor) : ''}`;
 
   return `
-    <article class="product-card" onclick="openModal('${p.id}')" role="listitem" aria-label="${escHtml(p.name)}" tabindex="0" onkeydown="if(event.key==='Enter')openModal('${p.id}')">
+    <article class="product-card" onclick="openModal('${p.id}')" role="listitem" aria-label="${productName}" tabindex="0" onkeydown="if(event.key==='Enter')openModal('${p.id}')">
       <div class="product-img">
         <span class="product-status ${statusClass}">${statusText}</span>
         <img src="${escHtml(p.image)}" alt="${escHtml(p.name)}" loading="lazy"
@@ -88,16 +105,51 @@ function renderCard(p) {
       </div>
       <div class="product-body">
         <div class="product-brand-tag">${escHtml(p.brand || '')}</div>
-        <div class="product-name">${escHtml(p.name)}${p.flavor ? ' – ' + escHtml(p.flavor) : ''}</div>
+        <div class="product-name">${productName}</div>
         ${quantity}
-        ${flavor}
+        ${flavorSelector}
         ${priceStr ? `<div class="product-price">${priceStr}</div>` : ''}
         <div class="product-footer">
-          <button class="btn-add-cart" onclick="addToCart(event,'${p.id}')" ${p.in_stock ? '' : 'disabled'} aria-label="Afegir ${escHtml(p.name)} al carret">${p.in_stock ? 'Afegir 🛒' : 'Esgotat'}</button>
+          <button class="btn-add-cart" onclick="addToCart(event,'${p.id}')" ${p.in_stock ? '' : 'disabled'} aria-label="Afegir ${productName} al carret">${p.in_stock ? 'Afegir 🛒' : 'Esgotat'}</button>
           <a href="https://wa.me/376645263?text=${encodeURIComponent('Hola! Estic interessat en: ' + p.name)}" class="btn-ghost btn-wa-card" target="_blank" onclick="event.stopPropagation()" aria-label="Contactar per WhatsApp">💬</a>
         </div>
       </div>
     </article>`;
+}
+
+function updateCardFlavor(selectEl, productId) {
+  const idx = parseInt(selectEl.value);
+  const p = PRODUCTS.find(x => x.id === productId);
+  if (!p || !p.variants) return;
+  
+  const variant = p.variants[idx];
+  p.defaultFlavor = variant.flavor;
+  
+  const card = selectEl.closest('.product-card');
+  const img = card.querySelector('.product-img img');
+  img.src = variant.image;
+  
+  const nameEl = card.querySelector('.product-name');
+  const baseName = p.name;
+  nameEl.textContent = `${baseName} – ${variant.flavor}`;
+  
+  const statusEl = card.querySelector('.product-status');
+  if (variant.in_stock) {
+    statusEl.textContent = 'En estoc';
+    statusEl.className = 'product-status status-in';
+  } else {
+    statusEl.textContent = 'Esgotat';
+    statusEl.className = 'product-status status-out';
+  }
+  
+  const btn = card.querySelector('.btn-add-cart');
+  if (variant.in_stock) {
+    btn.disabled = false;
+    btn.textContent = 'Afegir 🛒';
+  } else {
+    btn.disabled = true;
+    btn.textContent = 'Esgotat';
+  }
 }
 
 function escHtml(s) {
@@ -110,9 +162,11 @@ function addToCart(e, id) {
   e.stopPropagation();
   const p = PRODUCTS.find(x => x.id === id);
   if (!p || !p.in_stock) return;
-  const ex = cart.find(i => i.id === id);
+  const flavor = p.defaultFlavor || p.flavor || null;
+  const cartKey = flavor ? `${id}-${flavor}` : id;
+  const ex = cart.find(i => (i.flavor ? `${i.id}-${i.flavor}` : i.id) === cartKey);
   if (ex) ex.qty = (ex.qty || 1) + 1;
-  else cart.push({ id, qty: 1 });
+  else cart.push({ id, qty: 1, flavor: flavor });
   saveCart();
   updateCartBadge();
   // Bounce animation on cart button
@@ -120,8 +174,12 @@ function addToCart(e, id) {
   if (btn) { btn.style.transform = 'scale(1.18)'; setTimeout(() => btn.style.transform = '', 200); }
 }
 
-function removeFromCart(id) {
-  cart = cart.filter(i => i.id !== id);
+function removeFromCart(id, flavor) {
+  if (flavor) {
+    cart = cart.filter(i => !(i.id === id && i.flavor === flavor));
+  } else {
+    cart = cart.filter(i => i.id !== id);
+  }
   saveCart();
   updateCartBadge();
   renderCartItems();
@@ -174,15 +232,16 @@ function renderCartItems() {
   el.innerHTML = cart.map(item => {
     const p = PRODUCTS.find(x => x.id === item.id);
     if (!p) return '';
+    const flavor = item.flavor || p.defaultFlavor || p.flavor;
     return `
       <div class="cart-item">
         <img class="cart-item-img" src="${escHtml(p.image)}" alt="${escHtml(p.name)}"
              onerror="this.src='https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?w=100&q=60'" />
         <div class="cart-item-info">
-          <div class="cart-item-name">${escHtml(p.name)}${p.flavor ? ' – ' + escHtml(p.flavor) : ''}</div>
+          <div class="cart-item-name">${escHtml(p.name)}${flavor ? ' – ' + escHtml(flavor) : ''}</div>
           <div class="cart-item-price">${(p.price * (item.qty || 1)).toFixed(2).replace('.', ',')} € × ${item.qty || 1}</div>
         </div>
-        <button class="btn-remove" onclick="removeFromCart('${item.id}')" aria-label="Eliminar ${escHtml(p.name)}">🗑</button>
+        <button class="btn-remove" onclick="removeFromCart('${item.id}', '${item.flavor || ''}')" aria-label="Eliminar ${escHtml(p.name)}">🗑</button>
       </div>`;
   }).join('');
 }
@@ -197,7 +256,8 @@ function checkoutWhatsApp() {
   const lines = cart.map(item => {
     const p = PRODUCTS.find(x => x.id === item.id);
     if (!p) return null;
-    const name      = p.name + (p.flavor ? ` – ${p.flavor}` : '');
+    const flavor = item.flavor || p.defaultFlavor || p.flavor;
+    const name      = p.name + (flavor ? ` – ${flavor}` : '');
     const lineTotal = (p.price * (item.qty || 1)).toFixed(2).replace('.', ',');
     return `• ${name} ×${item.qty || 1} → ${lineTotal} €`;
   }).filter(Boolean).join('\n');
@@ -223,28 +283,88 @@ function openModal(id) {
   const qtyMatch = p.name.match(/(\d+[,.]?\d*\s*(g|gr|kg|ml|caps|càpsules|tablets|tabs|litros|l))/i);
   const quantity = qtyMatch ? `<div class="modal-flavor" style="color:var(--blue-light); margin-top:4px;">Format: <strong>${qtyMatch[0].toLowerCase()}</strong></div>` : '';
 
+  const hasFlavors = p.allFlavors && p.allFlavors.length > 0;
+  const flavorSelector = hasFlavors ? `
+    <div class="modal-flavor" style="margin-top:12px;">
+      <label style="color:var(--text-2);font-size:0.85rem;display:block;margin-bottom:6px;">Sabor:</label>
+      <select id="modal-flavor-select" onchange="updateModalFlavor(this)" style="width:100%;padding:10px 14px;background:var(--bg-2);color:var(--white);border:1px solid var(--border);border-radius:8px;font-size:0.9rem;cursor:pointer;">
+        ${p.allFlavors.map((f, idx) => {
+          const variant = p.variants[idx];
+          const disabled = variant && !variant.in_stock ? 'disabled' : '';
+          const selected = p.defaultFlavor === f ? 'selected' : '';
+          return `<option value="${idx}" ${selected} ${disabled}>${escHtml(f)}${disabled ? ' (Esgotat)' : ''}</option>`;
+        }).join('')}
+      </select>
+    </div>
+  ` : (p.flavor ? `<div class="modal-flavor">Sabor: <strong>${escHtml(p.flavor)}</strong></div>` : '');
+
+  const currentFlavor = p.defaultFlavor || p.flavor;
+  const displayFlavor = currentFlavor ? ` – ${currentFlavor}` : '';
+
   inner.innerHTML = `
     <div class="modal-grid">
       <div class="modal-img-box">
-        <img src="${escHtml(p.image)}" alt="${escHtml(p.name)}"
+        <img id="modal-product-img" src="${escHtml(p.image)}" alt="${escHtml(p.name)}"
              onerror="this.src='https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?w=400&q=70'" />
       </div>
       <div class="modal-info">
         <div class="modal-brand">${escHtml(p.brand || '')}</div>
-        <div class="modal-name">${escHtml(p.name)}</div>
+        <div class="modal-name">${escHtml(p.name)}${displayFlavor}</div>
         ${quantity}
-        ${p.flavor ? `<div class="modal-flavor">Sabor: <strong>${escHtml(p.flavor)}</strong></div>` : ''}
+        ${flavorSelector}
         <span class="modal-status ${statusClass}">${p.in_stock ? '✓ En estoc' : 'Esgotat'}</span>
         <div class="modal-desc" style="margin-top:10px;">${escHtml(p.description || '')}</div>
         ${p.price != null ? `<div class="modal-price">${p.price.toFixed(2).replace('.', ',')} €</div>` : ''}
         <div class="modal-actions" style="margin-top:20px;">
-          <button class="modal-btn-add" onclick="addToCart(event,'${p.id}')" ${p.in_stock ? '' : 'disabled'} aria-label="Afegir al carret">${p.in_stock ? '🛒 Afegir al carret' : 'Esgotat'}</button>
-          <a href="https://wa.me/376645263?text=Hola!%20M%27interessa%3A%20${encodeURIComponent(p.name + (p.flavor ? ' – ' + p.flavor : ''))}" target="_blank" rel="noopener" class="modal-btn-wa">💬 Contactar per WhatsApp</a>
+          <button class="modal-btn-add" id="modal-add-btn" onclick="addToCart(event,'${p.id}')" ${p.in_stock ? '' : 'disabled'} aria-label="Afegir al carret">${p.in_stock ? '🛒 Afegir al carret' : 'Esgotat'}</button>
+          <a href="https://wa.me/376645263?text=Hola!%20M%27interessa%3A%20${encodeURIComponent(p.name + displayFlavor)}" target="_blank" rel="noopener" class="modal-btn-wa">💬 Contactar per WhatsApp</a>
         </div>
       </div>
     </div>`;
   overlay.classList.add('open');
   document.body.style.overflow = 'hidden';
+}
+
+function updateModalFlavor(selectEl) {
+  const modalAddBtn = document.getElementById('modal-add-btn');
+  const modalImg = document.getElementById('modal-product-img');
+  const modalName = document.querySelector('.modal-name');
+  const modalStatus = document.querySelector('.modal-status');
+  
+  const overlay = document.getElementById('modal-overlay');
+  const inner = document.getElementById('modal-inner');
+  const idMatch = inner.querySelector('.modal-btn-add')?.getAttribute('onclick')?.match(/'([^']+)'/);
+  if (!idMatch) return;
+  
+  const p = PRODUCTS.find(x => x.id === idMatch[1]);
+  if (!p || !p.variants) return;
+  
+  const idx = parseInt(selectEl.value);
+  const variant = p.variants[idx];
+  p.defaultFlavor = variant.flavor;
+  
+  if (modalImg) modalImg.src = variant.image;
+  if (modalName) modalName.textContent = `${p.name} – ${variant.flavor}`;
+  
+  if (variant.in_stock) {
+    if (modalStatus) {
+      modalStatus.textContent = '✓ En estoc';
+      modalStatus.className = 'modal-status status-in';
+    }
+    if (modalAddBtn) {
+      modalAddBtn.disabled = false;
+      modalAddBtn.textContent = '🛒 Afegir al carret';
+    }
+  } else {
+    if (modalStatus) {
+      modalStatus.textContent = 'Esgotat';
+      modalStatus.className = 'modal-status status-out';
+    }
+    if (modalAddBtn) {
+      modalAddBtn.disabled = true;
+      modalAddBtn.textContent = 'Esgotat';
+    }
+  }
 }
 
 function closeModal() {
