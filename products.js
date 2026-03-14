@@ -126,7 +126,7 @@ let PRODUCTS = [
 const GROUPED_PRODUCTS = groupProductsByFlavor(PRODUCTS);
 
 // Use grouped products as the main PRODUCTS array
-const PRODUCTS = GROUPED_PRODUCTS;
+PRODUCTS = GROUPED_PRODUCTS;
 
 // Featured products - selected highlights
 const FEATURED_IDS = ["233", "147", "149", "x01", "191", "252", "151", "155"];
