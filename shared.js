@@ -79,22 +79,9 @@ function renderCard(p) {
   const priceStr = p.price != null ? p.price.toFixed(2).replace('.', ',') + ' €' : '';
   
   const hasFlavors = p.allFlavors && p.allFlavors.length > 0;
-  const flavorSelector = hasFlavors ? `
-    <div class="flavor-selector" style="margin-bottom:12px;">
-      <label style="color:var(--text-2);font-size:0.8rem;display:block;margin-bottom:4px;">Sabor:</label>
-      <select class="flavor-select" onchange="updateCardFlavor(this, '${p.id}')" style="width:100%;padding:8px 12px;background:var(--bg-2);color:var(--white);border:1px solid var(--border);border-radius:8px;font-size:0.85rem;cursor:pointer;">
-        ${p.allFlavors.map((f, idx) => {
-          const variant = p.variants[idx];
-          const disabled = variant && !variant.in_stock ? 'disabled' : '';
-          const selected = p.defaultFlavor === f ? 'selected' : '';
-          return `<option value="${idx}" ${selected} ${disabled}>${escHtml(f)}${disabled ? ' (Esgotat)' : ''}</option>`;
-        }).join('')}
-      </select>
-    </div>
-  ` : (p.flavor ? `<div class="product-flavor">Sabor: ${escHtml(p.flavor)}</div>` : '');
+  const flavorText = hasFlavors ? `<div class="product-flavor" style="color:var(--text-2);font-size:0.85rem;">${p.allFlavors.length} sabors disponibles</div>` : (p.flavor ? `<div class="product-flavor">Sabor: ${escHtml(p.flavor)}</div>` : '');
 
-  const displayFlavor = hasFlavors ? p.defaultFlavor : p.flavor;
-  const productName = `${escHtml(p.name)}${displayFlavor ? ' – ' + escHtml(displayFlavor) : ''}`;
+  const productName = hasFlavors ? escHtml(p.name) : `${escHtml(p.name)}${p.flavor ? ' – ' + escHtml(p.flavor) : ''}`;
 
   return `
     <article class="product-card" onclick="openModal('${p.id}')" role="listitem" aria-label="${productName}" tabindex="0" onkeydown="if(event.key==='Enter')openModal('${p.id}')">
@@ -107,7 +94,7 @@ function renderCard(p) {
         <div class="product-brand-tag">${escHtml(p.brand || '')}</div>
         <div class="product-name">${productName}</div>
         ${quantity}
-        ${flavorSelector}
+        ${flavorText}
         ${priceStr ? `<div class="product-price">${priceStr}</div>` : ''}
         <div class="product-footer">
           <button class="btn-add-cart" onclick="addToCart(event,'${p.id}')" ${p.in_stock ? '' : 'disabled'} aria-label="Afegir ${productName} al carret">${p.in_stock ? 'Afegir 🛒' : 'Esgotat'}</button>
@@ -115,41 +102,6 @@ function renderCard(p) {
         </div>
       </div>
     </article>`;
-}
-
-function updateCardFlavor(selectEl, productId) {
-  const idx = parseInt(selectEl.value);
-  const p = PRODUCTS.find(x => x.id === productId);
-  if (!p || !p.variants) return;
-  
-  const variant = p.variants[idx];
-  p.defaultFlavor = variant.flavor;
-  
-  const card = selectEl.closest('.product-card');
-  const img = card.querySelector('.product-img img');
-  img.src = variant.image;
-  
-  const nameEl = card.querySelector('.product-name');
-  const baseName = p.name;
-  nameEl.textContent = `${baseName} – ${variant.flavor}`;
-  
-  const statusEl = card.querySelector('.product-status');
-  if (variant.in_stock) {
-    statusEl.textContent = 'En estoc';
-    statusEl.className = 'product-status status-in';
-  } else {
-    statusEl.textContent = 'Esgotat';
-    statusEl.className = 'product-status status-out';
-  }
-  
-  const btn = card.querySelector('.btn-add-cart');
-  if (variant.in_stock) {
-    btn.disabled = false;
-    btn.textContent = 'Afegir 🛒';
-  } else {
-    btn.disabled = true;
-    btn.textContent = 'Esgotat';
-  }
 }
 
 function escHtml(s) {
