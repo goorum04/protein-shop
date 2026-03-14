@@ -29,7 +29,7 @@ function groupProductsByFlavor(products) {
   });
 }
 
-const PRODUCTS = [
+let PRODUCTS = [
   { id: "106", name: "NXT Beef Protein Isolate 540g", brand: "NL VIP Nutrition", category: "proteinas", price: 29.99, image: "https://cdn.shopify.com/s/files/1/0794/2927/1900/files/IMG-0159.webp?v=1766589599", description: "Proteïna de vedella de nova generació: una alternativa superior al whey. Aporta fins a 27 g de proteïna per porció, amb mínims carbohidrats i 0 g de greix. Ideal per a qui busca proteïna neta, fàcil de digerir i de gran sabor.", flavor: "Blue Raspberry", in_stock: false },
   { id: "107", name: "7 NUTRITION Beef Protein Juice 500g", brand: "NL VIP Nutrition", category: "proteinas", price: 19.9, image: "https://cdn.shopify.com/s/files/1/0794/2927/1900/files/IMG-0158.png?v=1766587346", description: "Beguda proteica clara i refrescant elaborada amb proteïna de res hidrolitzada, dissenyada per a una ràpida absorció i fàcil digestió. Cada porció aporta fins a 27 g de proteïna.", flavor: "Piña Colada", in_stock: false },
   { id: "108", name: "7 NUTRITION Beef Protein Juice 500g", brand: "NL VIP Nutrition", category: "proteinas", price: 19.9, image: "https://cdn.shopify.com/s/files/1/0794/2927/1900/files/IMG-0155.png?v=1766587345", description: "Beguda proteica clara i refrescant elaborada amb proteïna de res hidrolitzada. Sense sucre i lleugera, és una excel·lent alternativa als batuts tradicionals.", flavor: "Fresa Raspberry", in_stock: true },
