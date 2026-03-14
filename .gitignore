@@ -1,1 +1,6 @@
 .vercel
+
+# Tokens y variables de entorno - nunca subir a GitHub
+.env
+.env.local
+.env.*.local

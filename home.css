@@ -1141,3 +1141,239 @@
         margin-bottom: 1rem;
     }
 }
+
+/* ===== NXT SHOWCASE SECTION ===== */
+.nxt-showcase {
+    padding: 100px 0;
+    position: relative;
+    overflow: hidden;
+}
+
+.nxt-showcase::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: -200px;
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle, rgba(0, 87, 255, 0.08) 0%, transparent 70%);
+    transform: translateY(-50%);
+    pointer-events: none;
+}
+
+.nxt-showcase-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: center;
+}
+
+/* Left: Product image */
+.nxt-showcase-visual {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 500px;
+}
+
+.nxt-showcase-img-bg {
+    position: absolute;
+    inset: 0;
+    border-radius: var(--r);
+    background: radial-gradient(ellipse at center, rgba(0, 87, 255, 0.12) 0%, rgba(0, 87, 255, 0.04) 50%, transparent 70%);
+}
+
+.nxt-showcase-ring {
+    position: absolute;
+    border-radius: 50%;
+    border: 1px solid rgba(0, 87, 255, 0.15);
+    pointer-events: none;
+}
+
+.nxt-showcase-ring-1 {
+    width: 380px;
+    height: 380px;
+    animation: ringPulseBlue 4s ease-in-out infinite;
+}
+
+.nxt-showcase-ring-2 {
+    width: 300px;
+    height: 300px;
+    border-color: rgba(0, 200, 100, 0.12);
+    animation: ringPulseGreen 4s 2s ease-in-out infinite;
+}
+
+.nxt-showcase-product-img {
+    position: relative;
+    z-index: 1;
+    max-height: 480px;
+    max-width: 100%;
+    object-fit: contain;
+    filter: drop-shadow(0 20px 60px rgba(0, 87, 255, 0.4));
+    animation: heroFloatAndGlow 8s ease-in-out infinite;
+}
+
+.nxt-showcase-badge {
+    position: absolute;
+    z-index: 2;
+    background: rgba(15, 15, 34, 0.92);
+    backdrop-filter: blur(16px);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 12px 18px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+}
+
+.nxt-showcase-badge-1 {
+    top: 60px;
+    right: 0;
+}
+
+.nxt-showcase-badge-2 {
+    bottom: 80px;
+    left: 0;
+}
+
+.nsb-icon {
+    font-size: 1.5rem;
+    flex-shrink: 0;
+}
+
+.nxt-showcase-badge strong {
+    display: block;
+    font-size: 0.82rem;
+    font-weight: 700;
+    color: var(--white);
+    margin-bottom: 1px;
+}
+
+.nxt-showcase-badge p {
+    font-size: 0.76rem;
+    color: var(--text-3);
+    margin: 0;
+}
+
+/* Right: Content */
+.nxt-showcase-content {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+}
+
+.nxt-showcase-title {
+    font-size: clamp(2rem, 3.5vw, 3rem);
+    font-weight: 900;
+    line-height: 1.05;
+    letter-spacing: -0.03em;
+    color: var(--white);
+    margin-bottom: 20px;
+}
+
+.nxt-showcase-title span {
+    background: var(--grad);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    color: transparent;
+}
+
+.nxt-showcase-desc {
+    font-size: 1.05rem;
+    color: var(--text-2);
+    line-height: 1.75;
+    margin-bottom: 32px;
+    max-width: 480px;
+}
+
+.nxt-showcase-features {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    margin-bottom: 40px;
+}
+
+.nsf-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 18px;
+    background: var(--glass);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--r-sm);
+    transition: all var(--t) var(--ease);
+}
+
+.nsf-item:hover {
+    border-color: var(--border);
+    background: var(--blue-subtle);
+    transform: translateX(4px);
+}
+
+.nsf-icon {
+    font-size: 1.3rem;
+    flex-shrink: 0;
+}
+
+.nsf-item strong {
+    font-size: 0.92rem;
+    color: var(--white);
+    font-weight: 700;
+}
+
+.nsf-item span {
+    display: block;
+    font-size: 0.78rem;
+    color: var(--text-3);
+    margin-top: 1px;
+}
+
+.nxt-showcase-btns {
+    display: flex;
+    gap: 14px;
+    flex-wrap: wrap;
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+    .nxt-showcase-layout {
+        grid-template-columns: 1fr;
+        gap: 48px;
+    }
+
+    .nxt-showcase-visual {
+        min-height: 360px;
+        order: -1;
+    }
+
+    .nxt-showcase-ring-1 {
+        width: 280px;
+        height: 280px;
+    }
+
+    .nxt-showcase-ring-2 {
+        width: 220px;
+        height: 220px;
+    }
+
+    .nxt-showcase-product-img {
+        max-height: 320px;
+    }
+
+    .nxt-showcase-badge-1 {
+        top: 20px;
+        right: 10px;
+    }
+
+    .nxt-showcase-badge-2 {
+        bottom: 20px;
+        left: 10px;
+    }
+
+    .nxt-showcase-title {
+        font-size: clamp(1.6rem, 6vw, 2.4rem);
+    }
+}
