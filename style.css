@@ -573,8 +573,7 @@ body::before {
 
 .product-img {
   height: 220px;
-  background: #ffffff;
-  /* Fondo blanco sólido para uniformidad */
+  background: radial-gradient(circle 95px at center, #ffffff 98%, transparent 100%);
   display: flex;
   align-items: center;
   justify-content: center;
