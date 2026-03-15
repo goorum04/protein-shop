@@ -1,13 +1,9 @@
 // ===========================================
 // CONFIGURACIÓN DE SHOPIFY
 // ===========================================
-// Las variables se configuran en Vercel:
-// Settings > Environment Variables
-// SHOPIFY_DOMAIN = nlvipnutrition.myshopify.com
-// SHOPIFY_STOREFRONT_TOKEN = (tu token)
 
-const SHOPIFY_DOMAIN = window.SHOPIFY_DOMAIN || 'nlvipnutrition.myshopify.com';
-const STOREFRONT_TOKEN = window.SHOPIFY_STOREFRONT_TOKEN || '';
+const SHOPIFY_DOMAIN = window.NEXT_PUBLIC_SHOPIFY_DOMAIN || 'nlvipnutrition.myshopify.com';
+const STOREFRONT_TOKEN = window.NEXT_PUBLIC_SHOPIFY_TOKEN || '';
 
 async function shopifyFetch(query, variables = {}) {
   const response = await fetch(`https://${SHOPIFY_DOMAIN}/api/2024-01/graphql.json`, {
