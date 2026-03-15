@@ -6,21 +6,38 @@ const SHOPIFY_DOMAIN = window.NEXT_PUBLIC_SHOPIFY_DOMAIN || 'nlvipnutrition.mysh
 const STOREFRONT_TOKEN = window.NEXT_PUBLIC_SHOPIFY_TOKEN || '';
 
 async function shopifyFetch(query, variables = {}) {
-  const response = await fetch(`https://${SHOPIFY_DOMAIN}/api/2024-01/graphql.json`, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      'X-Shopify-Storefront-Access-Token': STOREFRONT_TOKEN
-    },
-    body: JSON.stringify({ query, variables })
-  });
+  const API_VERSIONS = ['2024-10', '2024-07', '2024-04', '2024-01', '2023-10'];
+  let lastError = null;
   
-  const json = await response.json();
-  if (json.errors) {
-    console.error('Shopify API Error:', json.errors);
-    return null;
+  for (const version of API_VERSIONS) {
+    try {
+      const response = await fetch(`https://${SHOPIFY_DOMAIN}/api/${version}/graphql.json`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-Shopify-Storefront-Access-Token': STOREFRONT_TOKEN
+        },
+        body: JSON.stringify({ query, variables })
+      });
+      
+      const json = await response.json();
+      if (json.errors) {
+        if (json.errors[0].message.includes('Not Found') || json.errors[0].message.includes('version')) {
+          lastError = json.errors;
+          continue;
+        }
+        console.error('Shopify API Error:', json.errors);
+        return null;
+      }
+      return json.data;
+    } catch (e) {
+      lastError = e;
+      continue;
+    }
   }
-  return json.data;
+  
+  console.error('Shopify API Error - All versions failed:', lastError);
+  return null;
 }
 
 async function fetchProducts() {
