@@ -572,8 +572,11 @@ body::before {
 }
 
 .product-img {
-  height: 220px;
-  background: radial-gradient(circle 95px at center, #ffffff 98%, transparent 100%);
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  background: #ffffff;
+  margin: 10px auto;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -581,7 +584,6 @@ body::before {
   overflow: hidden;
   flex-shrink: 0;
   position: relative;
-  /* Eliminar bordes duros si los hubiera y dar efecto difuminado suave */
   box-shadow: inset 0 0 40px rgba(0, 0, 0, 0.02);
 }
 
@@ -603,7 +605,9 @@ body::before {
 .product-status {
   position: absolute;
   top: 10px;
-  left: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  white-space: nowrap;
   padding: 4px 10px;
   border-radius: 50px;
   font-size: 0.7rem;
