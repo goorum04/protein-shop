@@ -550,8 +550,8 @@ function renderCard(p) {
 
   return `
     <article class="product-card" onclick="openModal('${p.id}')" role="listitem" aria-label="${productName}" tabindex="0" onkeydown="if(event.key==='Enter')openModal('${p.id}')">
+      <span class="product-status ${statusClass}">${statusText}</span>
       <div class="product-img">
-        <span class="product-status ${statusClass}">${statusText}</span>
         <img src="${escHtml(p.image)}" alt="${escHtml(p.name)}" loading="lazy"
              onerror="this.src='https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?w=400&q=70'" />
       </div>
