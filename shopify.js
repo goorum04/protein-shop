@@ -2,48 +2,35 @@
 // CONFIGURACIÓN DE SHOPIFY
 // ===========================================
 
-const SHOPIFY_DOMAIN = window.NEXT_PUBLIC_SHOPIFY_DOMAIN || 'nlvipnutrition.myshopify.com';
-const STOREFRONT_TOKEN = window.NEXT_PUBLIC_SHOPIFY_TOKEN || '';
+const SHOPIFY_DOMAIN = 'nlvipnutrition.myshopify.com';
+const STOREFRONT_TOKEN = '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';
 
 async function shopifyFetch(query, variables = {}) {
-  const API_VERSIONS = ['2024-10', '2024-07', '2024-04', '2024-01', '2023-10'];
-  let lastError = null;
-  
-  for (const version of API_VERSIONS) {
-    try {
-      const response = await fetch(`https://${SHOPIFY_DOMAIN}/api/${version}/graphql.json`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'X-Shopify-Storefront-Access-Token': STOREFRONT_TOKEN
-        },
-        body: JSON.stringify({ query, variables })
-      });
-      
-      const json = await response.json();
-      if (json.errors) {
-        if (json.errors[0].message.includes('Not Found') || json.errors[0].message.includes('version')) {
-          lastError = json.errors;
-          continue;
-        }
-        console.error('Shopify API Error:', json.errors);
-        return null;
-      }
-      return json.data;
-    } catch (e) {
-      lastError = e;
-      continue;
+  try {
+    const response = await fetch(`https://${SHOPIFY_DOMAIN}/api/2024-10/graphql.json`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-Shopify-Storefront-Access-Token': STOREFRONT_TOKEN
+      },
+      body: JSON.stringify({ query, variables })
+    });
+    const json = await response.json();
+    if (json.errors) {
+      console.error('Shopify API Error:', json.errors);
+      return null;
     }
+    return json.data;
+  } catch (e) {
+    console.error('Shopify fetch error:', e);
+    return null;
   }
-  
-  console.error('Shopify API Error - All versions failed:', lastError);
-  return null;
 }
 
-async function fetchProducts() {
+async function fetchProductsFromShopify() {
   const query = `
     query {
-      products(first: 100) {
+      products(first: 250) {
         edges {
           node {
             id
@@ -53,49 +40,30 @@ async function fetchProducts() {
             productType
             vendor
             priceRange {
-              minVariantPrice {
-                amount
-                currencyCode
-              }
+              minVariantPrice { amount currencyCode }
             }
             images(first: 1) {
-              edges {
-                node {
-                  url
-                  altText
-                }
-              }
+              edges { node { url altText } }
             }
-            variants(first: 20) {
+            variants(first: 30) {
               edges {
                 node {
                   id
                   title
-                  price {
-                    amount
-                    currencyCode
-                  }
+                  price { amount currencyCode }
                   availableForSale
-                  selectedOptions {
-                    name
-                    value
-                  }
+                  selectedOptions { name value }
                 }
               }
             }
-            options {
-              name
-              values
-            }
+            options { name values }
           }
         }
       }
     }
   `;
-  
   const data = await shopifyFetch(query);
-  if (!data || !data.products) return [];
-  
+  if (!data || !data.products) return null;
   return data.products.edges.map(({ node }) => transformProduct(node));
 }
 
@@ -105,16 +73,20 @@ function transformProduct(product) {
     title: node.title,
     price: parseFloat(node.price.amount),
     in_stock: node.availableForSale,
-    flavor: node.selectedOptions.find(o => o.name.toLowerCase() === 'sabor' || o.name.toLowerCase() === 'flavor')?.value || null,
+    flavor: node.selectedOptions.find(o =>
+      o.name.toLowerCase() === 'sabor' ||
+      o.name.toLowerCase() === 'flavor' ||
+      o.name.toLowerCase() === 'colour' ||
+      o.name.toLowerCase() === 'color'
+    )?.value || node.title,
     options: node.selectedOptions
   }));
-  
-  const hasMultipleFlavors = product.options.some(o => 
-    o.name.toLowerCase() === 'sabor' || o.name.toLowerCase() === 'flavor'
-  );
-  
+
+  const hasMultipleVariants = variants.length > 1;
+
   return {
-    id: product.id,
+    id: product.handle,
+    shopifyId: product.id,
     name: product.title,
     brand: product.vendor || '',
     category: mapCategory(product.productType),
@@ -123,8 +95,8 @@ function transformProduct(product) {
     description: product.description,
     in_stock: variants.some(v => v.in_stock),
     variants: variants,
-    hasFlavors: hasMultipleFlavors,
-    allFlavors: hasMultipleFlavors ? [...new Set(variants.map(v => v.flavor).filter(Boolean))] : [],
+    hasFlavors: hasMultipleVariants,
+    allFlavors: hasMultipleVariants ? [...new Set(variants.map(v => v.flavor).filter(Boolean))] : [],
     handle: product.handle
   };
 }
@@ -132,11 +104,13 @@ function transformProduct(product) {
 function mapCategory(productType) {
   const type = (productType || '').toLowerCase();
   if (type.includes('prote') || type.includes('whey') || type.includes('beef')) return 'proteinas';
-  if (type.includes('creatina')) return 'creatina';
+  if (type.includes('creatina') || type.includes('creatine')) return 'creatina';
   if (type.includes('pre-workout') || type.includes('pre workout') || type.includes('preentrenamiento')) return 'pre-workout';
   if (type.includes('vitamin') || type.includes('omega') || type.includes('mineral')) return 'vitaminas';
   if (type.includes('masa') || type.includes('gainer') || type.includes('mass')) return 'mass-gainer';
   if (type.includes('barreta') || type.includes('batido') || type.includes('crema') || type.includes('donut')) return 'alimentacion';
+  if (type.includes('carbohidrat') || type.includes('carb')) return 'carbohidratos';
+  if (type.includes('control') || type.includes('carnitina') || type.includes('diure')) return 'control-peso';
   return 'vitaminas';
 }
 
@@ -145,90 +119,23 @@ async function createCheckout(items) {
     variantId: item.variantId,
     quantity: item.qty || 1
   }));
-  
+
   const query = `
     mutation checkoutCreate($input: CheckoutCreateInput!) {
       checkoutCreate(input: $input) {
-        checkout {
-          id
-          webUrl
-        }
-        checkoutUserErrors {
-          message
-        }
+        checkout { id webUrl }
+        checkoutUserErrors { message }
       }
     }
   `;
-  
-  const variables = {
-    input: {
-      lineItems: lineItems.map(li => ({
-        variantId: li.variantId,
-        quantity: li.quantity
-      }))
-    }
-  };
-  
-  const data = await shopifyFetch(query, variables);
+
+  const data = await shopifyFetch(query, {
+    input: { lineItems }
+  });
+
   if (data?.checkoutCreate?.checkout) {
     return data.checkoutCreate.checkout.webUrl;
   }
   console.error('Checkout error:', data?.checkoutCreate?.checkoutUserErrors);
-  return null;
-}
-
-async function getProductByHandle(handle) {
-  const query = `
-    query getProduct($handle: String!) {
-      productByHandle(handle: $handle) {
-        id
-        title
-        handle
-        description
-        productType
-        vendor
-        priceRange {
-          minVariantPrice {
-            amount
-            currencyCode
-          }
-        }
-        images(first: 1) {
-          edges {
-            node {
-              url
-              altText
-            }
-          }
-        }
-        variants(first: 20) {
-          edges {
-            node {
-              id
-              title
-              price {
-                amount
-                currencyCode
-              }
-              availableForSale
-              selectedOptions {
-                name
-                value
-              }
-            }
-          }
-        }
-        options {
-          name
-          values
-        }
-      }
-    }
-  `;
-  
-  const data = await shopifyFetch(query, { handle });
-  if (data?.productByHandle) {
-    return transformProduct(data.productByHandle);
-  }
   return null;
 }
