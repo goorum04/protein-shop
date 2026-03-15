@@ -561,15 +561,11 @@
         <span class="fab-wa-label">WhatsApp</span>
     </a>
 
-    <script src="shopify.js"></script>
     <script src="products.js"></script>
     <script src="shared.js"></script>
     <script>
-        document.addEventListener('DOMContentLoaded', async () => {
+        document.addEventListener('DOMContentLoaded', () => {
             initShared();
-            
-            // Wait for Shopify products to load
-            await loadProductsFromShopify();
             
             // Render featured
             const grid = document.getElementById('featured-grid');
