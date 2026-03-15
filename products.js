@@ -135,3 +135,16 @@ let PRODUCTS = [
 ];
 
 PRODUCTS = groupProductsByFlavor(PRODUCTS);
+async function initProducts() {
+  try {
+    const shopifyProducts = await fetchProductsFromShopify();
+    if (shopifyProducts && shopifyProducts.length > 0) {
+      PRODUCTS = shopifyProducts;
+      console.log(`✅ ${PRODUCTS.length} productos cargados desde Shopify`);
+    } else {
+      console.warn('⚠️ Usando productos hardcodeados');
+    }
+  } catch (e) {
+    console.warn('⚠️ Usando productos hardcodeados:', e);
+  }
+}
