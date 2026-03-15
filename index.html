@@ -555,17 +555,26 @@
         <span class="fab-wa-label">WhatsApp</span>
     </a>
 
+    <script src="shopify.js"></script>
     <script src="products.js"></script>
     <script src="shared.js"></script>
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
+        document.addEventListener('DOMContentLoaded', async () => {
             initShared();
+            
+            // Wait for Shopify products to load
+            await loadProductsFromShopify();
+            
             // Render featured
             const grid = document.getElementById('featured-grid');
-            const featured = FEATURED_IDS.map(id => PRODUCTS.find(p => p.id === id))
-                .filter(Boolean)
-                .sort((a, b) => (b.in_stock ? 1 : 0) - (a.in_stock ? 1 : 0));
-            grid.innerHTML = featured.map(renderCard).join('');
+            if (PRODUCTS.length > 0) {
+                const featured = PRODUCTS.slice(0, 8)
+                    .filter(p => p.in_stock)
+                    .sort((a, b) => (b.in_stock ? 1 : 0) - (a.in_stock ? 1 : 0));
+                grid.innerHTML = featured.map(renderCard).join('');
+            } else {
+                grid.innerHTML = '<p style="grid-column:1/-1;text-align:center;color:var(--text-3)">No hi ha productes disponibles</p>';
+            }
         });
     </script>
 </body>

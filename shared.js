@@ -198,29 +198,31 @@ function renderCartItems() {
   }).join('');
 }
 
-// ===== CHECKOUT via WhatsApp (full cart details) =====
-function checkoutWhatsApp() {
+// ===== CHECKOUT via Shopify =====
+async function checkoutWhatsApp() {
   if (!cart.length) return;
-  const subtotal = calcCartSubtotal();
-  const discount = calcDiscount(subtotal);
-  const total    = subtotal - discount;
-
-  const lines = cart.map(item => {
+  
+  const checkoutItems = cart.map(item => {
     const p = PRODUCTS.find(x => x.id === item.id);
-    if (!p) return null;
+    if (!p || !p.variants) return null;
+    
     const flavor = item.flavor || p.defaultFlavor || p.flavor;
-    const name      = p.name + (flavor ? ` – ${flavor}` : '');
-    const lineTotal = (p.price * (item.qty || 1)).toFixed(2).replace('.', ',');
-    return `• ${name} ×${item.qty || 1} → ${lineTotal} €`;
-  }).filter(Boolean).join('\n');
-
-  let msg = `Hola! Vull completar la meva comanda:\n\n${lines}\n\nSubtotal: ${subtotal.toFixed(2).replace('.', ',')} €`;
-  if (activeDiscount && discount > 0) {
-    msg += `\nDescompte (${activeDiscount}): -${discount.toFixed(2).replace('.', ',')} €`;
+    const variant = p.variants.find(v => v.flavor === flavor);
+    
+    return {
+      variantId: variant?.id || p.variants[0]?.id,
+      qty: item.qty || 1
+    };
+  }).filter(Boolean);
+  
+  if (checkoutItems.length === 0) return;
+  
+  const checkoutUrl = await createCheckout(checkoutItems);
+  if (checkoutUrl) {
+    window.location.href = checkoutUrl;
+  } else {
+    alert('Error al crear el checkout. Si us plau, contacta\'ns per WhatsApp.');
   }
-  msg += `\nTOTAL: ${total.toFixed(2).replace('.', ',')} €`;
-
-  window.open(`https://wa.me/376645263?text=${encodeURIComponent(msg)}`, '_blank');
 }
 
 // ===== MODAL =====

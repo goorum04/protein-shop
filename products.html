@@ -280,6 +280,7 @@
         }
     </style>
 
+    <script src="shopify.js"></script>
     <script src="products.js"></script>
     <script src="shared.js"></script>
     <script>
@@ -296,9 +297,17 @@
         const CAT_NAMES = {
             all: 'Tots els productes', proteinas: 'Proteïnes', creatina: 'Creatina',
             'pre-workout': 'Pre-Workout', 'mass-gainer': 'Mass Gainer', vitaminas: 'Vitamines i Salut',
-            alimentacion: 'Alimentació', 'control-peso': 'Control Pes', carbohidratos: 'Carbohidrats',
+            alimentacion: 'Alimentació', 'control-peso': 'Control Pes', carbohidratos: 'Carbohydrats',
             prehormonal: 'Prehormonal'
         };
+
+        async function initProducts() {
+            const grid = document.getElementById('products-grid');
+            grid.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:60px;color:var(--text-3)"><div style="width:36px;height:36px;border:3px solid var(--border-2);border-top-color:var(--blue);border-radius:50%;animation:spin 0.8s linear infinite;margin:0 auto 16px"></div><p>Carregant productes de Shopify...</p></div>';
+            
+            await loadProductsFromShopify();
+            renderProducts();
+        }
 
         function renderProducts() {
             let list = PRODUCTS.filter(p => {
@@ -351,7 +360,7 @@
                 document.querySelectorAll('.sidebar-cat').forEach(b => b.classList.toggle('active', b.dataset.cat === catParam));
             }
 
-            renderProducts();
+            initProducts();
 
             // Category buttons
             document.querySelectorAll('.sidebar-cat').forEach(btn => {
