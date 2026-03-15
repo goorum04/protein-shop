@@ -2,6 +2,471 @@
 // shared.js – Shared functionality across pages
 // =============================================
 
+// ===== TRANSLATIONS =====
+const translations = {
+  ca: {
+    // Navigation
+    nav_inici: "Inici",
+    nav_productes: "Productes",
+    nav_nosaltres: "Nosaltres",
+    nav_assessoria: "Assessoria",
+    nav_contacte: "Contacte",
+    
+    // Home
+    hero_title: "Assolir els teus objectius",
+    hero_subtitle: "Som el teu partner fitness a Andorra. Productes de qualitat, assessorament expert i的结果",
+    hero_cta: "Veure productes",
+    home_featured: "Productes destacats",
+    home_mes: "més venuts",
+    home_cat_title: "Categories",
+    home_products_count: "productes",
+    
+    // Products
+    products_title: "Botiga",
+    products_subtitle: "Més de 500 productes de les millors marques",
+    products_search: "Cerca productes...",
+    products_filter: "Filtrar",
+    products_sort: "Ordenar per",
+    products_sort_default: "Ordenar per",
+    products_sort_price_asc: "Preu: menor a major",
+    products_sort_price_desc: "Preu: major a menor",
+    products_sort_name: "Nom A-Z",
+    products_stock: "Només en stock",
+    products_no_results: "No s'han trobat productes",
+    products_contact: "Contacta'ns per WhatsApp",
+    products_count: "producte",
+    products_count_plural: "productes",
+    products_loading: "Carregant productes...",
+    products_from_shopify: "Carregant productes de Shopify...",
+    
+    // Product Card
+    product_in_stock: "En estoc",
+    product_out_stock: "Esgotat",
+    product_add: "Afegir 🛒",
+    product_format: "Format:",
+    product_flavors: "sabors disponibles",
+    
+    // Modal
+    modal_close: "Tancar",
+    modal_add_cart: "Afegir al carret",
+    modal_contact_wa: "Contactar per WhatsApp",
+    
+    // Cart
+    cart_title: "El teu carret",
+    cart_empty: "El teu carret és buit 🛒",
+    cart_subtotal: "Subtotal",
+    cart_discount: "Descompte",
+    cart_total: "Total",
+    cart_checkout: "Finalitzar comanda",
+    cart_continue: "Continuar comprant",
+    cart_remove: "Eliminar",
+    cart_coupon: "Codi de descompte",
+    cart_coupon_placeholder: "Introdueix el codi",
+    cart_coupon_apply: "Aplicar",
+    cart_coupon_remove: "Treure",
+    
+    // Services (Assessoria)
+    services_title: "Els nostres serveis",
+    services_subtitle: "T'oferim tot el que necessites per assolir els teus objectius",
+    service_contact: "Contactar ara →",
+    service_book: "Reservar ara →",
+    
+    // Contact
+    contact_title: "Contacte",
+    contact_address: "Carrer Esteve Dolsa 15, Andorra la Vella",
+    contact_phone: "376 645 263",
+    contact_email: "info@nlvipnutrition.com",
+    
+    // Footer
+    footer_links: "Enllaços ràpids",
+    footer_products: "Productes",
+    footer_contact: "Contacte",
+    footer_legal: "Avís legal",
+    footer_copyright: "© 2024 NL VIP Nutrition Andorra",
+    
+    // Misc
+    loading: "Carregant...",
+    error: "Error",
+    close: "Tancar",
+    cancel: "Cancel·lar",
+    confirm: "Confirmar",
+    yes: "Sí",
+    no: "No",
+    
+    // Categories
+    cat_all: "Tots els productes",
+    cat_proteinas: "Proteïnes",
+    cat_creatina: "Creatina",
+    cat_preworkout: "Pre-Workout",
+    cat_massgainer: "Mass Gainer",
+    cat_vitaminas: "Vitamines",
+    cat_alimentacion: "Alimentació",
+    cat_controlpeso: "Control de Pes",
+    cat_carbohidratos: "Carbohidrats",
+    cat_prehormonal: "Prehormonal",
+    
+    // Checkout
+    checkout_title: "Finalitzar comanda",
+    checkout_redirecting: "Redirigint al checkout...",
+    checkout_error: "Error al crear el checkout"
+  },
+  
+  es: {
+    // Navigation
+    nav_inici: "Inicio",
+    nav_productes: "Productos",
+    nav_nosaltres: "Nosotros",
+    nav_assessoria: "Asesoría",
+    nav_contacte: "Contacto",
+    
+    // Home
+    hero_title: "Alcanza tus objetivos",
+    hero_subtitle: "Somos tu partner fitness en Andorra. Productos de calidad, asesoramiento experto y resultados garantizados",
+    hero_cta: "Ver productos",
+    home_featured: "Productos destacados",
+    home_mes: "más vendidos",
+    home_cat_title: "Categorías",
+    home_products_count: "productos",
+    
+    // Products
+    products_title: "Tienda",
+    products_subtitle: "Más de 500 productos de las mejores marcas",
+    products_search: "Buscar productos...",
+    products_filter: "Filtrar",
+    products_sort: "Ordenar por",
+    products_sort_default: "Ordenar por",
+    products_sort_price_asc: "Precio: menor a mayor",
+    products_sort_price_desc: "Precio: mayor a menor",
+    products_sort_name: "Nombre A-Z",
+    products_stock: "Solo en stock",
+    products_no_results: "No se han encontrado productos",
+    products_contact: "Contáctanos por WhatsApp",
+    products_count: "producto",
+    products_count_plural: "productos",
+    products_loading: "Cargando productos...",
+    products_from_shopify: "Cargando productos de Shopify...",
+    
+    // Product Card
+    product_in_stock: "En stock",
+    product_out_stock: "Agotado",
+    product_add: "Añadir 🛒",
+    product_format: "Formato:",
+    product_flavors: "sabores disponibles",
+    
+    // Modal
+    modal_close: "Cerrar",
+    modal_add_cart: "Añadir al carrito",
+    modal_contact_wa: "Contactar por WhatsApp",
+    
+    // Cart
+    cart_title: "Tu carrito",
+    cart_empty: "Tu carrito está vacío 🛒",
+    cart_subtotal: "Subtotal",
+    cart_discount: "Descuento",
+    cart_total: "Total",
+    cart_checkout: "Finalizar pedido",
+    cart_continue: "Seguir comprando",
+    cart_remove: "Eliminar",
+    cart_coupon: "Código de descuento",
+    cart_coupon_placeholder: "Introduce el código",
+    cart_coupon_apply: "Aplicar",
+    cart_coupon_remove: "Quitar",
+    
+    // Services (Assessoria)
+    services_title: "Nuestros servicios",
+    services_subtitle: "Te oferecemos todo lo que necesitas para alcanzar tus objetivos",
+    service_contact: "Contactar ahora →",
+    service_book: "Reservar ahora →",
+    
+    // Contact
+    contact_title: "Contacto",
+    contact_address: "Carrer Esteve Dolsa 15, Andorra la Vella",
+    contact_phone: "376 645 263",
+    contact_email: "info@nlvipnutrition.com",
+    
+    // Footer
+    footer_links: "Enlaces rápidos",
+    footer_products: "Productos",
+    footer_contact: "Contacto",
+    footer_legal: "Aviso legal",
+    footer_copyright: "© 2024 NL VIP Nutrition Andorra",
+    
+    // Misc
+    loading: "Cargando...",
+    error: "Error",
+    close: "Cerrar",
+    cancel: "Cancelar",
+    confirm: "Confirmar",
+    yes: "Sí",
+    no: "No",
+    
+    // Categories
+    cat_all: "Todos los productos",
+    cat_proteinas: "Proteínas",
+    cat_creatina: "Creatina",
+    cat_preworkout: "Pre-Workout",
+    cat_massgainer: "Mass Gainer",
+    cat_vitaminas: "Vitaminas",
+    cat_alimentacion: "Alimentación",
+    cat_controlpeso: "Control de Peso",
+    cat_carbohidratos: "Carbohidratos",
+    cat_prehormonal: "Prehormonal",
+    
+    // Checkout
+    checkout_title: "Finalizar pedido",
+    checkout_redirecting: "Redirigiendo al checkout...",
+    checkout_error: "Error al crear el checkout"
+  },
+  
+  fr: {
+    // Navigation
+    nav_inici: "Accueil",
+    nav_productes: "Produits",
+    nav_nosaltres: "Nous",
+    nav_assessoria: "Conseil",
+    nav_contacte: "Contact",
+    
+    // Home
+    hero_title: "Atteignez vos objectifs",
+    hero_subtitle: "Nous sommes votre partenaire fitness en Andorre. Produits de qualité, conseils experts et résultats garantis",
+    hero_cta: "Voir les produits",
+    home_featured: "Produits en vedette",
+    home_mes: "les plus vendus",
+    home_cat_title: "Catégories",
+    home_products_count: "produits",
+    
+    // Products
+    products_title: "Boutique",
+    products_subtitle: "Plus de 500 produits des meilleures marques",
+    products_search: "Rechercher des produits...",
+    products_filter: "Filtrer",
+    products_sort: "Trier par",
+    products_sort_default: "Trier par",
+    products_sort_price_asc: "Prix: croissant",
+    products_sort_price_desc: "Prix: décroissant",
+    products_sort_name: "Nom A-Z",
+    products_stock: "En stock uniquement",
+    products_no_results: "Aucun produit trouvé",
+    products_contact: "Contactez-nous par WhatsApp",
+    products_count: "produit",
+    products_count_plural: "produits",
+    products_loading: "Chargement des produits...",
+    products_from_shopify: "Chargement des produits depuis Shopify...",
+    
+    // Product Card
+    product_in_stock: "En stock",
+    product_out_stock: "Épuisé",
+    product_add: "Ajouter 🛒",
+    product_format: "Format:",
+    product_flavors: "saveurs disponibles",
+    
+    // Modal
+    modal_close: "Fermer",
+    modal_add_cart: "Ajouter au panier",
+    modal_contact_wa: "Contacter par WhatsApp",
+    
+    // Cart
+    cart_title: "Votre panier",
+    cart_empty: "Votre panier est vide 🛒",
+    cart_subtotal: "Sous-total",
+    cart_discount: "Remise",
+    cart_total: "Total",
+    cart_checkout: "Finaliser la commande",
+    cart_continue: "Continuer vos achats",
+    cart_remove: "Supprimer",
+    cart_coupon: "Code promo",
+    cart_coupon_placeholder: "Entrez le code",
+    cart_coupon_apply: "Appliquer",
+    cart_coupon_remove: "Retirer",
+    
+    // Services (Assessoria)
+    services_title: "Nos services",
+    services_subtitle: "Nous vous proposons tout ce dont vous avez besoin pour atteindre vos objectifs",
+    service_contact: "Contacter maintenant →",
+    service_book: "Réserver maintenant →",
+    
+    // Contact
+    contact_title: "Contact",
+    contact_address: "Carrer Esteve Dolsa 15, Andorra la Vella",
+    contact_phone: "376 645 263",
+    contact_email: "info@nlvipnutrition.com",
+    
+    // Footer
+    footer_links: "Liens rapides",
+    footer_products: "Produits",
+    footer_contact: "Contact",
+    footer_legal: "Mentions légales",
+    footer_copyright: "© 2024 NL VIP Nutrition Andorra",
+    
+    // Misc
+    loading: "Chargement...",
+    error: "Erreur",
+    close: "Fermer",
+    cancel: "Annuler",
+    confirm: "Confirmer",
+    yes: "Oui",
+    no: "Non",
+    
+    // Categories
+    cat_all: "Tous les produits",
+    cat_proteinas: "Protéines",
+    cat_creatina: "Créatine",
+    cat_preworkout: "Pre-Workout",
+    cat_massgainer: "Mass Gainer",
+    cat_vitaminas: "Vitamines",
+    cat_alimentacion: "Alimentation",
+    cat_controlpeso: "Contrôle du poids",
+    cat_carbohydrates: "Glucides",
+    cat_prehormonal: "Pré-hormonal",
+    
+    // Checkout
+    checkout_title: "Finaliser la commande",
+    checkout_redirecting: "Redirection vers le checkout...",
+    checkout_error: "Erreur lors de la création du checkout"
+  },
+  
+  en: {
+    // Navigation
+    nav_inici: "Home",
+    nav_productes: "Products",
+    nav_nosaltres: "About us",
+    nav_assessoria: "Coaching",
+    nav_contacte: "Contact",
+    
+    // Home
+    hero_title: "Achieve your goals",
+    hero_subtitle: "We are your fitness partner in Andorra. Quality products, expert advice and guaranteed results",
+    hero_cta: "View products",
+    home_featured: "Featured products",
+    home_mes: "best sellers",
+    home_cat_title: "Categories",
+    home_products_count: "products",
+    
+    // Products
+    products_title: "Shop",
+    products_subtitle: "Over 500 products from the best brands",
+    products_search: "Search products...",
+    products_filter: "Filter",
+    products_sort: "Sort by",
+    products_sort_default: "Sort by",
+    products_sort_price_asc: "Price: low to high",
+    products_sort_price_desc: "Price: high to low",
+    products_sort_name: "Name A-Z",
+    products_stock: "In stock only",
+    products_no_results: "No products found",
+    products_contact: "Contact us on WhatsApp",
+    products_count: "product",
+    products_count_plural: "products",
+    products_loading: "Loading products...",
+    products_from_shopify: "Loading products from Shopify...",
+    
+    // Product Card
+    product_in_stock: "In stock",
+    product_out_stock: "Out of stock",
+    product_add: "Add 🛒",
+    product_format: "Format:",
+    product_flavors: "flavors available",
+    
+    // Modal
+    modal_close: "Close",
+    modal_add_cart: "Add to cart",
+    modal_contact_wa: "Contact on WhatsApp",
+    
+    // Cart
+    cart_title: "Your cart",
+    cart_empty: "Your cart is empty 🛒",
+    cart_subtotal: "Subtotal",
+    cart_discount: "Discount",
+    cart_total: "Total",
+    cart_checkout: "Checkout",
+    cart_continue: "Continue shopping",
+    cart_remove: "Remove",
+    cart_coupon: "Discount code",
+    cart_coupon_placeholder: "Enter code",
+    cart_coupon_apply: "Apply",
+    cart_coupon_remove: "Remove",
+    
+    // Services (Assessoria)
+    services_title: "Our services",
+    services_subtitle: "We offer everything you need to achieve your goals",
+    service_contact: "Contact now →",
+    service_book: "Book now →",
+    
+    // Contact
+    contact_title: "Contact",
+    contact_address: "Carrer Esteve Dolsa 15, Andorra la Vella",
+    contact_phone: "376 645 263",
+    contact_email: "info@nlvipnutrition.com",
+    
+    // Footer
+    footer_links: "Quick links",
+    footer_products: "Products",
+    footer_contact: "Contact",
+    footer_legal: "Legal notice",
+    footer_copyright: "© 2024 NL VIP Nutrition Andorra",
+    
+    // Misc
+    loading: "Loading...",
+    error: "Error",
+    close: "Close",
+    cancel: "Cancel",
+    confirm: "Confirm",
+    yes: "Yes",
+    no: "No",
+    
+    // Categories
+    cat_all: "All products",
+    cat_proteinas: "Proteins",
+    cat_creatina: "Creatine",
+    cat_preworkout: "Pre-Workout",
+    cat_massgainer: "Mass Gainer",
+    cat_vitaminas: "Vitamins",
+    cat_alimentacion: "Food",
+    cat_controlpeso: "Weight Control",
+    cat_carbohydrates: "Carbohydrates",
+    cat_prehormonal: "Pre-hormonal",
+    
+    // Checkout
+    checkout_title: "Checkout",
+    checkout_redirecting: "Redirecting to checkout...",
+    checkout_error: "Error creating checkout"
+  }
+};
+
+// Current language
+let currentLang = localStorage.getItem('nlvip_lang') || 'ca';
+
+function t(key) {
+  return translations[currentLang]?.[key] || translations['ca'][key] || key;
+}
+
+function changeLanguage(lang) {
+  if (translations[lang]) {
+    currentLang = lang;
+    localStorage.setItem('nlvip_lang', lang);
+    updatePageTranslations();
+  }
+}
+
+function updatePageTranslations() {
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.getAttribute('data-i18n');
+    el.textContent = t(key);
+  });
+  
+  document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+    const key = el.getAttribute('data-i18n-placeholder');
+    el.placeholder = t(key);
+  });
+  
+  // Update language selector
+  const langSelect = document.getElementById('lang-select');
+  if (langSelect) langSelect.value = currentLang;
+  
+  // Dispatch custom event for page-specific translations
+  window.dispatchEvent(new CustomEvent('languageChanged'));
+}
+
 let cart = JSON.parse(localStorage.getItem('nlvip_cart') || '[]');
 
 // ===== DISCOUNT CODES =====
@@ -355,6 +820,7 @@ function initNavbarScroll() {
 
 // ===== INIT ALL =====
 function initShared() {
+  updatePageTranslations();
   updateCartBadge();
   initNavbarScroll();
 

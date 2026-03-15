@@ -256,6 +256,27 @@ body::before {
   box-shadow: 0 4px 16px rgba(37, 211, 102, 0.3);
 }
 
+.lang-select {
+  background: var(--surface);
+  border: 1.5px solid var(--border);
+  border-radius: 8px;
+  padding: 8px 12px;
+  color: var(--text-2);
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: all var(--t) var(--ease);
+  margin-right: 12px;
+}
+
+.lang-select:hover {
+  border-color: var(--blue-light);
+}
+
+.lang-select:focus {
+  outline: none;
+  border-color: var(--blue);
+}
+
 .btn-cart {
   position: relative;
   width: 44px;

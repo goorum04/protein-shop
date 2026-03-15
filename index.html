@@ -99,15 +99,21 @@
             </a>
 
             <ul class="nav-links" role="list">
-                <li><a href="index.html" class="nav-link active" aria-current="page">Inici</a></li>
-                <li><a href="products.html" class="nav-link">Productes</a></li>
-                <li><a href="about.html" class="nav-link">Nosaltres</a></li>
+                <li><a href="index.html" class="nav-link active" aria-current="page" data-i18n="nav_inici">Inici</a></li>
+                <li><a href="products.html" class="nav-link" data-i18n="nav_productes">Productes</a></li>
+                <li><a href="about.html" class="nav-link" data-i18n="nav_nosaltres">Nosaltres</a></li>
                 <li><a href="machines.html" class="nav-link">NLVIPMachines</a></li>
-                <li><a href="assessoria.html" class="nav-link">Assessoria</a></li>
-                <li><a href="about.html#contacte" class="nav-link">Contacte</a></li>
+                <li><a href="assessoria.html" class="nav-link" data-i18n="nav_assessoria">Assessoria</a></li>
+                <li><a href="about.html#contacte" class="nav-link" data-i18n="nav_contacte">Contacte</a></li>
             </ul>
 
             <div class="nav-right">
+                <select id="lang-select" class="lang-select" onchange="changeLanguage(this.value)" aria-label="Seleccionar idioma">
+                    <option value="ca" selected>🇦🇩</option>
+                    <option value="es">🇪🇸</option>
+                    <option value="fr">🇫🇷</option>
+                    <option value="en">🇬🇧</option>
+                </select>
                 <a href="https://wa.me/376645263" target="_blank" rel="noopener noreferrer" class="btn-wa-nav"
                     aria-label="Contactar per WhatsApp">
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">

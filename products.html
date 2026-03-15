@@ -51,8 +51,14 @@
                 <li><a href="about.html#contacte" class="nav-link">Contacte</a></li>
             </ul>
             <div class="nav-right">
+                <select id="lang-select" class="lang-select" onchange="changeLanguage(this.value)" aria-label="Seleccionar idioma">
+                    <option value="ca" selected>🇦🇩</option>
+                    <option value="es">🇪🇸</option>
+                    <option value="fr">🇫🇷</option>
+                    <option value="en">🇬🇧</option>
+                </select>
                 <div class="nav-search">
-                    <input type="search" id="search-input" placeholder="Cerca productes..."
+                    <input type="search" id="search-input" placeholder="Cerca productes..." data-i18n-placeholder="products_search"
                         aria-label="Cerca productes" />
                 </div>
                 <a href="https://wa.me/376645263" target="_blank" rel="noopener" class="btn-wa-nav">
