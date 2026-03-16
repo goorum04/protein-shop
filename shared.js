@@ -2,6 +2,12 @@
 // shared.js – Shared functionality across pages
 // =============================================
 
+// ===== SHOPIFY CONFIG =====
+const SHOPIFY_DOMAIN = '0bb404-4.myshopify.com';
+const STOREFRONT_TOKEN = 'f511bf842c4e9b81de6f34c80500c3b2';
+
+let useShopifyCheckout = true;
+
 // ===== TRANSLATIONS =====
 const translations = {
   ca: {
@@ -663,7 +669,91 @@ function renderCartItems() {
   }).join('');
 }
 
-// ===== CHECKOUT via WhatsApp =====
+// ===== CHECKOUT =====
+async function checkout() {
+  if (!cart.length) return;
+  
+  if (useShopifyCheckout) {
+    await checkoutShopify();
+  } else {
+    checkoutWhatsApp();
+  }
+}
+
+async function checkoutShopify() {
+  const checkoutBtn = document.querySelector('.btn-checkout');
+  if (checkoutBtn) {
+    checkoutBtn.disabled = true;
+    checkoutBtn.textContent = t.checkout_redirecting || 'Redirigint...';
+  }
+
+  const lineItems = cart.map(item => {
+    const p = PRODUCTS.find(x => x.id === item.id);
+    if (!p) return null;
+    const variant = p.variants?.find(v => v.flavor === (item.flavor || p.defaultFlavor || p.flavor));
+    return {
+      variantId: variant?.id || p.shopifyId,
+      quantity: item.qty || 1
+    };
+  }).filter(Boolean);
+
+  const query = `
+    mutation checkoutCreate($input: CheckoutCreateInput!) {
+      checkoutCreate(input: $input) {
+        checkout { id webUrl }
+        checkoutUserErrors { message }
+      }
+    }
+  `;
+
+  try {
+    const response = await fetch(`https://${SHOPIFY_DOMAIN}/api/2024-10/graphql.json`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-Shopify-Storefront-Access-Token': STOREFRONT_TOKEN
+      },
+      body: JSON.stringify({ 
+        query, 
+        variables: { input: { lineItems } }
+      })
+    });
+    
+    const json = await response.json();
+    
+    if (json.errors) {
+      console.error('Shopify checkout error:', json.errors);
+      alert(t.checkout_error || 'Error al crear el checkout');
+      if (checkoutBtn) {
+        checkoutBtn.disabled = false;
+        checkoutBtn.textContent = t.cart_checkout || 'Finalitzar comanda';
+      }
+      return;
+    }
+
+    const checkout = json.data?.checkoutCreate?.checkout;
+    if (checkout?.webUrl) {
+      window.location.href = checkout.webUrl;
+    } else {
+      const errors = json.data?.checkoutCreate?.checkoutUserErrors;
+      console.error('Checkout errors:', errors);
+      alert((errors && errors[0]?.message) || t.checkout_error || 'Error al crear el checkout');
+      if (checkoutBtn) {
+        checkoutBtn.disabled = false;
+        checkoutBtn.textContent = t.cart_checkout || 'Finalitzar comanda';
+      }
+    }
+  } catch (e) {
+    console.error('Checkout error:', e);
+    alert(t.checkout_error || 'Error al crear el checkout');
+    if (checkoutBtn) {
+      checkoutBtn.disabled = false;
+      checkoutBtn.textContent = t.cart_checkout || 'Finalitzar comanda';
+    }
+  }
+}
+
+// ===== CHECKOUT via WhatsApp (backup) =====
 function checkoutWhatsApp() {
   if (!cart.length) return;
   const subtotal = calcCartSubtotal();
