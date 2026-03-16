@@ -6,35 +6,22 @@ const SHOPIFY_DOMAIN = '0bb404-4.myshopify.com';
 const STOREFRONT_TOKEN = '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';
 
 async function shopifyFetch(query, variables = {}) {
-  const apiVersions = ['2024-10', '2024-07', '2024-04', '2024-01', '2023-10'];
-  
-  for (const version of apiVersions) {
-    try {
-      const response = await fetch(`https://${SHOPIFY_DOMAIN}/api/${version}/graphql.json`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'X-Shopify-Storefront-Access-Token': STOREFRONT_TOKEN
-        },
-        body: JSON.stringify({ query, variables })
-      });
-      
-      if (response.ok) {
-        const json = await response.json();
-        if (json.errors) {
-          console.error('Shopify API Error:', json.errors);
-          return null;
-        }
-        console.log('Success with API version:', version);
-        return json.data;
-      }
-    } catch (e) {
-      console.log('Failed with API version:', version, e);
-      continue;
+  try {
+    const response = await fetch('/api/shopify', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ query, variables })
+    });
+    const json = await response.json();
+    if (json.errors) {
+      console.error('Shopify API Error:', json.errors);
+      return null;
     }
+    return json.data;
+  } catch (e) {
+    console.error('Shopify fetch error:', e);
+    return null;
   }
-  
-  return null;
 }
 
 async function fetchProductsFromShopify() {
