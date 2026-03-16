@@ -4,7 +4,7 @@
 
 // ===== SHOPIFY CONFIG =====
 const SHOPIFY_DOMAIN = '0bb404-4.myshopify.com';
-const STOREFRONT_TOKEN = 'f511bf842c4e9b81de6f34c80500c3b2';
+const STOREFRONT_TOKEN = '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';
 
 let useShopifyCheckout = true;
 

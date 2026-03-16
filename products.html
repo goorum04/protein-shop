@@ -365,9 +365,14 @@
             </div>`;
 
             try {
+                console.log('Attempting to load products from Shopify...');
                 const shopifyProducts = await fetchProductsFromShopify();
+                console.log('Shopify products response:', shopifyProducts);
                 if (shopifyProducts && shopifyProducts.length > 0) {
                     PRODUCTS = groupProductsByFlavor(shopifyProducts);
+                    console.log('Products loaded from Shopify:', PRODUCTS.length);
+                } else {
+                    console.log('No products from Shopify, using hardcoded products');
                 }
             } catch (e) {
                 console.error('Error loading Shopify products:', e);
