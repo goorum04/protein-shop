@@ -608,7 +608,7 @@ function removeFromCart(id, flavor) {
 function saveCart() { localStorage.setItem('nlvip_cart', JSON.stringify(cart)); }
 
 function updateCartBadge() {
-  const count = cart.reduce((s, i) => s + (i.qty || 1), 0);
+  const count = cart.reduce((s, i) => s + (i.qty || 0), 0);
   document.querySelectorAll('#cart-count').forEach(el => el.textContent = count);
 
   const subtotal = calcCartSubtotal();
