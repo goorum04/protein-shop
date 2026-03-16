@@ -361,9 +361,12 @@
                 document.querySelectorAll('.sidebar-cat').forEach(b => b.classList.toggle('active', b.dataset.cat === catParam));
             }
 
-           initProducts().then(() => {
+           (async () => {
+  if (typeof initProducts === 'function') {
+    await initProducts();
+  }
   renderProducts();
-});
+})();
 
             // Category buttons
             document.querySelectorAll('.sidebar-cat').forEach(btn => {
