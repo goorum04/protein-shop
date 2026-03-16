@@ -7,14 +7,14 @@ export default async function handler(req) {
   const body = await req.text();
 
   const response = await fetch(
-    https://${SHOPIFY_DOMAIN}/api/2024-10/graphql.json,
+    'https://' + SHOPIFY_DOMAIN + '/api/2024-10/graphql.json',
     {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
         'Shopify-Storefront-Private-Token': STOREFRONT_TOKEN
       },
-      body
+      body: body
     }
   );
 
