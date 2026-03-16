@@ -3,7 +3,7 @@
 // ===========================================
 
 const SHOPIFY_DOMAIN = '0bb404-4.myshopify.com';
-const STOREFRONT_TOKEN = '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';
+const STOREFRONT_TOKEN = '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';
 
 async function shopifyFetch(query, variables = {}) {
   try {
