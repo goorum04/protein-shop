@@ -3,10 +3,7 @@
 // =============================================
 
 // ===== SHOPIFY CONFIG =====
-const SHOPIFY_DOMAIN = '0bb404-4.myshopify.com';
-const STOREFRONT_TOKEN = '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';
-
-let useShopifyCheckout = true;
+// (Cargado desde shopify.js)
 
 // ===== TRANSLATIONS =====
 const translations = {
