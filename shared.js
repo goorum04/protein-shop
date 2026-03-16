@@ -701,37 +701,13 @@ async function checkoutShopify() {
   `;
 
   try {
-    const response = await fetch(`https://${SHOPIFY_DOMAIN}/api/2024-10/graphql.json`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'X-Shopify-Storefront-Access-Token': STOREFRONT_TOKEN
-      },
-      body: JSON.stringify({ 
-        query, 
-        variables: { input: { lineItems } }
-      })
-    });
+    const data = await shopifyFetch(query, { input: { lineItems } });
     
-    const json = await response.json();
-    
-    if (json.errors) {
-      console.error('Shopify checkout error:', json.errors);
-      alert(t.checkout_error || 'Error al crear el checkout');
-      if (checkoutBtn) {
-        checkoutBtn.disabled = false;
-        checkoutBtn.textContent = t.cart_checkout || 'Finalitzar comanda';
-      }
-      return;
-    }
-
-    const checkout = json.data?.checkoutCreate?.checkout;
-    if (checkout?.webUrl) {
-      window.location.href = checkout.webUrl;
+    if (data?.checkoutCreate?.checkout?.webUrl) {
+      window.location.href = data.checkoutCreate.checkout.webUrl;
     } else {
-      const errors = json.data?.checkoutCreate?.checkoutUserErrors;
-      console.error('Checkout errors:', errors);
-      alert((errors && errors[0]?.message) || t.checkout_error || 'Error al crear el checkout');
+      console.error('Checkout error:', data?.checkoutCreate?.checkoutUserErrors);
+      alert(t.checkout_error || 'Error al crear el checkout');
       if (checkoutBtn) {
         checkoutBtn.disabled = false;
         checkoutBtn.textContent = t.cart_checkout || 'Finalitzar comanda';
