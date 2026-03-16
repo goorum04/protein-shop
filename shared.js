@@ -667,11 +667,11 @@ function renderCartItems() {
 }
 
 // ===== CHECKOUT =====
-function checkout() {
+async function checkout() {
   if (!cart.length) return;
   
-  // Redirect to Shopify store for checkout
-  window.open('https://0bb404-4.myshopify.com/', '_blank');
+  // Use Shopify API to create checkout and redirect to payment
+  await checkoutShopify();
 }
 
 async function checkoutShopify() {
