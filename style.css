@@ -2244,4 +2244,18 @@ min-width: 0;
     max-width: 280px;
   }
 }
-
+@media (max-width: 768px) {
+  .shop-layout > * {
+    min-width: 0;
+    overflow: hidden;
+  }
+  
+  .grid-auto {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+  }
+  
+  body {
+    overflow-x: hidden;
+  }
+}
