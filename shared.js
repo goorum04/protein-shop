@@ -715,13 +715,43 @@ async function checkoutShopify() {
 
   // Try API approach first
   const query = `
-    mutation checkoutCreate($input: CheckoutCreateInput!) {
-      checkoutCreate(input: $input) {
-        checkout { id webUrl }
-        checkoutUserErrors { message field }
+  mutation cartCreate($input: CartInput!) {
+    cartCreate(input: $input) {
+      cart {
+        id
+        checkoutUrl
+      }
+      userErrors {
+        message
       }
     }
-  `;
+  }
+`;
+
+try {
+  const data = await shopifyFetch(query, { 
+    input: { 
+      lines: lineItems.map(item => ({
+        merchandiseId: item.id,
+        quantity: item.quantity
+      }))
+    }
+  });
+  
+  if (data?.cartCreate?.cart?.checkoutUrl) {
+    window.location.href = data.cartCreate.cart.checkoutUrl;
+  } else {
+    console.error('Cart error:', data?.cartCreate?.userErrors);
+    alert('Error al procesar el pago. Inténtalo de nuevo.');
+    if (checkoutBtn) {
+      checkoutBtn.disabled = false;
+      checkoutBtn.textContent = 'Finalizar compra';
+    }
+  }
+} catch(e) {
+  console.error('Cart error:', e);
+  alert('Error al procesar el pago. Inténtalo de nuevo.');
+}
 
   try {
     const data = await shopifyFetch(query, { input: { lineItems } });
