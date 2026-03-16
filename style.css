@@ -503,6 +503,11 @@ body::before {
   grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
   gap: 20px;
 }
+@media (max-width: 480px) {
+  .grid-auto {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
 
 /* ===== GLASS CARD ===== */
 .glass-card {
