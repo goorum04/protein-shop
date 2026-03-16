@@ -681,46 +681,39 @@ async function checkoutShopify() {
     checkoutBtn.textContent = t.checkout_redirecting || 'Redirigint...';
   }
 
-  console.log('Creating checkout with cart:', cart);
-  console.log('Products available:', PRODUCTS.slice(0, 3));
-
+  // Build checkout URL with line items
   const lineItems = cart.map(item => {
     const p = PRODUCTS.find(x => x.id === item.id);
-    if (!p) {
-      console.warn('Product not found:', item.id);
-      return null;
+    if (!p) return null;
+    
+    let variantId = null;
+    
+    // Try to find the right variant
+    if (p.variants && p.variants.length > 0) {
+      if (item.flavor) {
+        const variant = p.variants.find(v => v.flavor === item.flavor);
+        if (variant) variantId = variant.id;
+      }
+      if (!variantId && p.defaultFlavor) {
+        const variant = p.variants.find(v => v.flavor === p.defaultFlavor);
+        if (variant) variantId = variant.id;
+      }
+      if (!variantId) {
+        variantId = p.variants[0].id;
+      }
     }
     
-    let variant = null;
-    
-    // First try to find by flavor
-    if (item.flavor && p.variants) {
-      variant = p.variants.find(v => v.flavor === item.flavor);
-    }
-    
-    // If not found, try default flavor
-    if (!variant && p.defaultFlavor && p.variants) {
-      variant = p.variants.find(v => v.flavor === p.defaultFlavor);
-    }
-    
-    // If still not found, use first available variant
-    if (!variant && p.variants && p.variants.length > 0) {
-      variant = p.variants[0];
-    }
-    
-    // If still no variant, use the product itself
-    const variantId = variant?.id || p.shopifyId;
-    
-    console.log('Item:', item.id, 'Variant:', variant?.id, 'Flavor:', item.flavor);
+    if (!variantId) variantId = p.shopifyId;
     
     return {
-      variantId: variantId,
+      id: variantId,
       quantity: item.qty || 1
     };
   }).filter(Boolean);
 
-  console.log('Line items for checkout:', lineItems);
+  console.log('Checkout lineItems:', lineItems);
 
+  // Try API approach first
   const query = `
     mutation checkoutCreate($input: CheckoutCreateInput!) {
       checkoutCreate(input: $input) {
@@ -733,26 +726,30 @@ async function checkoutShopify() {
   try {
     const data = await shopifyFetch(query, { input: { lineItems } });
     
-    console.log('Checkout response:', data);
+    console.log('Checkout API response:', data);
     
     if (data?.checkoutCreate?.checkout?.webUrl) {
       window.location.href = data.checkoutCreate.checkout.webUrl;
-    } else {
-      const errors = data?.checkoutCreate?.checkoutUserErrors;
-      console.error('Checkout errors:', errors);
-      alert((errors && errors[0]?.message) || t.checkout_error || 'Error al crear el checkout');
-      if (checkoutBtn) {
-        checkoutBtn.disabled = false;
-        checkoutBtn.textContent = t.cart_checkout || 'Finalitzar comanda';
-      }
+      return;
     }
+    
+    // If API fails, show error
+    const errors = data?.checkoutCreate?.checkoutUserErrors;
+    console.error('Checkout errors:', errors);
+    const errorMsg = errors && errors.length > 0 
+      ? errors.map(e => e.message).join(', ') 
+      : 'Error al crear el checkout';
+    alert(errorMsg);
+    
   } catch (e) {
-    console.error('Checkout error:', e);
-    alert(t.checkout_error || 'Error al crear el checkout');
-    if (checkoutBtn) {
-      checkoutBtn.disabled = false;
-      checkoutBtn.textContent = t.cart_checkout || 'Finalitzar comanda';
-    }
+    console.error('Checkout exception:', e);
+    alert('Error al procesar el pago. Por favor, contacta con nosotros.');
+  }
+  
+  // Reset button if failed
+  if (checkoutBtn) {
+    checkoutBtn.disabled = false;
+    checkoutBtn.textContent = t.cart_checkout || 'Finalitzar comanda';
   }
 }
 
