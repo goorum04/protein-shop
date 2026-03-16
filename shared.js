@@ -681,21 +681,51 @@ async function checkoutShopify() {
     checkoutBtn.textContent = t.checkout_redirecting || 'Redirigint...';
   }
 
+  console.log('Creating checkout with cart:', cart);
+  console.log('Products available:', PRODUCTS.slice(0, 3));
+
   const lineItems = cart.map(item => {
     const p = PRODUCTS.find(x => x.id === item.id);
-    if (!p) return null;
-    const variant = p.variants?.find(v => v.flavor === (item.flavor || p.defaultFlavor || p.flavor));
+    if (!p) {
+      console.warn('Product not found:', item.id);
+      return null;
+    }
+    
+    let variant = null;
+    
+    // First try to find by flavor
+    if (item.flavor && p.variants) {
+      variant = p.variants.find(v => v.flavor === item.flavor);
+    }
+    
+    // If not found, try default flavor
+    if (!variant && p.defaultFlavor && p.variants) {
+      variant = p.variants.find(v => v.flavor === p.defaultFlavor);
+    }
+    
+    // If still not found, use first available variant
+    if (!variant && p.variants && p.variants.length > 0) {
+      variant = p.variants[0];
+    }
+    
+    // If still no variant, use the product itself
+    const variantId = variant?.id || p.shopifyId;
+    
+    console.log('Item:', item.id, 'Variant:', variant?.id, 'Flavor:', item.flavor);
+    
     return {
-      variantId: variant?.id || p.shopifyId,
+      variantId: variantId,
       quantity: item.qty || 1
     };
   }).filter(Boolean);
+
+  console.log('Line items for checkout:', lineItems);
 
   const query = `
     mutation checkoutCreate($input: CheckoutCreateInput!) {
       checkoutCreate(input: $input) {
         checkout { id webUrl }
-        checkoutUserErrors { message }
+        checkoutUserErrors { message field }
       }
     }
   `;
@@ -703,11 +733,14 @@ async function checkoutShopify() {
   try {
     const data = await shopifyFetch(query, { input: { lineItems } });
     
+    console.log('Checkout response:', data);
+    
     if (data?.checkoutCreate?.checkout?.webUrl) {
       window.location.href = data.checkoutCreate.checkout.webUrl;
     } else {
-      console.error('Checkout error:', data?.checkoutCreate?.checkoutUserErrors);
-      alert(t.checkout_error || 'Error al crear el checkout');
+      const errors = data?.checkoutCreate?.checkoutUserErrors;
+      console.error('Checkout errors:', errors);
+      alert((errors && errors[0]?.message) || t.checkout_error || 'Error al crear el checkout');
       if (checkoutBtn) {
         checkoutBtn.disabled = false;
         checkoutBtn.textContent = t.cart_checkout || 'Finalitzar comanda';
