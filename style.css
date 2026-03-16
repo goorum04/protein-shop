@@ -2259,3 +2259,28 @@ min-width: 0;
     overflow-x: hidden;
   }
 }
+@media (max-width: 480px) {
+  .product-card {
+    min-width: 0;
+    width: 100%;
+  }
+  
+  .product-card .product-img {
+    width: 80px;
+    height: 80px;
+  }
+  
+  .product-card .product-name {
+    font-size: 0.75rem;
+  }
+  
+  .product-card .product-price {
+    font-size: 0.85rem;
+  }
+  
+  .product-card .btn-primary,
+  .product-card .btn-add {
+    font-size: 0.7rem;
+    padding: 6px 8px;
+  }
+}
