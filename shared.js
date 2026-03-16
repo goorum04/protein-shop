@@ -701,17 +701,22 @@ async function checkoutShopify() {
   `;
 
   try {
-    const response = await fetch(`https://${SHOPIFY_DOMAIN}/api/2024-10/graphql.json`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'X-Shopify-Storefront-Access-Token': STOREFRONT_TOKEN
-      },
-      body: JSON.stringify({ 
-        query, 
-        variables: { input: { lineItems } }
-      })
-    });
+  const data = await shopifyFetch(query, { input: { lineItems } });
+  
+  if (data?.checkoutCreate?.checkout?.webUrl) {
+    window.location.href = data.checkoutCreate.checkout.webUrl;
+  } else {
+    console.error('Checkout error:', data?.checkoutCreate?.checkoutUserErrors);
+    alert('Error al procesar el pago. Inténtalo de nuevo.');
+    if (checkoutBtn) {
+      checkoutBtn.disabled = false;
+      checkoutBtn.textContent = 'Finalizar compra';
+    }
+  }
+} catch(e) {
+  console.error('Checkout error:', e);
+  alert('Error al procesar el pago. Inténtalo de nuevo.');
+}
     
     const json = await response.json();
     
