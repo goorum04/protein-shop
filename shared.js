@@ -470,20 +470,7 @@ function updatePageTranslations() {
   window.dispatchEvent(new CustomEvent('languageChanged'));
 }
 
-// Initialize cart - ensure it's always a valid array
-let cart = [];
-try {
-  const storedCart = localStorage.getItem('nlvip_cart');
-  cart = storedCart ? JSON.parse(storedCart) : [];
-  if (!Array.isArray(cart)) cart = [];
-} catch (e) {
-  cart = [];
-}
-
-// Update badge immediately on load
-if (typeof updateCartBadge === 'function') {
-  updateCartBadge();
-}
+let cart = JSON.parse(localStorage.getItem('nlvip_cart') || '[]');
 
 // ===== DISCOUNT CODES =====
 // Format: 'CODE': { type: 'percent'|'fixed', value: <number>, label: <string> }
@@ -621,11 +608,6 @@ function removeFromCart(id, flavor) {
 function saveCart() { localStorage.setItem('nlvip_cart', JSON.stringify(cart)); }
 
 function updateCartBadge() {
-  // Ensure cart is a valid array
-  if (!Array.isArray(cart)) {
-    cart = [];
-    saveCart();
-  }
   const count = cart.reduce((s, i) => s + (i.qty || 1), 0);
   document.querySelectorAll('#cart-count').forEach(el => el.textContent = count);
 
