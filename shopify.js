@@ -2,8 +2,8 @@
 // CONFIGURACIÓN DE SHOPIFY
 // ===========================================
 
-const SHOPIFY_DOMAIN = 'nlvipnutrition.myshopify.com';
-const STOREFRONT_TOKEN = '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';
+const SHOPIFY_DOMAIN = '0bb404-4.myshopify.com';
+const STOREFRONT_TOKEN = 'f511bf842c4e9b81de6f34c80500c3b2';
 
 async function shopifyFetch(query, variables = {}) {
   try {
