@@ -214,6 +214,10 @@ body::before {
   align-items: center;
 }
 
+.mobile-search-bar {
+  display: none;
+}
+
 .nav-search input {
   background: var(--surface);
   border: 1.5px solid var(--border);
@@ -1679,6 +1683,36 @@ body::before {
 
   .nav-search {
     display: none;
+  }
+
+  .mobile-search-bar {
+    display: flex;
+    align-items: center;
+    background: var(--surface);
+    border: 1.5px solid var(--border);
+    border-radius: 50px;
+    padding: 10px 16px;
+    margin-bottom: 16px;
+    gap: 10px;
+  }
+
+  .mobile-search-bar svg {
+    color: var(--text-3);
+    flex-shrink: 0;
+  }
+
+  .mobile-search-bar input {
+    background: transparent;
+    border: none;
+    color: var(--text);
+    font-family: inherit;
+    font-size: 0.9rem;
+    width: 100%;
+    outline: none;
+  }
+
+  .mobile-search-bar input::placeholder {
+    color: var(--text-3);
   }
 
   .btn-wa-nav {
