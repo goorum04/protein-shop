@@ -970,6 +970,24 @@ function initShared() {
         hamburger.textContent = '☰';
       });
     });
+  const searchToggle = document.getElementById('search-toggle-mobile');
+const searchBar = document.getElementById('mobile-search-bar');
+const mobileInput = document.getElementById('mobile-search-input');
+
+if (searchToggle && searchBar) {
+  searchToggle.addEventListener('click', () => {
+    searchBar.classList.toggle('open');
+    if (searchBar.classList.contains('open')) mobileInput.focus();
+  });
+  
+  mobileInput?.addEventListener('input', e => {
+    const searchInput = document.getElementById('search-input');
+    if (searchInput) {
+      searchInput.value = e.target.value;
+      searchInput.dispatchEvent(new Event('input'));
+    }
+  });
+}
   }
 
   // Discount code – allow pressing Enter in the input
