@@ -111,7 +111,7 @@ const translations = {
     // Checkout
     checkout_title: "Finalitzar comanda",
     checkout_redirecting: "Redirigint al checkout...",
-    checkout_error: "Error al crear el checkout"
+    checkout_error: "Error al crear el checkout",
   // Home page new keys
 top_strip_shipping: "Enviament gratuït per compres superiors a 70€",
 top_strip_store: "Botiga física: Carrer Esteve Dolsa 15, Andorra",
@@ -274,7 +274,7 @@ cart_checkout_btn: "Finalitzar compra a Shopify 🛒",
     // Checkout
     checkout_title: "Finalizar pedido",
     checkout_redirecting: "Redirigiendo al checkout...",
-    checkout_error: "Error al crear el checkout"
+    checkout_error: "Error al crear el checkout",
 top_strip_shipping: "Envío gratuito en compras superiores a 70€",
 top_strip_store: "Tienda física: Carrer Esteve Dolsa 15, Andorra",
 hero_eyebrow: "Nueva colección 2026",
@@ -435,7 +435,7 @@ cart_checkout_btn: "Finalizar compra en Shopify 🛒",
     // Checkout
     checkout_title: "Finaliser la commande",
     checkout_redirecting: "Redirection vers le checkout...",
-    checkout_error: "Erreur lors de la création du checkout"
+    checkout_error: "Erreur lors de la création du checkout",
   top_strip_shipping: "Livraison gratuite pour les achats supérieurs à 70€",
 top_strip_store: "Boutique physique: Carrer Esteve Dolsa 15, Andorre",
 hero_eyebrow: "Nouvelle collection 2026",
@@ -596,7 +596,7 @@ cart_checkout_btn: "Finaliser l'achat sur Shopify 🛒",
     // Checkout
     checkout_title: "Checkout",
     checkout_redirecting: "Redirecting to checkout...",
-    checkout_error: "Error creating checkout"
+    checkout_error: "Error creating checkout",
  top_strip_shipping: "Free shipping on orders over €70",
 top_strip_store: "Physical store: Carrer Esteve Dolsa 15, Andorra",
 hero_eyebrow: "New collection 2026",
