@@ -85,7 +85,7 @@ const translations = {
     footer_products: "Productes",
     footer_contact: "Contacte",
     footer_legal: "Avís legal",
-    footer_copyright: "© 2024 NL VIP Nutrition Andorra",
+    footer_copyright: "© 2026 NL VIP Nutrition Andorra",
     
     // Misc
     loading: "Carregant...",
@@ -192,7 +192,7 @@ const translations = {
     footer_products: "Productos",
     footer_contact: "Contacto",
     footer_legal: "Aviso legal",
-    footer_copyright: "© 2024 NL VIP Nutrition Andorra",
+    footer_copyright: "© 2026 NL VIP Nutrition Andorra",
     
     // Misc
     loading: "Cargando...",
@@ -299,7 +299,7 @@ const translations = {
     footer_products: "Produits",
     footer_contact: "Contact",
     footer_legal: "Mentions légales",
-    footer_copyright: "© 2024 NL VIP Nutrition Andorra",
+    footer_copyright: "© 2026 NL VIP Nutrition Andorra",
     
     // Misc
     loading: "Chargement...",
@@ -406,7 +406,7 @@ const translations = {
     footer_products: "Products",
     footer_contact: "Contact",
     footer_legal: "Legal notice",
-    footer_copyright: "© 2024 NL VIP Nutrition Andorra",
+    footer_copyright: "© 2026 NL VIP Nutrition Andorra",
     
     // Misc
     loading: "Loading...",
