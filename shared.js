@@ -510,7 +510,7 @@ function initShared() {
   if (hamburger && navLinks) {
     hamburger.addEventListener('click', () => {
       navLinks.classList.toggle('open');
-      hamburger.textContent = navLinks.classList.contains('open') ? '✕' : '☰';
+      hamburger.innerHTML = navLinks.classList.contains('open') ? 'X' : '&#9776;';
     });
     navLinks.querySelectorAll('.nav-link').forEach(link => {
       link.addEventListener('click', () => { navLinks.classList.remove('open'); hamburger.textContent = '
