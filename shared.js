@@ -444,28 +444,17 @@ function t(key) {
 }
 
 function changeLanguage(lang) {
-  console.log('Changing language to:', lang);
   if (translations[lang]) {
     currentLang = lang;
     localStorage.setItem('nlvip_lang', lang);
-    console.log('Translations available for:', lang);
-    console.log('Elements with data-i18n:', document.querySelectorAll('[data-i18n]').length);
     updatePageTranslations();
-    console.log('Page translations updated');
-  } else {
-    console.warn('No translations for language:', lang);
   }
 }
 
 function updatePageTranslations() {
-  const i18nElements = document.querySelectorAll('[data-i18n]');
-  console.log('Found elements to translate:', i18nElements.length);
-  
-  i18nElements.forEach(el => {
+  document.querySelectorAll('[data-i18n]').forEach(el => {
     const key = el.getAttribute('data-i18n');
-    const translated = t(key);
-    console.log('Translating:', key, '->', translated);
-    el.textContent = translated;
+    el.textContent = t(key);
   });
   
   document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
