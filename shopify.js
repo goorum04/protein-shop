@@ -47,6 +47,7 @@ async function fetchProductsFromShopify() {
                 node {
                   id
                   title
+                  image { url altText }
                   price { amount currencyCode }
                   availableForSale
                   selectedOptions { name value }
@@ -70,6 +71,7 @@ function transformProduct(product) {
     title: node.title,
     price: parseFloat(node.price.amount),
     in_stock: node.availableForSale,
+    image: node.image?.url || '',
     flavor: node.selectedOptions.find(o =>
       o.name.toLowerCase() === 'sabor' ||
       o.name.toLowerCase() === 'flavor' ||
