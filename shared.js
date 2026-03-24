@@ -1226,4 +1226,100 @@ function initShared() {
   document.getElementById("discount-input")?.addEventListener("keydown", (e) => {
     if (e.key === "Enter") applyDiscount();
   });
+
+  initGlobalSearch();
+}
+
+// ── Global Search Dropdown ────────────────────────────────
+function initGlobalSearch() {
+  const isProductsPage = !!document.getElementById("products-grid");
+
+  const pairs = [
+    { inputId: "search-input", dropdownId: "search-dropdown" },
+    { inputId: "mobile-search-input", dropdownId: "mobile-search-dropdown" },
+  ];
+
+  pairs.forEach(({ inputId, dropdownId }) => {
+    const input = document.getElementById(inputId);
+    const dropdown = document.getElementById(dropdownId);
+    if (!input || !dropdown) return;
+
+    let timer;
+
+    input.addEventListener("input", (e) => {
+      clearTimeout(timer);
+      const val = e.target.value.trim();
+      if (val.length < 2) { _gsHide(dropdown); return; }
+      timer = setTimeout(() => _gsRender(dropdown, val, isProductsPage), 160);
+    });
+
+    input.addEventListener("focus", (e) => {
+      const val = e.target.value.trim();
+      if (val.length >= 2) _gsRender(dropdown, val, isProductsPage);
+    });
+
+    input.addEventListener("keydown", (e) => {
+      if (e.key === "Escape") { _gsHide(dropdown); input.blur(); }
+    });
+  });
+
+  document.addEventListener("click", (e) => {
+    if (!e.target.closest(".nav-search") && !e.target.closest(".mobile-search-bar")) {
+      document.querySelectorAll(".search-dropdown").forEach(_gsHide);
+    }
+  });
+}
+
+function _gsRender(dropdown, rawQ, isProductsPage) {
+  const q = rawQ.toLowerCase();
+  const products = window.PRODUCTS || [];
+  const results = products.filter((p) =>
+    p.name.toLowerCase().includes(q) ||
+    (p.brand || "").toLowerCase().includes(q) ||
+    (p.flavor || "").toLowerCase().includes(q) ||
+    (p.allFlavors || []).some((f) => f.toLowerCase().includes(q))
+  ).slice(0, 6);
+
+  if (!results.length) {
+    dropdown.innerHTML = `<div class="search-dropdown-empty">Cap resultat per a "<strong>${escHtml(rawQ)}</strong>"</div>`;
+    dropdown.classList.add("open");
+    return;
+  }
+
+  const rows = results.map((p) => {
+    const href = isProductsPage
+      ? "javascript:void(0)"
+      : `products.html?openProduct=${encodeURIComponent(p.id)}`;
+    const clickAttr = isProductsPage
+      ? `onclick="event.preventDefault();_gsSelect('${escHtml(p.id)}')"` : "";
+    const price = p.price != null
+      ? `<div class="search-result-price">${p.price.toFixed(2).replace(".", ",")} €</div>` : "";
+    const dot = `<span class="search-result-dot search-result-dot--${p.in_stock ? "in" : "out"}"></span>`;
+    return `<a href="${href}" class="search-result-item" ${clickAttr} tabindex="0">
+      <div class="search-result-img"><img src="${escHtml(p.image || "")}" alt="" loading="lazy" onerror="this.src='https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?w=80&q=60'"></div>
+      <div class="search-result-info">
+        <div class="search-result-brand">${escHtml(p.brand || "")}</div>
+        <div class="search-result-name">${escHtml(p.name)}</div>
+        ${price}
+      </div>
+      ${dot}
+    </a>`;
+  }).join("");
+
+  const footer = `<a href="products.html?search=${encodeURIComponent(rawQ)}" class="search-dropdown-footer">Veure tots els resultats →</a>`;
+  dropdown.innerHTML = rows + footer;
+  dropdown.classList.add("open");
+}
+
+function _gsSelect(id) {
+  document.querySelectorAll(".search-dropdown").forEach(_gsHide);
+  ["search-input", "mobile-search-input"].forEach((elId) => {
+    const el = document.getElementById(elId);
+    if (el) el.value = "";
+  });
+  if (typeof openModal === "function") openModal(id);
+}
+
+function _gsHide(dropdown) {
+  if (dropdown) dropdown.classList.remove("open");
 }

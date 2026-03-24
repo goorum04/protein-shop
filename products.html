@@ -58,8 +58,11 @@
                     <option value="en">🇬🇧</option>
                 </select>
                 <div class="nav-search">
+                  <div class="search-wrap">
                     <input type="search" id="search-input" placeholder="Cerca productes..." data-i18n-placeholder="products_search"
-                        aria-label="Cerca productes" />
+                        aria-label="Cerca productes" autocomplete="off" />
+                    <div class="search-dropdown" id="search-dropdown"></div>
+                  </div>
                 </div>
                 <a href="https://wa.me/376645263" target="_blank" rel="noopener" class="btn-wa-nav">
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
@@ -82,7 +85,8 @@
   </svg>
 </button>
 <div class="mobile-search-bar" id="mobile-search-bar">
-  <input type="search" id="mobile-search-input" placeholder="Cerca productes..." />
+  <input type="search" id="mobile-search-input" placeholder="Cerca productes..." autocomplete="off" />
+  <div class="search-dropdown" id="mobile-search-dropdown"></div>
 </div>
                 <button class="btn-hamburger" id="hamburger" aria-label="Menú">☰</button>
             </div>
@@ -400,6 +404,23 @@
     await initProducts();
   }
   renderProducts();
+
+  // Handle ?search URL param
+  const searchParam = params.get('search');
+  if (searchParam) {
+    searchQuery = searchParam.toLowerCase();
+    const si = document.getElementById('search-input');
+    if (si) si.value = searchParam;
+    renderProducts();
+  }
+
+  // Handle ?openProduct URL param
+  const openProductParam = params.get('openProduct');
+  if (openProductParam) {
+    setTimeout(() => {
+      if (typeof openModal === 'function') openModal(decodeURIComponent(openProductParam));
+    }, 150);
+  }
 })();
 
             // Category buttons
