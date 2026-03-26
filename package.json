@@ -1,9 +1,0 @@
-{
-  "name": "protein-shop",
-  "version": "1.0.0",
-  "private": true,
-  "description": "NL VIP Nutrition Store",
-  "scripts": {
-    "start": "npx serve ."
-  }
-}
