@@ -1,5 +1,5 @@
 // =============================================
-// shared.js – Shared functionality across pages
+// shared.js \u2013 Shared functionality across pages
 // =============================================
 
 // ===== SHOPIFY CONFIG =====
@@ -17,16 +17,16 @@ const translations = {
     
     // Home
     hero_title: "Assolir els teus objectius",
-    hero_subtitle: "Som el teu partner fitness a Andorra. Productes de qualitat, assessorament expert i的结果",
+    hero_subtitle: "Som el teu partner fitness a Andorra. Productes de qualitat, assessorament expert i resultats",
     hero_cta: "Veure productes",
     home_featured: "Productes destacats",
-    home_mes: "més venuts",
+    home_mes: "m\u00e9s venuts",
     home_cat_title: "Categories",
     home_products_count: "productes",
     
     // Products
     products_title: "Botiga",
-    products_subtitle: "Més de 500 productes de les millors marques",
+    products_subtitle: "M\u00e9s de 500 productes de les millors marques",
     products_search: "Cerca productes...",
     products_filter: "Filtrar",
     products_sort: "Ordenar per",
@@ -34,7 +34,7 @@ const translations = {
     products_sort_price_asc: "Preu: menor a major",
     products_sort_price_desc: "Preu: major a menor",
     products_sort_name: "Nom A-Z",
-    products_stock: "Només en stock",
+    products_stock: "Nom\u00e9s en stock",
     products_no_results: "No s'han trobat productes",
     products_contact: "Contacta'ns per WhatsApp",
     products_count: "producte",
@@ -45,7 +45,7 @@ const translations = {
     // Product Card
     product_in_stock: "En estoc",
     product_out_stock: "Esgotat",
-    product_add: "Afegir 🛒",
+    product_add: "Afegir \ud83d\uded2",
     product_format: "Format:",
     product_flavors: "sabors disponibles",
     
@@ -56,7 +56,7 @@ const translations = {
     
     // Cart
     cart_title: "El teu carret",
-    cart_empty: "El teu carret és buit 🛒",
+    cart_empty: "El teu carret \u00e9s buit \ud83d\uded2",
     cart_subtotal: "Subtotal",
     cart_discount: "Descompte",
     cart_total: "Total",
@@ -71,8 +71,8 @@ const translations = {
     // Services (Assessoria)
     services_title: "Els nostres serveis",
     services_subtitle: "T'oferim tot el que necessites per assolir els teus objectius",
-    service_contact: "Contactar ara →",
-    service_book: "Reservar ara →",
+    service_contact: "Contactar ara \u2192",
+    service_book: "Reservar ara \u2192",
     
     // Contact
     contact_title: "Contacte",
@@ -81,29 +81,29 @@ const translations = {
     contact_email: "info@nlvipnutrition.com",
     
     // Footer
-    footer_links: "Enllaços ràpids",
+    footer_links: "Enlla\u00e7os r\u00e0pids",
     footer_products: "Productes",
     footer_contact: "Contacte",
-    footer_legal: "Avís legal",
-    footer_copyright: "© 2026 NL VIP Nutrition Andorra",
+    footer_legal: "Av\u00eds legal",
+    footer_copyright: "\u00a9 2026 NL VIP Nutrition Andorra",
     
     // Misc
     loading: "Carregant...",
     error: "Error",
     close: "Tancar",
-    cancel: "Cancel·lar",
+    cancel: "Cancel\u00b7lar",
     confirm: "Confirmar",
-    yes: "Sí",
+    yes: "S\u00ed",
     no: "No",
     
     // Categories
     cat_all: "Tots els productes",
-    cat_proteinas: "Proteïnes",
+    cat_proteinas: "Prote\u00efnes",
     cat_creatina: "Creatina",
     cat_preworkout: "Pre-Workout",
     cat_massgainer: "Mass Gainer",
     cat_vitaminas: "Vitamines",
-    cat_alimentacion: "Alimentació",
+    cat_alimentacion: "Alimentaci\u00f3",
     cat_controlpeso: "Control de Pes",
     cat_carbohidratos: "Carbohidrats",
     cat_prehormonal: "Prehormonal",
@@ -119,16 +119,16 @@ const translations = {
     search_view_all: "Veure tots els resultats",
 
     // Home page new keys
-top_strip_shipping: "Enviament gratuït per compres superiors a 70€",
-top_strip_store: "Botiga física: Carrer Esteve Dolsa 15, Andorra",
-hero_eyebrow: "Nova col·lecció 2026",
+top_strip_shipping: "Enviament gratu\u00eft per compres superiors a 70\u20ac",
+top_strip_store: "Botiga f\u00edsica: Carrer Esteve Dolsa 15, Andorra",
+hero_eyebrow: "Nova col\u00b7lecci\u00f3 2026",
 hero_title_1: "Supera",
 hero_title_2: "els teus",
-hero_title_3: "límits",
-hero_desc: "La botiga de suplements esportius número 1 a Andorra. Proteïnes, creatina, pre-workout i molt més de les millors marques del món.",
-hero_notice: "Tenim molts més productes dels que apareixen a la web. Escriu-nos per WhatsApp →",
+hero_title_3: "l\u00edmits",
+hero_desc: "La botiga de suplements esportius n\u00famero 1 a Andorra. Prote\u00efnes, creatina, pre-workout i molt m\u00e9s de les millors marques del m\u00f3n.",
+hero_notice: "Tenim molts m\u00e9s productes dels que apareixen a la web. Escriu-nos per WhatsApp \u2192",
 hero_cta_shop: "Explorar productes",
-hero_cta_wa: "Assessorament gratuït",
+hero_cta_wa: "Assessorament gratu\u00eft",
 stat_products: "Productes",
 stat_clients: "Clients",
 stat_quality: "Qualitat",
@@ -139,40 +139,40 @@ cats_sub: "Troba exactament el que necessites per als teus objectius esportius",
 cat_products: "productes",
 featured_tag: "Destacats",
 featured_title: "Productes",
-featured_title_2: "més venuts",
-featured_see_all: "Veure tots →",
+featured_title_2: "m\u00e9s venuts",
+featured_see_all: "Veure tots \u2192",
 nxt_tag: "Suplement Premium",
-nxt_title: "La proteïna de vedella pura",
-nxt_desc: "NXT Beef Protein Isolate — 27g de proteïna per servei, sense lactosa, sense greix.",
-nxt_feat1: "27g proteïna / servei",
-nxt_feat2: "Sense lactosa · Baix en greix",
+nxt_title: "La prote\u00efna de vedella pura",
+nxt_desc: "NXT Beef Protein Isolate \u2014 27g de prote\u00efna per servei, sense lactosa, sense greix.",
+nxt_feat1: "27g prote\u00efna / servei",
+nxt_feat2: "Sense lactosa \u00b7 Baix en greix",
 nxt_feat3: "Multiple sabors disponibles",
 nxt_feat4: "Disponible a la botiga ara",
 nxt_cta1: "Veure producte",
 nxt_cta2: "Consulta disponibilitat",
-why_tag: "Per què nosaltres",
-why_title: "La diferència NL VIP",
-why_sub: "Més que una botiga. Som el teu company d'entrenament a Andorra.",
+why_tag: "Per qu\u00e8 nosaltres",
+why_title: "La difer\u00e8ncia NL VIP",
+why_sub: "M\u00e9s que una botiga. Som el teu company d'entrenament a Andorra.",
 why_1_title: "Qualitat garantida",
-why_1_desc: "Treballem únicament amb marques de confiança internacional",
+why_1_desc: "Treballem \u00fanicament amb marques de confian\u00e7a internacional",
 why_2_title: "Assessorament expert",
 why_2_desc: "El nostre equip t'ajuda a triar el producte perfecte per als teus objectius",
-why_3_title: "Botiga física a Andorra",
+why_3_title: "Botiga f\u00edsica a Andorra",
 why_3_desc: "Vine a veure'ns al Carrer Esteve Dolsa 15 i prova-ho en persona",
 why_4_title: "WhatsApp 24h",
 why_4_desc: "Escriu-nos i et respondrem personalment amb consells i disponibilitat",
 why_badge: "clients satisfets",
 wa_cta_title: "No trobes el que busques?",
-wa_cta_desc: "Tenim molts més productes dels que apareixen a la web. Contacta'ns per WhatsApp i t'assessorem personalment.",
+wa_cta_desc: "Tenim molts m\u00e9s productes dels que apareixen a la web. Contacta'ns per WhatsApp i t'assessorem personalment.",
 wa_cta_btn: "Escriu-nos ara",
-wa_cta_catalog: "Veure catàleg complet",
-footer_desc: "La teva botiga de suplements esportius de confiança a Andorra.",
+wa_cta_catalog: "Veure cat\u00e0leg complet",
+footer_desc: "La teva botiga de suplements esportius de confian\u00e7a a Andorra.",
 footer_products_title: "Productes",
 footer_company_title: "Empresa",
 footer_about: "Sobre nosaltres",
 footer_rights: "Tots els drets reservats",
 cart_total_label: "Total:",
-cart_checkout_btn: "Finalitzar compra a Shopify 🛒",
+cart_checkout_btn: "Finalitzar compra a Shopify \ud83d\uded2",
   
   },
   
@@ -181,7 +181,7 @@ cart_checkout_btn: "Finalitzar compra a Shopify 🛒",
     nav_inici: "Inicio",
     nav_productes: "Productos",
     nav_nosaltres: "Nosotros",
-    nav_assessoria: "Asesoría",
+    nav_assessoria: "Asesor\u00eda",
     nav_contacte: "Contacto",
     
     // Home
@@ -189,13 +189,13 @@ cart_checkout_btn: "Finalitzar compra a Shopify 🛒",
     hero_subtitle: "Somos tu partner fitness en Andorra. Productos de calidad, asesoramiento experto y resultados garantizados",
     hero_cta: "Ver productos",
     home_featured: "Productos destacados",
-    home_mes: "más vendidos",
-    home_cat_title: "Categorías",
+    home_mes: "m\u00e1s vendidos",
+    home_cat_title: "Categor\u00edas",
     home_products_count: "productos",
     
     // Products
     products_title: "Tienda",
-    products_subtitle: "Más de 500 productos de las mejores marcas",
+    products_subtitle: "M\u00e1s de 500 productos de las mejores marcas",
     products_search: "Buscar productos...",
     products_filter: "Filtrar",
     products_sort: "Ordenar por",
@@ -205,7 +205,7 @@ cart_checkout_btn: "Finalitzar compra a Shopify 🛒",
     products_sort_name: "Nombre A-Z",
     products_stock: "Solo en stock",
     products_no_results: "No se han encontrado productos",
-    products_contact: "Contáctanos por WhatsApp",
+    products_contact: "Cont\u00e1ctanos por WhatsApp",
     products_count: "producto",
     products_count_plural: "productos",
     products_loading: "Cargando productos...",
@@ -214,34 +214,34 @@ cart_checkout_btn: "Finalitzar compra a Shopify 🛒",
     // Product Card
     product_in_stock: "En stock",
     product_out_stock: "Agotado",
-    product_add: "Añadir 🛒",
+    product_add: "A\u00f1adir \ud83d\uded2",
     product_format: "Formato:",
     product_flavors: "sabores disponibles",
     
     // Modal
     modal_close: "Cerrar",
-    modal_add_cart: "Añadir al carrito",
+    modal_add_cart: "A\u00f1adir al carrito",
     modal_contact_wa: "Contactar por WhatsApp",
     
     // Cart
     cart_title: "Tu carrito",
-    cart_empty: "Tu carrito está vacío 🛒",
+    cart_empty: "Tu carrito est\u00e1 vac\u00edo \ud83d\uded2",
     cart_subtotal: "Subtotal",
     cart_discount: "Descuento",
     cart_total: "Total",
     cart_checkout: "Finalizar pedido",
     cart_continue: "Seguir comprando",
     cart_remove: "Eliminar",
-    cart_coupon: "Código de descuento",
-    cart_coupon_placeholder: "Introduce el código",
+    cart_coupon: "C\u00f3digo de descuento",
+    cart_coupon_placeholder: "Introduce el c\u00f3digo",
     cart_coupon_apply: "Aplicar",
     cart_coupon_remove: "Quitar",
     
     // Services (Assessoria)
     services_title: "Nuestros servicios",
     services_subtitle: "Te oferecemos todo lo que necesitas para alcanzar tus objetivos",
-    service_contact: "Contactar ahora →",
-    service_book: "Reservar ahora →",
+    service_contact: "Contactar ahora \u2192",
+    service_book: "Reservar ahora \u2192",
     
     // Contact
     contact_title: "Contacto",
@@ -250,11 +250,11 @@ cart_checkout_btn: "Finalitzar compra a Shopify 🛒",
     contact_email: "info@nlvipnutrition.com",
     
     // Footer
-    footer_links: "Enlaces rápidos",
+    footer_links: "Enlaces r\u00e1pidos",
     footer_products: "Productos",
     footer_contact: "Contacto",
     footer_legal: "Aviso legal",
-    footer_copyright: "© 2026 NL VIP Nutrition Andorra",
+    footer_copyright: "\u00a9 2026 NL VIP Nutrition Andorra",
     
     // Misc
     loading: "Cargando...",
@@ -262,17 +262,17 @@ cart_checkout_btn: "Finalitzar compra a Shopify 🛒",
     close: "Cerrar",
     cancel: "Cancelar",
     confirm: "Confirmar",
-    yes: "Sí",
+    yes: "S\u00ed",
     no: "No",
     
     // Categories
     cat_all: "Todos los productos",
-    cat_proteinas: "Proteínas",
+    cat_proteinas: "Prote\u00ednas",
     cat_creatina: "Creatina",
     cat_preworkout: "Pre-Workout",
     cat_massgainer: "Mass Gainer",
     cat_vitaminas: "Vitaminas",
-    cat_alimentacion: "Alimentación",
+    cat_alimentacion: "Alimentaci\u00f3n",
     cat_controlpeso: "Control de Peso",
     cat_carbohidratos: "Carbohidratos",
     cat_prehormonal: "Prehormonal",
@@ -288,60 +288,60 @@ cart_checkout_btn: "Finalitzar compra a Shopify 🛒",
     search_view_all: "Ver todos los resultados",
 
     // Home page new keys
-top_strip_shipping: "Envío gratuito en compras superiores a 70€",
-top_strip_store: "Tienda física: Carrer Esteve Dolsa 15, Andorra",
-hero_eyebrow: "Nueva colección 2026",
+top_strip_shipping: "Env\u00edo gratuito en compras superiores a 70\u20ac",
+top_strip_store: "Tienda f\u00edsica: Carrer Esteve Dolsa 15, Andorra",
+hero_eyebrow: "Nueva colecci\u00f3n 2026",
 hero_title_1: "Supera",
 hero_title_2: "tus",
-hero_title_3: "límites",
-hero_desc: "La tienda de suplementos deportivos número 1 en Andorra. Proteínas, creatina, pre-workout y mucho más de las mejores marcas del mundo.",
-hero_notice: "Tenemos muchos más productos de los que aparecen en la web. Escríbenos por WhatsApp →",
+hero_title_3: "l\u00edmites",
+hero_desc: "La tienda de suplementos deportivos n\u00famero 1 en Andorra. Prote\u00ednas, creatina, pre-workout y mucho m\u00e1s de las mejores marcas del mundo.",
+hero_notice: "Tenemos muchos m\u00e1s productos de los que aparecen en la web. Escr\u00edbenos por WhatsApp \u2192",
 hero_cta_shop: "Explorar productos",
 hero_cta_wa: "Asesoramiento gratuito",
 stat_products: "Productos",
 stat_clients: "Clientes",
 stat_quality: "Calidad",
-cats_tag: "Categorías",
+cats_tag: "Categor\u00edas",
 cats_title: "Explora por",
-cats_highlight: "categoría",
+cats_highlight: "categor\u00eda",
 cats_sub: "Encuentra exactamente lo que necesitas para tus objetivos deportivos",
 cat_products: "productos",
 featured_tag: "Destacados",
 featured_title: "Productos",
-featured_title_2: "más vendidos",
-featured_see_all: "Ver todos →",
+featured_title_2: "m\u00e1s vendidos",
+featured_see_all: "Ver todos \u2192",
 nxt_tag: "Suplemento Premium",
-nxt_title: "La proteína de ternera pura",
-nxt_desc: "NXT Beef Protein Isolate — 27g de proteína por servicio, sin lactosa, sin grasa.",
-nxt_feat1: "27g proteína / servicio",
-nxt_feat2: "Sin lactosa · Bajo en grasa",
-nxt_feat3: "Múltiples sabores disponibles",
+nxt_title: "La prote\u00edna de ternera pura",
+nxt_desc: "NXT Beef Protein Isolate \u2014 27g de prote\u00edna por servicio, sin lactosa, sin grasa.",
+nxt_feat1: "27g prote\u00edna / servicio",
+nxt_feat2: "Sin lactosa \u00b7 Bajo en grasa",
+nxt_feat3: "M\u00faltiples sabores disponibles",
 nxt_feat4: "Disponible en la tienda ahora",
 nxt_cta1: "Ver producto",
 nxt_cta2: "Consultar disponibilidad",
-why_tag: "Por qué nosotros",
+why_tag: "Por qu\u00e9 nosotros",
 why_title: "La diferencia NL VIP",
-why_sub: "Más que una tienda. Somos tu compañero de entrenamiento en Andorra.",
+why_sub: "M\u00e1s que una tienda. Somos tu compa\u00f1ero de entrenamiento en Andorra.",
 why_1_title: "Calidad garantizada",
-why_1_desc: "Trabajamos únicamente con marcas de confianza internacional",
+why_1_desc: "Trabajamos \u00fanicamente con marcas de confianza internacional",
 why_2_title: "Asesoramiento experto",
 why_2_desc: "Nuestro equipo te ayuda a elegir el producto perfecto para tus objetivos",
-why_3_title: "Tienda física en Andorra",
-why_3_desc: "Visítanos en Carrer Esteve Dolsa 15 y pruébalo en persona",
+why_3_title: "Tienda f\u00edsica en Andorra",
+why_3_desc: "Vis\u00edtanos en Carrer Esteve Dolsa 15 y pru\u00e9balo en persona",
 why_4_title: "WhatsApp 24h",
-why_4_desc: "Escríbenos y te responderemos personalmente con consejos y disponibilidad",
+why_4_desc: "Escr\u00edbenos y te responderemos personalmente con consejos y disponibilidad",
 why_badge: "clientes satisfechos",
-wa_cta_title: "¿No encuentras lo que buscas?",
-wa_cta_desc: "Tenemos muchos más productos de los que aparecen en la web. Contáctanos por WhatsApp y te asesoramos personalmente.",
-wa_cta_btn: "Escríbenos ahora",
-wa_cta_catalog: "Ver catálogo completo",
+wa_cta_title: "\u00bfNo encuentras lo que buscas?",
+wa_cta_desc: "Tenemos muchos m\u00e1s productos de los que aparecen en la web. Cont\u00e1ctanos por WhatsApp y te asesoramos personalmente.",
+wa_cta_btn: "Escr\u00edbenos ahora",
+wa_cta_catalog: "Ver cat\u00e1logo completo",
 footer_desc: "Tu tienda de suplementos deportivos de confianza en Andorra.",
 footer_products_title: "Productos",
 footer_company_title: "Empresa",
 footer_about: "Sobre nosotros",
 footer_rights: "Todos los derechos reservados",
 cart_total_label: "Total:",
-cart_checkout_btn: "Finalizar compra en Shopify 🛒", 
+cart_checkout_btn: "Finalizar compra en Shopify \ud83d\uded2", 
 },
   
   fr: {
@@ -354,11 +354,11 @@ cart_checkout_btn: "Finalizar compra en Shopify 🛒",
     
     // Home
     hero_title: "Atteignez vos objectifs",
-    hero_subtitle: "Nous sommes votre partenaire fitness en Andorre. Produits de qualité, conseils experts et résultats garantis",
+    hero_subtitle: "Nous sommes votre partenaire fitness en Andorre. Produits de qualit\u00e9, conseils experts et r\u00e9sultats garantis",
     hero_cta: "Voir les produits",
     home_featured: "Produits en vedette",
     home_mes: "les plus vendus",
-    home_cat_title: "Catégories",
+    home_cat_title: "Cat\u00e9gories",
     home_products_count: "produits",
     
     // Products
@@ -369,10 +369,10 @@ cart_checkout_btn: "Finalizar compra en Shopify 🛒",
     products_sort: "Trier par",
     products_sort_default: "Trier par",
     products_sort_price_asc: "Prix: croissant",
-    products_sort_price_desc: "Prix: décroissant",
+    products_sort_price_desc: "Prix: d\u00e9croissant",
     products_sort_name: "Nom A-Z",
     products_stock: "En stock uniquement",
-    products_no_results: "Aucun produit trouvé",
+    products_no_results: "Aucun produit trouv\u00e9",
     products_contact: "Contactez-nous par WhatsApp",
     products_count: "produit",
     products_count_plural: "produits",
@@ -381,8 +381,8 @@ cart_checkout_btn: "Finalizar compra en Shopify 🛒",
     
     // Product Card
     product_in_stock: "En stock",
-    product_out_stock: "Épuisé",
-    product_add: "Ajouter 🛒",
+    product_out_stock: "\u00c9puis\u00e9",
+    product_add: "Ajouter \ud83d\uded2",
     product_format: "Format:",
     product_flavors: "saveurs disponibles",
     
@@ -393,7 +393,7 @@ cart_checkout_btn: "Finalizar compra en Shopify 🛒",
     
     // Cart
     cart_title: "Votre panier",
-    cart_empty: "Votre panier est vide 🛒",
+    cart_empty: "Votre panier est vide \ud83d\uded2",
     cart_subtotal: "Sous-total",
     cart_discount: "Remise",
     cart_total: "Total",
@@ -408,8 +408,8 @@ cart_checkout_btn: "Finalizar compra en Shopify 🛒",
     // Services (Assessoria)
     services_title: "Nos services",
     services_subtitle: "Nous vous proposons tout ce dont vous avez besoin pour atteindre vos objectifs",
-    service_contact: "Contacter maintenant →",
-    service_book: "Réserver maintenant →",
+    service_contact: "Contacter maintenant \u2192",
+    service_book: "R\u00e9server maintenant \u2192",
     
     // Contact
     contact_title: "Contact",
@@ -421,8 +421,8 @@ cart_checkout_btn: "Finalizar compra en Shopify 🛒",
     footer_links: "Liens rapides",
     footer_products: "Produits",
     footer_contact: "Contact",
-    footer_legal: "Mentions légales",
-    footer_copyright: "© 2026 NL VIP Nutrition Andorra",
+    footer_legal: "Mentions l\u00e9gales",
+    footer_copyright: "\u00a9 2026 NL VIP Nutrition Andorra",
     
     // Misc
     loading: "Chargement...",
@@ -435,81 +435,81 @@ cart_checkout_btn: "Finalizar compra en Shopify 🛒",
     
     // Categories
     cat_all: "Tous les produits",
-    cat_proteinas: "Protéines",
-    cat_creatina: "Créatine",
+    cat_proteinas: "Prot\u00e9ines",
+    cat_creatina: "Cr\u00e9atine",
     cat_preworkout: "Pre-Workout",
     cat_massgainer: "Mass Gainer",
     cat_vitaminas: "Vitamines",
     cat_alimentacion: "Alimentation",
-    cat_controlpeso: "Contrôle du poids",
+    cat_controlpeso: "Contr\u00f4le du poids",
     cat_carbohydrates: "Glucides",
-    cat_prehormonal: "Pré-hormonal",
+    cat_prehormonal: "Pr\u00e9-hormonal",
     
     // Checkout
     checkout_title: "Finaliser la commande",
     checkout_redirecting: "Redirection vers le checkout...",
-    checkout_error: "Erreur lors de la création du checkout",
+    checkout_error: "Erreur lors de la cr\u00e9ation du checkout",
 
     // Search
     search_placeholder: "Rechercher des produits...",
-    search_no_results: "Aucun produit trouvé",
-    search_view_all: "Voir tous les résultats",
+    search_no_results: "Aucun produit trouv\u00e9",
+    search_view_all: "Voir tous les r\u00e9sultats",
 
     // Home page new keys
-  top_strip_shipping: "Livraison gratuite pour les achats supérieurs à 70€",
+  top_strip_shipping: "Livraison gratuite pour les achats sup\u00e9rieurs \u00e0 70\u20ac",
 top_strip_store: "Boutique physique: Carrer Esteve Dolsa 15, Andorre",
 hero_eyebrow: "Nouvelle collection 2026",
-hero_title_1: "Dépassez",
+hero_title_1: "D\u00e9passez",
 hero_title_2: "vos",
 hero_title_3: "limites",
-hero_desc: "La boutique de suppléments sportifs numéro 1 en Andorre. Protéines, créatine, pre-workout et bien plus des meilleures marques du monde.",
-hero_notice: "Nous avons beaucoup plus de produits que ceux qui apparaissent sur le site. Écrivez-nous sur WhatsApp →",
+hero_desc: "La boutique de suppl\u00e9ments sportifs num\u00e9ro 1 en Andorre. Prot\u00e9ines, cr\u00e9atine, pre-workout et bien plus des meilleures marques du monde.",
+hero_notice: "Nous avons beaucoup plus de produits que ceux qui apparaissent sur le site. \u00c9crivez-nous sur WhatsApp \u2192",
 hero_cta_shop: "Explorer les produits",
 hero_cta_wa: "Conseil gratuit",
 stat_products: "Produits",
 stat_clients: "Clients",
-stat_quality: "Qualité",
-cats_tag: "Catégories",
+stat_quality: "Qualit\u00e9",
+cats_tag: "Cat\u00e9gories",
 cats_title: "Explorez par",
-cats_highlight: "catégorie",
+cats_highlight: "cat\u00e9gorie",
 cats_sub: "Trouvez exactement ce dont vous avez besoin pour vos objectifs sportifs",
 cat_products: "produits",
 featured_tag: "En vedette",
 featured_title: "Produits",
 featured_title_2: "les plus vendus",
-featured_see_all: "Voir tout →",
-nxt_tag: "Supplément Premium",
-nxt_title: "La protéine de bœuf pure",
-nxt_desc: "NXT Beef Protein Isolate — 27g de protéine par portion, sans lactose, sans graisse.",
-nxt_feat1: "27g protéine / portion",
-nxt_feat2: "Sans lactose · Faible en gras",
+featured_see_all: "Voir tout \u2192",
+nxt_tag: "Suppl\u00e9ment Premium",
+nxt_title: "La prot\u00e9ine de b\u0153uf pure",
+nxt_desc: "NXT Beef Protein Isolate \u2014 27g de prot\u00e9ine par portion, sans lactose, sans graisse.",
+nxt_feat1: "27g prot\u00e9ine / portion",
+nxt_feat2: "Sans lactose \u00b7 Faible en gras",
 nxt_feat3: "Plusieurs saveurs disponibles",
 nxt_feat4: "Disponible en boutique maintenant",
 nxt_cta1: "Voir le produit",
-nxt_cta2: "Consulter la disponibilité",
+nxt_cta2: "Consulter la disponibilit\u00e9",
 why_tag: "Pourquoi nous",
-why_title: "La différence NL VIP",
-why_sub: "Plus qu'une boutique. Nous sommes votre partenaire d'entraînement en Andorre.",
-why_1_title: "Qualité garantie",
+why_title: "La diff\u00e9rence NL VIP",
+why_sub: "Plus qu'une boutique. Nous sommes votre partenaire d'entra\u00eenement en Andorre.",
+why_1_title: "Qualit\u00e9 garantie",
 why_1_desc: "Nous travaillons uniquement avec des marques de confiance internationale",
 why_2_title: "Conseil expert",
-why_2_desc: "Notre équipe vous aide à choisir le produit parfait pour vos objectifs",
+why_2_desc: "Notre \u00e9quipe vous aide \u00e0 choisir le produit parfait pour vos objectifs",
 why_3_title: "Boutique physique en Andorre",
 why_3_desc: "Venez nous voir au Carrer Esteve Dolsa 15 et essayez en personne",
 why_4_title: "WhatsApp 24h",
-why_4_desc: "Écrivez-nous et nous vous répondrons personnellement avec des conseils",
+why_4_desc: "\u00c9crivez-nous et nous vous r\u00e9pondrons personnellement avec des conseils",
 why_badge: "clients satisfaits",
 wa_cta_title: "Vous ne trouvez pas ce que vous cherchez?",
 wa_cta_desc: "Nous avons beaucoup plus de produits. Contactez-nous sur WhatsApp et nous vous conseillons personnellement.",
-wa_cta_btn: "Écrivez-nous maintenant",
+wa_cta_btn: "\u00c9crivez-nous maintenant",
 wa_cta_catalog: "Voir le catalogue complet",
-footer_desc: "Votre boutique de suppléments sportifs de confiance en Andorre.",
+footer_desc: "Votre boutique de suppl\u00e9ments sportifs de confiance en Andorre.",
 footer_products_title: "Produits",
 footer_company_title: "Entreprise",
-footer_about: "À propos de nous",
-footer_rights: "Tous droits réservés",
+footer_about: "\u00c0 propos de nous",
+footer_rights: "Tous droits r\u00e9serv\u00e9s",
 cart_total_label: "Total:",
-cart_checkout_btn: "Finaliser l'achat sur Shopify 🛒",
+cart_checkout_btn: "Finaliser l'achat sur Shopify \ud83d\uded2",
   },
   
   en: {
@@ -550,7 +550,7 @@ cart_checkout_btn: "Finaliser l'achat sur Shopify 🛒",
     // Product Card
     product_in_stock: "In stock",
     product_out_stock: "Out of stock",
-    product_add: "Add 🛒",
+    product_add: "Add \ud83d\uded2",
     product_format: "Format:",
     product_flavors: "flavors available",
     
@@ -561,7 +561,7 @@ cart_checkout_btn: "Finaliser l'achat sur Shopify 🛒",
     
     // Cart
     cart_title: "Your cart",
-    cart_empty: "Your cart is empty 🛒",
+    cart_empty: "Your cart is empty \ud83d\uded2",
     cart_subtotal: "Subtotal",
     cart_discount: "Discount",
     cart_total: "Total",
@@ -576,8 +576,8 @@ cart_checkout_btn: "Finaliser l'achat sur Shopify 🛒",
     // Services (Assessoria)
     services_title: "Our services",
     services_subtitle: "We offer everything you need to achieve your goals",
-    service_contact: "Contact now →",
-    service_book: "Book now →",
+    service_contact: "Contact now \u2192",
+    service_book: "Book now \u2192",
     
     // Contact
     contact_title: "Contact",
@@ -590,7 +590,7 @@ cart_checkout_btn: "Finaliser l'achat sur Shopify 🛒",
     footer_products: "Products",
     footer_contact: "Contact",
     footer_legal: "Legal notice",
-    footer_copyright: "© 2026 NL VIP Nutrition Andorra",
+    footer_copyright: "\u00a9 2026 NL VIP Nutrition Andorra",
     
     // Misc
     loading: "Loading...",
@@ -624,14 +624,14 @@ cart_checkout_btn: "Finaliser l'achat sur Shopify 🛒",
     search_view_all: "View all results",
 
     // Home page new keys
- top_strip_shipping: "Free shipping on orders over €70",
+ top_strip_shipping: "Free shipping on orders over \u20ac70",
 top_strip_store: "Physical store: Carrer Esteve Dolsa 15, Andorra",
 hero_eyebrow: "New collection 2026",
 hero_title_1: "Exceed",
 hero_title_2: "your",
 hero_title_3: "limits",
 hero_desc: "The number 1 sports supplement store in Andorra. Proteins, creatine, pre-workout and much more from the best brands in the world.",
-hero_notice: "We have many more products than those shown on the web. Write to us on WhatsApp →",
+hero_notice: "We have many more products than those shown on the web. Write to us on WhatsApp \u2192",
 hero_cta_shop: "Explore products",
 hero_cta_wa: "Free consultation",
 stat_products: "Products",
@@ -645,12 +645,12 @@ cat_products: "products",
 featured_tag: "Featured",
 featured_title: "Best",
 featured_title_2: "sellers",
-featured_see_all: "See all →",
+featured_see_all: "See all \u2192",
 nxt_tag: "Premium Supplement",
 nxt_title: "The pure beef protein",
-nxt_desc: "NXT Beef Protein Isolate — 27g of protein per serving, lactose-free, fat-free.",
+nxt_desc: "NXT Beef Protein Isolate \u2014 27g of protein per serving, lactose-free, fat-free.",
 nxt_feat1: "27g protein / serving",
-nxt_feat2: "Lactose-free · Low in fat",
+nxt_feat2: "Lactose-free \u00b7 Low in fat",
 nxt_feat3: "Multiple flavors available",
 nxt_feat4: "Available in store now",
 nxt_cta1: "View product",
@@ -677,7 +677,7 @@ footer_company_title: "Company",
 footer_about: "About us",
 footer_rights: "All rights reserved",
 cart_total_label: "Total:",
-cart_checkout_btn: "Checkout on Shopify 🛒",
+cart_checkout_btn: "Checkout on Shopify \ud83d\uded2",
   }
 };
 
@@ -750,7 +750,7 @@ const DISCOUNT_CODES = {
   'NLVIP10':   { type: 'percent', value: 10, label: '-10%' },
   'NLVIP15':   { type: 'percent', value: 15, label: '-15%' },
   'BENVINGUT': { type: 'percent', value: 5,  label: '-5%' },
-  'WELCOME5':  { type: 'fixed',   value: 5,  label: '-5,00 €' },
+  'WELCOME5':  { type: 'fixed',   value: 5,  label: '-5,00 \u20ac' },
 };
 
 let activeDiscount = JSON.parse(localStorage.getItem('nlvip_discount') || 'null');
@@ -789,12 +789,12 @@ function applyDiscount() {
     activeDiscount = code;
     saveDiscount();
     input.value = '';
-    msgEl.textContent = `✓ Codi "${code}" aplicat! (${DISCOUNT_CODES[code].label})`;
+    msgEl.textContent = `\u2713 Codi "${code}" aplicat! (${DISCOUNT_CODES[code].label})`;
     msgEl.className = 'discount-msg success';
     updateCartBadge();
     renderCartItems();
   } else {
-    msgEl.textContent = 'Codi de descompte no vàlid.';
+    msgEl.textContent = 'Codi de descompte no v\u00e0lid.';
     msgEl.className = 'discount-msg error';
   }
 }
@@ -814,14 +814,14 @@ function removeDiscount() {
 function renderCard(p) {
   const statusClass = p.in_stock ? 'status-in' : 'status-out';
   const statusText  = p.in_stock ? 'En estoc' : 'Esgotat';
-  const qtyMatch = p.name.match(/(\d+[,.]?\d*\s*(g|gr|kg|ml|caps|càpsules|tablets|tabs|litres|l))/i);
+  const qtyMatch = p.name.match(/(\d+[,.]?\d*\s*(g|gr|kg|ml|caps|c\u00e0psules|tablets|tabs|litres|l))/i);
   const quantity = qtyMatch ? `<div class="product-qty" style="color:var(--blue-light);font-size:0.85rem;margin-bottom:8px">Format: <strong>${qtyMatch[0].toLowerCase()}</strong></div>` : '';
-  const priceStr = p.price != null ? p.price.toFixed(2).replace('.', ',') + ' €' : '';
+  const priceStr = p.price != null ? p.price.toFixed(2).replace('.', ',') + ' \u20ac' : '';
   
   const hasFlavors = p.allFlavors && p.allFlavors.length > 0;
   const flavorText = hasFlavors ? `<div class="product-flavor" style="color:var(--text-2);font-size:0.85rem;">${p.allFlavors.length} sabors disponibles</div>` : (p.flavor ? `<div class="product-flavor">Sabor: ${escHtml(p.flavor)}</div>` : '');
 
-  const productName = hasFlavors ? escHtml(p.name) : `${escHtml(p.name)}${p.flavor ? ' – ' + escHtml(p.flavor) : ''}`;
+  const productName = hasFlavors ? escHtml(p.name) : `${escHtml(p.name)}${p.flavor ? ' \u2013 ' + escHtml(p.flavor) : ''}`;
 
   return `
     <article class="product-card" onclick="openModal('${p.id}')" role="listitem" aria-label="${productName}" tabindex="0" onkeydown="if(event.key==='Enter')openModal('${p.id}')">
@@ -837,8 +837,8 @@ function renderCard(p) {
         ${flavorText}
         ${priceStr ? `<div class="product-price">${priceStr}</div>` : ''}
         <div class="product-footer">
-          <button class="btn-add-cart" onclick="addToCart(event,'${p.id}')" ${p.in_stock ? '' : 'disabled'} aria-label="Afegir ${productName} al carret">${p.in_stock ? 'Afegir 🛒' : 'Esgotat'}</button>
-          <a href="https://wa.me/376645263?text=${encodeURIComponent('Hola! Estic interessat en: ' + p.name)}" class="btn-ghost btn-wa-card" target="_blank" onclick="event.stopPropagation()" aria-label="Contactar per WhatsApp">💬</a>
+          <button class="btn-add-cart" onclick="addToCart(event,'${p.id}')" ${p.in_stock ? '' : 'disabled'} aria-label="Afegir ${productName} al carret">${p.in_stock ? 'Afegir \ud83d\uded2' : 'Esgotat'}</button>
+          <a href="https://wa.me/376645263?text=${encodeURIComponent('Hola! Estic interessat en: ' + p.name)}" class="btn-ghost btn-wa-card" target="_blank" onclick="event.stopPropagation()" aria-label="Contactar per WhatsApp">\ud83d\udcac</a>
         </div>
       </div>
     </article>`;
@@ -889,7 +889,7 @@ function updateCartBadge() {
 
   // Subtotal line
   const subtotalEl = document.getElementById('cart-subtotal');
-  if (subtotalEl) subtotalEl.textContent = subtotal.toFixed(2).replace('.', ',') + ' €';
+  if (subtotalEl) subtotalEl.textContent = subtotal.toFixed(2).replace('.', ',') + ' \u20ac';
 
   // Discount row
   const discountRow   = document.getElementById('cart-discount-row');
@@ -897,7 +897,7 @@ function updateCartBadge() {
   if (discountRow) discountRow.style.display = (activeDiscount && discount > 0) ? 'flex' : 'none';
   if (discountAmtEl && activeDiscount) {
     const dc = DISCOUNT_CODES[activeDiscount];
-    discountAmtEl.textContent = `-${discount.toFixed(2).replace('.', ',')} € (${dc ? dc.label : activeDiscount})`;
+    discountAmtEl.textContent = `-${discount.toFixed(2).replace('.', ',')} \u20ac (${dc ? dc.label : activeDiscount})`;
   }
 
   // Applied code badge inside coupon section
@@ -914,13 +914,13 @@ function updateCartBadge() {
 
   // Final total
   const totalEl = document.getElementById('cart-total');
-  if (totalEl) totalEl.textContent = total.toFixed(2).replace('.', ',') + ' €';
+  if (totalEl) totalEl.textContent = total.toFixed(2).replace('.', ',') + ' \u20ac';
 }
 
 function renderCartItems() {
   const el = document.getElementById('cart-items');
   if (!el) return;
-  if (!cart.length) { el.innerHTML = '<div class="cart-empty-msg">El teu carret és buit 🛒</div>'; return; }
+  if (!cart.length) { el.innerHTML = '<div class="cart-empty-msg">El teu carret \u00e9s buit \ud83d\uded2</div>'; return; }
   el.innerHTML = cart.map(item => {
     const p = PRODUCTS.find(x => x.id === item.id);
     if (!p) return '';
@@ -930,10 +930,10 @@ function renderCartItems() {
         <img class="cart-item-img" src="${escHtml(p.image)}" alt="${escHtml(p.name)}"
              onerror="this.src='https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?w=100&q=60'" />
         <div class="cart-item-info">
-          <div class="cart-item-name">${escHtml(p.name)}${flavor ? ' – ' + escHtml(flavor) : ''}</div>
-          <div class="cart-item-price">${(p.price * (item.qty || 1)).toFixed(2).replace('.', ',')} € × ${item.qty || 1}</div>
+          <div class="cart-item-name">${escHtml(p.name)}${flavor ? ' \u2013 ' + escHtml(flavor) : ''}</div>
+          <div class="cart-item-price">${(p.price * (item.qty || 1)).toFixed(2).replace('.', ',')} \u20ac \u00d7 ${item.qty || 1}</div>
         </div>
-        <button class="btn-remove" onclick="removeFromCart('${item.id}', '${item.flavor || ''}')" aria-label="Eliminar ${escHtml(p.name)}">🗑</button>
+        <button class="btn-remove" onclick="removeFromCart('${item.id}', '${item.flavor || ''}')" aria-label="Eliminar ${escHtml(p.name)}">\ud83d\uddd1</button>
       </div>`;
   }).join('');
 }
@@ -1014,7 +1014,7 @@ try {
     window.location.href = data.cartCreate.cart.checkoutUrl;
   } else {
     console.error('Cart error:', data?.cartCreate?.userErrors);
-    alert('Error al procesar el pago. Inténtalo de nuevo.');
+    alert('Error al procesar el pago. Int\u00e9ntalo de nuevo.');
     if (checkoutBtn) {
       checkoutBtn.disabled = false;
       checkoutBtn.textContent = 'Finalizar compra';
@@ -1022,7 +1022,7 @@ try {
   }
 } catch(e) {
   console.error('Cart error:', e);
-  alert('Error al procesar el pago. Inténtalo de nuevo.');
+  alert('Error al procesar el pago. Int\u00e9ntalo de nuevo.');
 }
 
   try {
@@ -1066,16 +1066,16 @@ function checkoutWhatsApp() {
     const p = PRODUCTS.find(x => x.id === item.id);
     if (!p) return null;
     const flavor = item.flavor || p.defaultFlavor || p.flavor;
-    const name      = p.name + (flavor ? ` – ${flavor}` : '');
+    const name      = p.name + (flavor ? ` \u2013 ${flavor}` : '');
     const lineTotal = (p.price * (item.qty || 1)).toFixed(2).replace('.', ',');
-    return `• ${name} ×${item.qty || 1} → ${lineTotal} €`;
+    return `\u2022 ${name} \u00d7${item.qty || 1} \u2192 ${lineTotal} \u20ac`;
   }).filter(Boolean).join('\n');
 
-  let msg = `Hola! Vull completar la meva comanda:\n\n${lines}\n\nSubtotal: ${subtotal.toFixed(2).replace('.', ',')} €`;
+  let msg = `Hola! Vull completar la meva comanda:\n\n${lines}\n\nSubtotal: ${subtotal.toFixed(2).replace('.', ',')} \u20ac`;
   if (activeDiscount && discount > 0) {
-    msg += `\nDescompte (${activeDiscount}): -${discount.toFixed(2).replace('.', ',')} €`;
+    msg += `\nDescompte (${activeDiscount}): -${discount.toFixed(2).replace('.', ',')} \u20ac`;
   }
-  msg += `\nTOTAL: ${total.toFixed(2).replace('.', ',')} €`;
+  msg += `\nTOTAL: ${total.toFixed(2).replace('.', ',')} \u20ac`;
 
   window.open(`https://wa.me/376645263?text=${encodeURIComponent(msg)}`, '_blank');
 }
@@ -1089,7 +1089,7 @@ function openModal(id) {
   const inner   = document.getElementById('modal-inner');
   if (!overlay || !inner) return;
 
-  const qtyMatch = p.name.match(/(\d+[,.]?\d*\s*(g|gr|kg|ml|caps|càpsules|tablets|tabs|litros|l))/i);
+  const qtyMatch = p.name.match(/(\d+[,.]?\d*\s*(g|gr|kg|ml|caps|c\u00e0psules|tablets|tabs|litros|l))/i);
   const quantity = qtyMatch ? `<div class="modal-flavor" style="color:var(--blue-light); margin-top:4px;">Format: <strong>${qtyMatch[0].toLowerCase()}</strong></div>` : '';
 
   const hasFlavors = p.allFlavors && p.allFlavors.length > 0;
@@ -1108,7 +1108,7 @@ function openModal(id) {
   ` : (p.flavor ? `<div class="modal-flavor">Sabor: <strong>${escHtml(p.flavor)}</strong></div>` : '');
 
   const currentFlavor = p.defaultFlavor || p.flavor;
-  const displayFlavor = currentFlavor ? ` – ${currentFlavor}` : '';
+  const displayFlavor = currentFlavor ? ` \u2013 ${currentFlavor}` : '';
 
   inner.innerHTML = `
     <div class="modal-grid">
@@ -1121,12 +1121,12 @@ function openModal(id) {
         <div class="modal-name">${escHtml(p.name)}${displayFlavor}</div>
         ${quantity}
         ${flavorSelector}
-        <span class="modal-status ${statusClass}">${p.in_stock ? '✓ En estoc' : 'Esgotat'}</span>
+        <span class="modal-status ${statusClass}">${p.in_stock ? '\u2713 En estoc' : 'Esgotat'}</span>
         <div class="modal-desc" style="margin-top:10px;">${escHtml(p.description || '')}</div>
-        ${p.price != null ? `<div class="modal-price">${p.price.toFixed(2).replace('.', ',')} €</div>` : ''}
+        ${p.price != null ? `<div class="modal-price">${p.price.toFixed(2).replace('.', ',')} \u20ac</div>` : ''}
         <div class="modal-actions" style="margin-top:20px;">
-          <button class="modal-btn-add" id="modal-add-btn" onclick="addToCart(event,'${p.id}')" ${p.in_stock ? '' : 'disabled'} aria-label="Afegir al carret">${p.in_stock ? '🛒 Afegir al carret' : 'Esgotat'}</button>
-          <a href="https://wa.me/376645263?text=Hola!%20M%27interessa%3A%20${encodeURIComponent(p.name + displayFlavor)}" target="_blank" rel="noopener" class="modal-btn-wa">💬 Contactar per WhatsApp</a>
+          <button class="modal-btn-add" id="modal-add-btn" onclick="addToCart(event,'${p.id}')" ${p.in_stock ? '' : 'disabled'} aria-label="Afegir al carret">${p.in_stock ? '\ud83d\uded2 Afegir al carret' : 'Esgotat'}</button>
+          <a href="https://wa.me/376645263?text=Hola!%20M%27interessa%3A%20${encodeURIComponent(p.name + displayFlavor)}" target="_blank" rel="noopener" class="modal-btn-wa">\ud83d\udcac Contactar per WhatsApp</a>
         </div>
       </div>
     </div>`;
@@ -1153,16 +1153,16 @@ function updateModalFlavor(selectEl) {
   p.defaultFlavor = variant.flavor;
   
   if (modalImg) modalImg.src = variant.image;
-  if (modalName) modalName.textContent = `${p.name} – ${variant.flavor}`;
+  if (modalName) modalName.textContent = `${p.name} \u2013 ${variant.flavor}`;
   
   if (variant.in_stock) {
     if (modalStatus) {
-      modalStatus.textContent = '✓ En estoc';
+      modalStatus.textContent = '\u2713 En estoc';
       modalStatus.className = 'modal-status status-in';
     }
     if (modalAddBtn) {
       modalAddBtn.disabled = false;
-      modalAddBtn.textContent = '🛒 Afegir al carret';
+      modalAddBtn.textContent = '\ud83d\uded2 Afegir al carret';
     }
   } else {
     if (modalStatus) {
@@ -1277,11 +1277,11 @@ function renderSearchResults(results, container, query) {
         <img src="${escHtml(p.image)}" alt="${escHtml(p.name)}" onerror="this.src='https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?w=50&q=60'">
         <div class="search-result-info">
           <div class="search-result-name">${highlightText(p.name, query)}</div>
-          <div class="search-result-meta">${escHtml(p.brand || '')} • ${p.price.toFixed(2).replace('.', ',')} €</div>
+          <div class="search-result-meta">${escHtml(p.brand || '')} \u2022 ${p.price.toFixed(2).replace('.', ',')} \u20ac</div>
         </div>
       </div>
     `).join('') + `
-      <a href="products.html?search=${encodeURIComponent(query)}" class="search-view-all">${t('search_view_all')} →</a>
+      <a href="products.html?search=${encodeURIComponent(query)}" class="search-view-all">${t('search_view_all')} \u2192</a>
     `;
   }
   container.classList.add('open');
@@ -1330,12 +1330,12 @@ function initShared() {
   if (hamburger && navLinks) {
     hamburger.addEventListener('click', () => {
       navLinks.classList.toggle('open');
-      hamburger.textContent = navLinks.classList.contains('open') ? '✕' : '☰';
+      hamburger.textContent = navLinks.classList.contains('open') ? '\u2715' : '\u2630';
     });
     navLinks.querySelectorAll('.nav-link').forEach(link => {
       link.addEventListener('click', () => {
         navLinks.classList.remove('open');
-        hamburger.textContent = '☰';
+        hamburger.textContent = '\u2630';
       });
     });
   const searchToggle = document.getElementById('search-toggle-mobile');
@@ -1358,7 +1358,7 @@ if (searchToggle && searchBar) {
 }
   }
 
-  // Discount code – allow pressing Enter in the input
+  // Discount code \u2013 allow pressing Enter in the input
   document.getElementById('discount-input')?.addEventListener('keydown', e => {
     if (e.key === 'Enter') applyDiscount();
   });

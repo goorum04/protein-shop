@@ -1,5 +1,5 @@
 // ===========================================
-// CONFIGURACIÓN DE SHOPIFY
+// CONFIGURACION DE SHOPIFY
 // ===========================================
 
 const SHOPIFY_DOMAIN = '0bb404-4.myshopify.com';
@@ -109,7 +109,7 @@ function mapCategory(productType) {
   if (type.includes('pre-workout') || type.includes('pre workout') || type.includes('preentrenamiento')) return 'pre-workout';
   if (type.includes('vitamin') || type.includes('omega') || type.includes('mineral') || type.includes('salut') || type.includes('salud')) return 'vitaminas';
   if (type.includes('masa') || type.includes('gainer') || type.includes('mass')) return 'mass-gainer';
-  if (type.includes('barreta') || type.includes('batido') || type.includes('crema') || type.includes('donut') || type.includes('alimentación') || type.includes('alimentacion') || type.includes('snack')) return 'alimentacion';
+  if (type.includes('barreta') || type.includes('batido') || type.includes('crema') || type.includes('donut') || type.includes('alimentacion') || type.includes('snack')) return 'alimentacion';
   if (type.includes('carbohidrat') || type.includes('carb')) return 'carbohidratos';
   if (type.includes('control') || type.includes('carnitina') || type.includes('diure')) return 'control-peso';
   if (type.includes('prehormonal') || type.includes('testo') || type.includes('hormonal')) return 'prehormonal';
