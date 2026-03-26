@@ -12,14 +12,25 @@ async function shopifyFetch(query, variables = {}) {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ query, variables })
     });
+
+    if (!response.ok) {
+        const errJson = await response.json().catch(() => ({}));
+        console.error('API Error Response:', response.status, errJson);
+        return null;
+    }
+
     const json = await response.json();
     if (json.errors) {
-      console.error('Shopify API Error:', json.errors);
+      console.error('Shopify GraphQL Errors:', json.errors);
       return null;
     }
     return json.data;
   } catch (e) {
-    console.error('Shopify fetch error:', e);
+    console.error('Shopify fetch network error:', e);
+    // En entorno local sin Vercel, el fetch a /api/shopify fallar\u00e1 con 404
+    if (location.hostname === 'localhost' || location.hostname === '127.0.0.1') {
+        console.warn('Parece que est\u00e1s en entorno local. Aseg\u00farate de usar "vercel dev" para que las funciones de la API funcionen.');
+    }
     return null;
   }
 }
@@ -86,7 +97,7 @@ function transformProduct(product) {
     shopifyId: product.id,
     name: product.title,
     brand: product.vendor || '',
-    category: mapCategory(product.productType),
+    category: mapCategory(product.productType, product.title),
     price: parseFloat(product.priceRange.minVariantPrice.amount),
     image: product.images.edges[0]?.node?.url || '',
     description: product.description,
@@ -98,21 +109,21 @@ function transformProduct(product) {
   };
 }
 
-function mapCategory(productType) {
-  const type = (productType || '').toLowerCase();
+function mapCategory(productType, title) {
+  const type = ((productType || '') + ' ' + (title || '')).toLowerCase();
   
-  // Log for debugging (optional but helpful as discussed with user)
-  // console.log('Mapping Shopify type:', type);
-
-  if (type.includes('prote') || type.includes('whey') || type.includes('beef')) return 'proteinas';
+  // Prioritize "alimentacion" to catch protein snacks before they fall into "proteinas"
+  if (type.includes('barrita') || type.includes('barreta') || type.includes('batido') || type.includes('crema') || type.includes('donut') || type.includes('alimentacion') || type.includes('snack') || type.includes('avena') || type.includes('farina') || type.includes('harina') || type.includes('salsa') || type.includes('mantequilla') || type.includes('patata') || type.includes('hazelnut') || type.includes('peanut') || type.includes('choco')) return 'alimentacion';
+  
+  if (type.includes('prote') || type.includes('whey') || type.includes('beef') || type.includes('iso')) return 'proteinas';
   if (type.includes('creatina') || type.includes('creatine')) return 'creatina';
-  if (type.includes('pre-workout') || type.includes('pre workout') || type.includes('preentrenamiento')) return 'pre-workout';
-  if (type.includes('vitamin') || type.includes('omega') || type.includes('mineral') || type.includes('salut') || type.includes('salud')) return 'vitaminas';
-  if (type.includes('masa') || type.includes('gainer') || type.includes('mass')) return 'mass-gainer';
-  if (type.includes('barreta') || type.includes('batido') || type.includes('crema') || type.includes('donut') || type.includes('alimentacion') || type.includes('snack')) return 'alimentacion';
-  if (type.includes('carbohidrat') || type.includes('carb')) return 'carbohidratos';
-  if (type.includes('control') || type.includes('carnitina') || type.includes('diure')) return 'control-peso';
-  if (type.includes('prehormonal') || type.includes('testo') || type.includes('hormonal')) return 'prehormonal';
+  if (type.includes('pre-workout') || type.includes('pre workout') || type.includes('preentrenamiento') || type.includes('pump')) return 'pre-workout';
+  if (type.includes('vitamin') || type.includes('omega') || type.includes('mineral') || type.includes('salut') || type.includes('salud') || type.includes('multivita')) return 'vitaminas';
+  if (type.includes('masa') || type.includes('gainer') || type.includes('mass') || type.includes('peso')) return 'mass-gainer';
+  
+  if (type.includes('carbohidrat') || type.includes('carb') || type.includes('ciclodextrina')) return 'carbohidratos';
+  if (type.includes('control') || type.includes('carnitina') || type.includes('diure') || type.includes('quemador') || type.includes('fat burner')) return 'control-peso';
+  if (type.includes('prehormonal') || type.includes('testo') || type.includes('hormonal') || type.includes('zma')) return 'prehormonal';
   
   return 'vitaminas';
 }
