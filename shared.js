@@ -111,8 +111,14 @@ const translations = {
     // Checkout
     checkout_title: "Finalitzar comanda",
     checkout_redirecting: "Redirigint al checkout...",
-    checkout_error: "Error al crear el checkout"
-  // Home page new keys
+    checkout_error: "Error al crear el checkout",
+    
+    // Search
+    search_placeholder: "Cercar productes...",
+    search_no_results: "No s'han trobat productes",
+    search_view_all: "Veure tots els resultats",
+
+    // Home page new keys
 top_strip_shipping: "Enviament gratuït per compres superiors a 70€",
 top_strip_store: "Botiga física: Carrer Esteve Dolsa 15, Andorra",
 hero_eyebrow: "Nova col·lecció 2026",
@@ -274,7 +280,14 @@ cart_checkout_btn: "Finalitzar compra a Shopify 🛒",
     // Checkout
     checkout_title: "Finalizar pedido",
     checkout_redirecting: "Redirigiendo al checkout...",
-    checkout_error: "Error al crear el checkout"
+    checkout_error: "Error al crear el pedido",
+
+    // Search
+    search_placeholder: "Buscar productos...",
+    search_no_results: "No se encontraron productos",
+    search_view_all: "Ver todos los resultados",
+
+    // Home page new keys
 top_strip_shipping: "Envío gratuito en compras superiores a 70€",
 top_strip_store: "Tienda física: Carrer Esteve Dolsa 15, Andorra",
 hero_eyebrow: "Nueva colección 2026",
@@ -435,7 +448,14 @@ cart_checkout_btn: "Finalizar compra en Shopify 🛒",
     // Checkout
     checkout_title: "Finaliser la commande",
     checkout_redirecting: "Redirection vers le checkout...",
-    checkout_error: "Erreur lors de la création du checkout"
+    checkout_error: "Erreur lors de la création du checkout",
+
+    // Search
+    search_placeholder: "Rechercher des produits...",
+    search_no_results: "Aucun produit trouvé",
+    search_view_all: "Voir tous les résultats",
+
+    // Home page new keys
   top_strip_shipping: "Livraison gratuite pour les achats supérieurs à 70€",
 top_strip_store: "Boutique physique: Carrer Esteve Dolsa 15, Andorre",
 hero_eyebrow: "Nouvelle collection 2026",
@@ -596,7 +616,14 @@ cart_checkout_btn: "Finaliser l'achat sur Shopify 🛒",
     // Checkout
     checkout_title: "Checkout",
     checkout_redirecting: "Redirecting to checkout...",
-    checkout_error: "Error creating checkout"
+    checkout_error: "Error creating checkout",
+
+    // Search
+    search_placeholder: "Search products...",
+    search_no_results: "No products found",
+    search_view_all: "View all results",
+
+    // Home page new keys
  top_strip_shipping: "Free shipping on orders over €70",
 top_strip_store: "Physical store: Carrer Esteve Dolsa 15, Andorra",
 hero_eyebrow: "New collection 2026",
@@ -670,16 +697,43 @@ function changeLanguage(lang) {
 }
 
 function updatePageTranslations() {
+  const lang = localStorage.getItem('nlvip_lang') || 'ca';
+  
+  // Translate [data-i18n]
   document.querySelectorAll('[data-i18n]').forEach(el => {
     const key = el.getAttribute('data-i18n');
-    el.textContent = t(key);
+    const translation = t(key);
+    if (translation && translation !== key) {
+      if (el.hasAttribute('data-i18n-html')) {
+        el.innerHTML = translation;
+      } else {
+        el.textContent = translation;
+      }
+    }
   });
-  
+
+  // Translate placeholders [data-i18n-placeholder]
   document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
     const key = el.getAttribute('data-i18n-placeholder');
-    el.placeholder = t(key);
+    const translation = t(key);
+    if (translation && translation !== key) el.placeholder = translation;
   });
-  
+
+  // Update document title and meta description
+  const titleEl = document.querySelector('title[data-i18n]');
+  if (titleEl) {
+    const key = titleEl.getAttribute('data-i18n');
+    const translation = t(key);
+    if (translation && translation !== key) document.title = translation;
+  }
+
+  const metaDesc = document.querySelector('meta[name="description"][data-i18n]');
+  if (metaDesc) {
+    const key = metaDesc.getAttribute('data-i18n');
+    const translation = t(key);
+    if (translation && translation !== key) metaDesc.setAttribute('content', translation);
+  }
+
   // Update language selector
   const langSelect = document.getElementById('lang-select');
   if (langSelect) langSelect.value = currentLang;
@@ -1145,13 +1199,108 @@ function closeCart() {
   document.body.style.overflow = '';
 }
 
-// ===== NAVBAR SCROLL =====
-function initNavbarScroll() {
-  const nav = document.getElementById('navbar');
-  if (!nav) return;
-  const onScroll = () => nav.classList.toggle('scrolled', window.scrollY > 40);
-  window.addEventListener('scroll', onScroll, { passive: true });
-  onScroll();
+// ===== GLOBAL SEARCH =====
+let searchSelectedIndex = -1;
+
+function initGlobalSearch() {
+  const inputs = document.querySelectorAll('.global-search-input');
+  
+  inputs.forEach(input => {
+    // Create results container if it doesn't exist
+    let resultsContainer = input.parentElement.querySelector('.search-results-dropdown');
+    if (!resultsContainer) {
+      resultsContainer = document.createElement('div');
+      resultsContainer.className = 'search-results-dropdown';
+      input.parentElement.appendChild(resultsContainer);
+    }
+
+    input.addEventListener('input', (e) => {
+      const query = e.target.value.toLowerCase().trim();
+      if (query.length < 2) {
+        resultsContainer.classList.remove('open');
+        return;
+      }
+
+      const matches = PRODUCTS.filter(p => 
+        p.name.toLowerCase().includes(query) || 
+        (p.brand && p.brand.toLowerCase().includes(query)) ||
+        (p.category && p.category.toLowerCase().includes(query))
+      ).slice(0, 6);
+
+      renderSearchResults(matches, resultsContainer, query);
+    });
+
+    input.addEventListener('keydown', (e) => {
+      const items = resultsContainer.querySelectorAll('.search-result-item');
+      if (!resultsContainer.classList.contains('open') || items.length === 0) return;
+
+      if (e.key === 'ArrowDown') {
+        e.preventDefault();
+        searchSelectedIndex = (searchSelectedIndex + 1) % items.length;
+        updateSearchSelection(items);
+      } else if (e.key === 'ArrowUp') {
+        e.preventDefault();
+        searchSelectedIndex = (searchSelectedIndex - 1 + items.length) % items.length;
+        updateSearchSelection(items);
+      } else if (e.key === 'Enter' && searchSelectedIndex > -1) {
+        e.preventDefault();
+        items[searchSelectedIndex].click();
+      } else if (e.key === 'Escape') {
+        resultsContainer.classList.remove('open');
+        input.blur();
+      }
+    });
+
+    // Close on blur (delayed to allow clicks)
+    input.addEventListener('blur', () => {
+      setTimeout(() => {
+        resultsContainer.classList.remove('open');
+        searchSelectedIndex = -1;
+      }, 200);
+    });
+    
+    // Show results if input has value on focus
+    input.addEventListener('focus', () => {
+      if (input.value.trim().length >= 2) {
+        input.dispatchEvent(new Event('input'));
+      }
+    });
+  });
+}
+
+function renderSearchResults(results, container, query) {
+  if (results.length === 0) {
+    container.innerHTML = `<div class="search-no-results">${t('search_no_results')}</div>`;
+  } else {
+    container.innerHTML = results.map((p, idx) => `
+      <div class="search-result-item" onclick="openModal('${p.id}')" data-index="${idx}">
+        <img src="${escHtml(p.image)}" alt="${escHtml(p.name)}" onerror="this.src='https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?w=50&q=60'">
+        <div class="search-result-info">
+          <div class="search-result-name">${highlightText(p.name, query)}</div>
+          <div class="search-result-meta">${escHtml(p.brand || '')} • ${p.price.toFixed(2).replace('.', ',')} €</div>
+        </div>
+      </div>
+    `).join('') + `
+      <a href="products.html?search=${encodeURIComponent(query)}" class="search-view-all">${t('search_view_all')} →</a>
+    `;
+  }
+  container.classList.add('open');
+  searchSelectedIndex = -1;
+}
+
+function updateSearchSelection(items) {
+  items.forEach((item, idx) => {
+    item.classList.toggle('selected', idx === searchSelectedIndex);
+    if (idx === searchSelectedIndex) {
+      item.scrollIntoView({ block: 'nearest' });
+    }
+  });
+}
+
+function highlightText(text, query) {
+  if (!query) return escHtml(text);
+  const regex = new RegExp(`(${query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`, 'gi');
+  return escHtml(text).replace(regex, '<mark>$1</mark>');
 }
 
 // ===== INIT ALL =====
@@ -1159,6 +1308,7 @@ function initShared() {
   updatePageTranslations();
   updateCartBadge();
   initNavbarScroll();
+  initGlobalSearch();
 
   // Cart toggle
   document.getElementById('cart-toggle')?.addEventListener('click', openCart);

@@ -100,14 +100,20 @@ function transformProduct(product) {
 
 function mapCategory(productType) {
   const type = (productType || '').toLowerCase();
+  
+  // Log for debugging (optional but helpful as discussed with user)
+  // console.log('Mapping Shopify type:', type);
+
   if (type.includes('prote') || type.includes('whey') || type.includes('beef')) return 'proteinas';
   if (type.includes('creatina') || type.includes('creatine')) return 'creatina';
   if (type.includes('pre-workout') || type.includes('pre workout') || type.includes('preentrenamiento')) return 'pre-workout';
-  if (type.includes('vitamin') || type.includes('omega') || type.includes('mineral')) return 'vitaminas';
+  if (type.includes('vitamin') || type.includes('omega') || type.includes('mineral') || type.includes('salut') || type.includes('salud')) return 'vitaminas';
   if (type.includes('masa') || type.includes('gainer') || type.includes('mass')) return 'mass-gainer';
-  if (type.includes('barreta') || type.includes('batido') || type.includes('crema') || type.includes('donut')) return 'alimentacion';
+  if (type.includes('barreta') || type.includes('batido') || type.includes('crema') || type.includes('donut') || type.includes('alimentación') || type.includes('alimentacion') || type.includes('snack')) return 'alimentacion';
   if (type.includes('carbohidrat') || type.includes('carb')) return 'carbohidratos';
   if (type.includes('control') || type.includes('carnitina') || type.includes('diure')) return 'control-peso';
+  if (type.includes('prehormonal') || type.includes('testo') || type.includes('hormonal')) return 'prehormonal';
+  
   return 'vitaminas';
 }
 
