@@ -113,7 +113,7 @@ function mapCategory(productType, title, vendor) {
   const type = ((productType || '') + ' ' + (title || '') + ' ' + (vendor || '')).toLowerCase();
   
   // Prioritize "alimentacion" to catch protein snacks before they fall into "proteinas"
-  if (type.includes('barrita') || type.includes('barreta') || type.includes('batido') || type.includes('crema') || type.includes('donut') || type.includes('alimentacion') || type.includes('snack') || type.includes('avena') || type.includes('farina') || type.includes('harina') || type.includes('salsa') || type.includes('mantequilla') || type.includes('patata') || type.includes('hazelnut') || type.includes('peanut') || type.includes('choco') || type.includes('sirope') || type.includes('arce') || type.includes('profit')) return 'alimentacion';
+  if (type.includes('barrita') || type.includes('barreta') || type.includes('batido') || type.includes('crema') || type.includes('cream') || type.includes('donut') || type.includes('alimentaci') || type.includes('snack') || type.includes('avena') || type.includes('farina') || type.includes('harina') || type.includes('salsa') || type.includes('mantequilla') || type.includes('patata') || type.includes('hazelnut') || type.includes('peanut') || type.includes('choco') || type.includes('sirope') || type.includes('arce') || type.includes('profit')) return 'alimentacion';
   
   if (type.includes('prote') || type.includes('whey') || type.includes('beef') || type.includes('iso')) return 'proteinas';
   if (type.includes('creatina') || type.includes('creatine')) return 'creatina';
