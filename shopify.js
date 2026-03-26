@@ -97,7 +97,7 @@ function transformProduct(product) {
     shopifyId: product.id,
     name: product.title,
     brand: product.vendor || '',
-    category: mapCategory(product.productType, product.title),
+    category: mapCategory(product.productType, product.title, product.vendor),
     price: parseFloat(product.priceRange.minVariantPrice.amount),
     image: product.images.edges[0]?.node?.url || '',
     description: product.description,
@@ -109,11 +109,11 @@ function transformProduct(product) {
   };
 }
 
-function mapCategory(productType, title) {
-  const type = ((productType || '') + ' ' + (title || '')).toLowerCase();
+function mapCategory(productType, title, vendor) {
+  const type = ((productType || '') + ' ' + (title || '') + ' ' + (vendor || '')).toLowerCase();
   
   // Prioritize "alimentacion" to catch protein snacks before they fall into "proteinas"
-  if (type.includes('barrita') || type.includes('barreta') || type.includes('batido') || type.includes('crema') || type.includes('donut') || type.includes('alimentacion') || type.includes('snack') || type.includes('avena') || type.includes('farina') || type.includes('harina') || type.includes('salsa') || type.includes('mantequilla') || type.includes('patata') || type.includes('hazelnut') || type.includes('peanut') || type.includes('choco')) return 'alimentacion';
+  if (type.includes('barrita') || type.includes('barreta') || type.includes('batido') || type.includes('crema') || type.includes('donut') || type.includes('alimentacion') || type.includes('snack') || type.includes('avena') || type.includes('farina') || type.includes('harina') || type.includes('salsa') || type.includes('mantequilla') || type.includes('patata') || type.includes('hazelnut') || type.includes('peanut') || type.includes('choco') || type.includes('sirope') || type.includes('arce') || type.includes('profit')) return 'alimentacion';
   
   if (type.includes('prote') || type.includes('whey') || type.includes('beef') || type.includes('iso')) return 'proteinas';
   if (type.includes('creatina') || type.includes('creatine')) return 'creatina';
