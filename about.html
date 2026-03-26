@@ -4,8 +4,8 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Sobre Nosaltres i Contacte – NL VIP Nutrition Andorra</title>
-    <meta name="description"
+    <title data-i18n="about_title_seo">Sobre Nosaltres i Contacte – NL VIP Nutrition Andorra</title>
+    <meta name="description" data-i18n="about_meta_desc"
         content="Coneix NL VIP Nutrition, la botiga de suplements esportius de referència a Andorra. Carrer Esteve Dolsa 15. Telèfon: 376 645 263. Assessorament personalitzat." />
     <meta name="robots" content="index, follow" />
     <link rel="canonical" href="https://nlvipnutrition.com/about.html" />
@@ -179,12 +179,12 @@
                     alt="NL VIP Nutrition" style="height:44px;width:auto;" />
             </a>
             <ul class="nav-links">
-                <li><a href="index.html" class="nav-link">Inici</a></li>
-                <li><a href="products.html" class="nav-link">Productes</a></li>
-                <li><a href="about.html" class="nav-link active" aria-current="page">Nosaltres</a></li>
+                <li><a href="index.html" class="nav-link" data-i18n="nav_inici">Inici</a></li>
+                <li><a href="products.html" class="nav-link" data-i18n="nav_productes">Productes</a></li>
+                <li><a href="about.html" class="nav-link active" data-i18n="nav_nosaltres">Nosaltres</a></li>
                 <li><a href="machines.html" class="nav-link">NLVIPMachines</a></li>
-                <li><a href="assessoria.html" class="nav-link">Assessoria</a></li>
-                <li><a href="about.html#contacte" class="nav-link">Contacte</a></li>
+                <li><a href="assessoria.html" class="nav-link" data-i18n="nav_assessoria">Assessoria</a></li>
+                <li><a href="about.html#contacte" class="nav-link" data-i18n="nav_contacte">Contacte</a></li>
             </ul>
             <div class="nav-right">
                 <select id="lang-select" class="lang-select" onchange="changeLanguage(this.value)" aria-label="Seleccionar idioma">
@@ -193,6 +193,10 @@
                     <option value="fr">🇫🇷</option>
                     <option value="en">🇬🇧</option>
                 </select>
+                <div class="nav-search">
+                    <input type="search" class="global-search-input" data-i18n-placeholder="search_placeholder" placeholder="Cerca productes..." />
+                    <div class="search-results-dropdown"></div>
+                </div>
                 <a href="https://wa.me/376645263" target="_blank" rel="noopener" class="btn-wa-nav">
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
                         <path
@@ -208,20 +212,33 @@
                     </svg>
                     <span class="cart-badge" id="cart-count">0</span>
                 </button>
+                <button class="btn-search-mobile" id="search-toggle-mobile" aria-label="Cercar">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+                    </svg>
+                </button>
+                <div class="mobile-search-bar" id="mobile-search-bar">
+                    <input type="search" id="mobile-search-input" class="global-search-input" data-i18n-placeholder="search_placeholder" placeholder="Cerca productes..." />
+                    <div class="search-results-dropdown"></div>
+                </div>
                 <button class="btn-hamburger" id="hamburger" aria-label="Menú">☰</button>
             </div>
         </div>
     </nav>
-    <div class="top-strip">🚚 Enviament gratuït +70€ &nbsp;·&nbsp; 📍 Carrer Esteve Dolsa 15, Andorra &nbsp;·&nbsp; 📞
-        376 645 263</div>
+    <div class="top-strip" role="banner">
+        🚚 <span data-i18n="top_strip_shipping">Enviament gratuït per compres superiors a 70€</span> &nbsp;·&nbsp; 📍 <a href="about.html#contacte" data-i18n="top_strip_store">Botiga física: Carrer Esteve Dolsa 15, Andorra</a>
+    </div>
 
     <main class="page" id="main-content">
 
         <!-- PAGE HERO -->
         <div class="page-hero">
             <div class="container">
-                <nav class="breadcrumb"><a href="index.html">Inici</a><span class="breadcrumb-sep">›</span><span
-                        aria-current="page">Sobre nosaltres</span></nav>
+                <nav class="breadcrumb" aria-label="Ruta de navegació">
+                    <a href="index.html" data-i18n="nav_inici">Inici</a>
+                    <span class="breadcrumb-sep">›</span>
+                    <span aria-current="page" data-i18n="nav_nosaltres">Nosaltres</span>
+                </nav>
                 <h1 class="page-hero-title">La nostra <span
                         style="background:var(--grad-text);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">història</span>
                 </h1>
@@ -488,6 +505,7 @@
                 d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
         </svg><span class="fab-wa-label">WhatsApp</span></a>
 
+    <script src="products.js"></script>
     <script src="products.js"></script>
     <script src="shared.js"></script>
     <script>document.addEventListener('DOMContentLoaded', initShared);</script>

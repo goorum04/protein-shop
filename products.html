@@ -4,8 +4,8 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Catàleg de Productes – NL VIP Nutrition Andorra</title>
-    <meta name="description"
+    <title data-i18n="products_title_seo">Catàleg de Productes – NL VIP Nutrition Andorra</title>
+    <meta name="description" data-i18n="products_meta_desc"
         content="Explora el nostre catàleg complet de suplements esportius: proteïnes, creatina, pre-workout, vitamines, mass gainer i molt més. NL VIP Nutrition – Andorra." />
     <meta name="robots" content="index, follow" />
     <link rel="canonical" href="https://nlvipnutrition.com/products.html" />
@@ -43,12 +43,12 @@
                     alt="NL VIP Nutrition" style="height:44px;width:auto;" />
             </a>
             <ul class="nav-links">
-                <li><a href="index.html" class="nav-link">Inici</a></li>
-                <li><a href="products.html" class="nav-link active" aria-current="page">Productes</a></li>
-                <li><a href="about.html" class="nav-link">Nosaltres</a></li>
+                <li><a href="index.html" class="nav-link" data-i18n="nav_inici">Inici</a></li>
+                <li><a href="products.html" class="nav-link active" aria-current="page" data-i18n="nav_productes">Productes</a></li>
+                <li><a href="about.html" class="nav-link" data-i18n="nav_nosaltres">Nosaltres</a></li>
                 <li><a href="machines.html" class="nav-link">NLVIPMachines</a></li>
-                <li><a href="assessoria.html" class="nav-link">Assessoria</a></li>
-                <li><a href="about.html#contacte" class="nav-link">Contacte</a></li>
+                <li><a href="assessoria.html" class="nav-link" data-i18n="nav_assessoria">Assessoria</a></li>
+                <li><a href="about.html#contacte" class="nav-link" data-i18n="nav_contacte">Contacte</a></li>
             </ul>
             <div class="nav-right">
                 <select id="lang-select" class="lang-select" onchange="changeLanguage(this.value)" aria-label="Seleccionar idioma">
@@ -58,8 +58,9 @@
                     <option value="en">🇬🇧</option>
                 </select>
                 <div class="nav-search">
-                    <input type="search" id="search-input" placeholder="Cerca productes..." data-i18n-placeholder="products_search"
+                    <input type="search" id="search-input" class="global-search-input" placeholder="Cerca productes..." data-i18n-placeholder="products_search"
                         aria-label="Cerca productes" />
+                    <div class="search-results-dropdown"></div>
                 </div>
                 <a href="https://wa.me/376645263" target="_blank" rel="noopener" class="btn-wa-nav">
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
@@ -82,23 +83,25 @@
   </svg>
 </button>
 <div class="mobile-search-bar" id="mobile-search-bar">
-  <input type="search" id="mobile-search-input" placeholder="Cerca productes..." />
+  <input type="search" id="mobile-search-input" class="global-search-input" data-i18n-placeholder="products_search" placeholder="Cerca productes..." />
+  <div class="search-results-dropdown"></div>
 </div>
                 <button class="btn-hamburger" id="hamburger" aria-label="Menú">☰</button>
             </div>
         </div>
     </nav>
-    <div class="top-strip">🚚 Enviament gratuït +70€ &nbsp;·&nbsp; 📍 Botiga: Carrer Esteve Dolsa 15, Andorra
-        &nbsp;·&nbsp; 📞 376 645 263</div>
+    <div class="top-strip" role="banner">
+        🚚 <span data-i18n="top_strip_shipping">Enviament gratuït per compres superiors a 70€</span> &nbsp;·&nbsp; 📍 <a href="about.html#contacte" data-i18n="top_strip_store">Botiga física: Carrer Esteve Dolsa 15, Andorra</a>
+    </div>
 
     <main class="page" id="main-content">
         <!-- PAGE HERO -->
         <div class="page-hero">
             <div class="container">
                 <nav class="breadcrumb" aria-label="Ruta de navegació">
-                    <a href="index.html">Inici</a>
+                    <a href="index.html" data-i18n="nav_inici">Inici</a>
                     <span class="breadcrumb-sep">›</span>
-                    <span aria-current="page">Productes</span>
+                    <span aria-current="page" data-i18n="nav_productes">Productes</span>
                 </nav>
                 <h1 class="page-hero-title">Catàleg de <span
                         style="background:var(--grad-text);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">Productes</span>
@@ -128,25 +131,25 @@
                         <div class="sidebar-section">
                             <div class="sidebar-label">Categoria</div>
                             <div class="sidebar-cats" id="sidebar-cats" role="list">
-                                <button class="sidebar-cat active" data-cat="all" role="listitem">Tots els productes
+                                <button class="sidebar-cat active" data-cat="all" role="listitem"><span data-i18n="cat_all">Tots els productes</span>
                                     <span id="count-all">0</span></button>
-                                <button class="sidebar-cat" data-cat="proteinas">Proteïnes <span
+                                <button class="sidebar-cat" data-cat="proteinas"><span data-i18n="cat_proteinas">Proteïnes</span> <span
                                         id="count-pro">0</span></button>
-                                <button class="sidebar-cat" data-cat="creatina">Creatina <span
+                                <button class="sidebar-cat" data-cat="creatina"><span data-i18n="cat_creatina">Creatina</span> <span
                                         id="count-cre">0</span></button>
-                                <button class="sidebar-cat" data-cat="pre-workout">Pre-Workout <span
+                                <button class="sidebar-cat" data-cat="pre-workout"><span data-i18n="cat_preworkout">Pre-Workout</span> <span
                                         id="count-pre">0</span></button>
-                                <button class="sidebar-cat" data-cat="mass-gainer">Mass Gainer <span
+                                <button class="sidebar-cat" data-cat="mass-gainer"><span data-i18n="cat_massgainer">Mass Gainer</span> <span
                                         id="count-mas">0</span></button>
-                                <button class="sidebar-cat" data-cat="vitaminas">Vitamines <span
+                                <button class="sidebar-cat" data-cat="vitaminas"><span data-i18n="cat_vitaminas">Vitamines</span> <span
                                         id="count-vit">0</span></button>
-                                <button class="sidebar-cat" data-cat="alimentacion">Alimentació <span
+                                <button class="sidebar-cat" data-cat="alimentacion"><span data-i18n="cat_alimentacion">Alimentació</span> <span
                                         id="count-ali">0</span></button>
-                                <button class="sidebar-cat" data-cat="control-peso">Control Pes <span
+                                <button class="sidebar-cat" data-cat="control-peso"><span data-i18n="cat_controlpeso">Control Pes</span> <span
                                         id="count-con">0</span></button>
-                                <button class="sidebar-cat" data-cat="carbohidratos">Carbohidrats <span
+                                <button class="sidebar-cat" data-cat="carbohidratos"><span data-i18n="cat_carbohidratos">Carbohidrats</span> <span
                                         id="count-car">0</span></button>
-                                <button class="sidebar-cat" data-cat="prehormonal">Prehormonal <span
+                                <button class="sidebar-cat" data-cat="prehormonal"><span data-i18n="cat_prehormonal">Prehormonal</span> <span
                                         id="count-hor">0</span></button>
                             </div>
                         </div>
