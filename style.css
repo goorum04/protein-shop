@@ -364,6 +364,89 @@ body::before {
   }
 }
 
+/* Global search input – the .nav-search input rules apply to it on desktop,
+   but we need an explicit rule for the class so it also works in the mobile bar */
+.global-search-input {
+  background: var(--surface);
+  border: 1.5px solid var(--border);
+  border-radius: 50px;
+  padding: 8px 16px;
+  color: var(--text);
+  font-family: inherit;
+  font-size: 0.85rem;
+  width: 200px;
+  outline: none;
+  transition: all var(--t) var(--ease);
+}
+
+.global-search-input:focus {
+  border-color: var(--blue);
+  box-shadow: 0 0 0 3px rgba(0, 87, 255, 0.1);
+  width: 260px;
+}
+
+.global-search-input::placeholder {
+  color: var(--text-3);
+}
+
+/* Hide the mobile search button by default (desktop) */
+.btn-search-mobile {
+  display: none;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: var(--surface);
+  border: 1.5px solid var(--border);
+  align-items: center;
+  justify-content: center;
+  color: var(--text-2);
+  cursor: pointer;
+  transition: all var(--t) var(--ease);
+}
+
+.btn-search-mobile:hover {
+  border-color: var(--blue);
+  color: var(--blue);
+}
+
+/* Mobile search bar (hidden by default, shown when .open) */
+.mobile-search-bar {
+  display: none;
+  position: fixed;
+  top: var(--navbar-h);
+  left: 0;
+  right: 0;
+  padding: 10px 16px;
+  background: var(--black);
+  border-bottom: 1px solid var(--border);
+  z-index: 500;
+}
+
+.mobile-search-bar.open {
+  display: block;
+}
+
+.mobile-search-bar .global-search-input {
+  width: 100%;
+  border-radius: var(--r-sm);
+}
+
+.mobile-search-bar .global-search-input:focus {
+  width: 100%;
+  box-shadow: none;
+}
+
+/* On mobile: show the search toggle icon and hide desktop search */
+@media (max-width: 900px) {
+  .nav-search {
+    display: none;
+  }
+
+  .btn-search-mobile {
+    display: flex;
+  }
+}
+
 .btn-wa-nav {
   display: flex;
   align-items: center;
