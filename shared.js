@@ -1307,7 +1307,6 @@ function highlightText(text, query) {
 function initShared() {
   updatePageTranslations();
   updateCartBadge();
-  initNavbarScroll();
   initGlobalSearch();
 
   // Cart toggle
