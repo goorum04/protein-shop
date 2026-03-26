@@ -1110,10 +1110,13 @@ function openModal(id) {
   const currentFlavor = p.defaultFlavor || p.flavor;
   const displayFlavor = currentFlavor ? ` \u2013 ${currentFlavor}` : '';
 
+  const defaultVariant = p.variants?.find(v => v.flavor === p.defaultFlavor);
+  const initialImage = defaultVariant?.image || p.image;
+
   inner.innerHTML = `
     <div class="modal-grid">
       <div class="modal-img-box">
-        <img id="modal-product-img" src="${escHtml(p.image)}" alt="${escHtml(p.name)}"
+        <img id="modal-product-img" src="${escHtml(initialImage)}" alt="${escHtml(p.name)}"
              onerror="this.src='https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?w=400&q=70'" />
       </div>
       <div class="modal-info">

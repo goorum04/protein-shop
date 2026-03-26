@@ -50,6 +50,7 @@ async function fetchProductsFromShopify() {
                   price { amount currencyCode }
                   availableForSale
                   selectedOptions { name value }
+                  image { url }
                 }
               }
             }
@@ -76,7 +77,8 @@ function transformProduct(product) {
       o.name.toLowerCase() === 'colour' ||
       o.name.toLowerCase() === 'color'
     )?.value || node.title,
-    options: node.selectedOptions
+    options: node.selectedOptions,
+    image: node.image?.url || null
   }));
 
   const hasMultipleVariants = variants.length > 1;
