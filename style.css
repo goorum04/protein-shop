@@ -2530,5 +2530,60 @@ min-width: 0;
     align-items: center;
   }
 }
+
+/* ===== PACKS ===== */
+.badge-pack {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  background: linear-gradient(135deg, #f59e0b, #d97706);
+  color: #000;
+  font-size: 0.7rem;
+  font-weight: 800;
+  padding: 3px 9px;
+  border-radius: 50px;
+  z-index: 2;
+  letter-spacing: 0.05em;
+  pointer-events: none;
+}
+
+.product-card.is-pack {
+  border-color: rgba(245, 158, 11, 0.35);
+}
+.product-card.is-pack:hover {
+  border-color: #f59e0b;
+  box-shadow: 0 20px 48px rgba(245, 158, 11, 0.22);
+  transform: translateY(-8px) scale(1.03);
+}
+
+.btn-wa-full {
+  display: block;
+  width: 100%;
+  text-align: center;
+  padding: 9px 12px;
+  border-radius: 50px;
+  background: var(--green);
+  color: #fff;
+  font-size: 0.82rem;
+  font-weight: 700;
+  text-decoration: none;
+  transition: all var(--t) var(--ease);
+  box-sizing: border-box;
+}
+.btn-wa-full:hover {
+  opacity: 0.88;
+}
+
+.modal-pack-badge {
+  display: inline-block;
+  background: linear-gradient(135deg, #f59e0b, #d97706);
+  color: #000;
+  font-size: 0.75rem;
+  font-weight: 800;
+  padding: 4px 12px;
+  border-radius: 50px;
+  margin-bottom: 8px;
+  letter-spacing: 0.05em;
+}
 / *   F o r c e   r e d e p l o y   2 0 2 6 - 0 3 - 2 6   * /  
  

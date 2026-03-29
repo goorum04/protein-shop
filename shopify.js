@@ -93,6 +93,7 @@ function transformProduct(product) {
   }));
 
   const hasMultipleVariants = variants.length > 1;
+  const isPack = product.title.toLowerCase().startsWith('pack');
 
   return {
     id: product.handle,
@@ -107,13 +108,16 @@ function transformProduct(product) {
     variants: variants,
     hasFlavors: hasMultipleVariants,
     allFlavors: hasMultipleVariants ? [...new Set(variants.map(v => v.flavor).filter(Boolean))] : [],
-    handle: product.handle
+    handle: product.handle,
+    isPack: isPack
   };
 }
 
 function mapCategory(productType, title, vendor) {
   const type = ((productType || '') + ' ' + (title || '') + ' ' + (vendor || '')).toLowerCase();
-  
+
+  if ((title || '').toLowerCase().startsWith('pack')) return 'packs';
+
   // Prioritize "alimentacion" to catch protein snacks before they fall into "proteinas"
   if (type.includes('barrita') || type.includes('barreta') || type.includes('batido') || type.includes('crema') || type.includes('cream') || type.includes('donut') || type.includes('alimentaci') || type.includes('snack') || type.includes('avena') || type.includes('farina') || type.includes('harina') || type.includes('salsa') || type.includes('mantequilla') || type.includes('patata') || type.includes('hazelnut') || type.includes('peanut') || type.includes('choco') || type.includes('sirope') || type.includes('arce') || type.includes('profit')) return 'alimentacion';
   

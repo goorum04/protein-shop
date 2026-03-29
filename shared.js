@@ -768,8 +768,18 @@ function renderCard(p) {
     ? escHtml(p.name)
     : `${escHtml(p.name)}${p.flavor ? " – " + escHtml(p.flavor) : ""}`;
 
+  const packBadge = p.isPack ? `<span class="badge-pack">✨ Pack</span>` : '';
+  const cardClass = p.isPack ? 'product-card is-pack' : 'product-card';
+  const cardFooter = p.isPack
+    ? `<a href="https://wa.me/376645263?text=${encodeURIComponent("Hola! M'interessa el " + p.name)}" class="btn-wa-full" target="_blank" onclick="event.stopPropagation()" aria-label="Demanar ${productName} per WhatsApp">💬 Demanar per WhatsApp</a>`
+    : `<button class="btn-add-cart" onclick="addToCart(event,'${escHtml(p.id)}')" ${p.in_stock ? "" : "disabled"} aria-label="Afegir ${productName} al carret">
+            ${p.in_stock ? "Afegir 🛒" : "Esgotat"}
+          </button>
+          <a href="https://wa.me/376645263?text=${encodeURIComponent("Hola! Estic interessat en: " + p.name)}" class="btn-ghost btn-wa-card" target="_blank" onclick="event.stopPropagation()" aria-label="Contactar per WhatsApp">💬</a>`;
+
   return `
-    <article class="product-card" onclick="openModal('${escHtml(p.id)}')" role="listitem" aria-label="${productName}" tabindex="0" onkeydown="if(event.key==='Enter')openModal('${escHtml(p.id)}')">
+    <article class="${cardClass}" onclick="openModal('${escHtml(p.id)}')" role="listitem" aria-label="${productName}" tabindex="0" onkeydown="if(event.key==='Enter')openModal('${escHtml(p.id)}')">
+      ${packBadge}
       <span class="product-status ${statusClass}">${statusText}</span>
       <div class="product-img">
         <img src="${escHtml(p.image)}" alt="${escHtml(p.name)}" loading="lazy" onerror="this.src='https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?w=400&q=70'" />
@@ -781,10 +791,7 @@ function renderCard(p) {
         ${flavorText}
         ${priceStr ? `<div class="product-price">${priceStr}</div>` : ""}
         <div class="product-footer">
-          <button class="btn-add-cart" onclick="addToCart(event,'${escHtml(p.id)}')" ${p.in_stock ? "" : "disabled"} aria-label="Afegir ${productName} al carret">
-            ${p.in_stock ? "Afegir 🛒" : "Esgotat"}
-          </button>
-          <a href="https://wa.me/376645263?text=${encodeURIComponent("Hola! Estic interessat en: " + p.name)}" class="btn-ghost btn-wa-card" target="_blank" onclick="event.stopPropagation()" aria-label="Contactar per WhatsApp">💬</a>
+          ${cardFooter}
         </div>
       </div>
     </article>
@@ -1068,6 +1075,7 @@ function openModal(id) {
         <img id="modal-product-img" src="${escHtml(initialImage)}" alt="${escHtml(p.name)}" onerror="this.src='https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?w=400&q=70'" />
       </div>
       <div class="modal-info">
+        ${p.isPack ? `<div class="modal-pack-badge">✨ Pack Recomanat</div>` : ''}
         <div class="modal-brand">${escHtml(p.brand || "")}</div>
         <div class="modal-name">${escHtml(p.name)}${escHtml(displayFlavor)}</div>
         ${quantity}
@@ -1076,10 +1084,13 @@ function openModal(id) {
         <div class="modal-desc" style="margin-top:10px;">${escHtml(p.description || "")}</div>
         ${p.price != null ? `<div class="modal-price">${p.price.toFixed(2).replace(".", ",")} €</div>` : ""}
         <div class="modal-actions" style="margin-top:20px;">
-          <button class="modal-btn-add" id="modal-add-btn" onclick="addToCart(event,'${escHtml(p.id)}')" ${p.in_stock ? "" : "disabled"} aria-label="Afegir al carret">
+          ${p.isPack
+            ? `<a href="https://wa.me/376645263?text=${encodeURIComponent(`Hola! M'interessa el ${p.name}`)}" target="_blank" rel="noopener" class="modal-btn-wa" style="font-size:1rem;padding:16px;">💬 Demanar per WhatsApp</a>`
+            : `<button class="modal-btn-add" id="modal-add-btn" onclick="addToCart(event,'${escHtml(p.id)}')" ${p.in_stock ? "" : "disabled"} aria-label="Afegir al carret">
             ${p.in_stock ? "🛒 Afegir al carret" : "Esgotat"}
           </button>
-          <a href="https://wa.me/376645263?text=${encodeURIComponent(`Hola! M'interessa: ${p.name}${displayFlavor}`)}" target="_blank" rel="noopener" class="modal-btn-wa">💬 Contactar per WhatsApp</a>
+          <a href="https://wa.me/376645263?text=${encodeURIComponent(`Hola! M'interessa: ${p.name}${displayFlavor}`)}" target="_blank" rel="noopener" class="modal-btn-wa">💬 Contactar per WhatsApp</a>`
+          }
         </div>
       </div>
     </div>
