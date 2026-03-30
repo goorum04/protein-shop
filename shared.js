@@ -1178,10 +1178,95 @@ function initNavbarScroll() {
   onScroll();
 }
 
+// ===== GLOBAL SEARCH =====
+function initGlobalSearch() {
+  document.querySelectorAll('.global-search-input').forEach(input => {
+    // products.html desktop search already has its own filter — skip it
+    if (input.id === 'search-input') return;
+
+    const dropdown = input.parentElement?.querySelector('.search-results-dropdown');
+    if (!dropdown) return;
+
+    let debounceTimer;
+
+    input.addEventListener('input', () => {
+      clearTimeout(debounceTimer);
+      const q = input.value.trim().toLowerCase();
+      if (q.length < 2) {
+        dropdown.innerHTML = '';
+        dropdown.classList.remove('open');
+        return;
+      }
+      debounceTimer = setTimeout(() => {
+        const results = PRODUCTS.filter(p =>
+          p.name?.toLowerCase().includes(q) ||
+          p.brand?.toLowerCase().includes(q)
+        ).slice(0, 7);
+
+        if (results.length === 0) {
+          dropdown.innerHTML = `<div style="padding:12px 16px;color:var(--text-3);font-size:0.9rem;">Cap resultat per "${escHtml(q)}"</div>`;
+        } else {
+          dropdown.innerHTML = results.map(p => {
+            const price = p.price != null ? `${p.price.toFixed(2).replace('.', ',')} €` : '';
+            const statusDot = p.in_stock
+              ? `<span style="color:var(--green);font-size:0.75rem;">● En estoc</span>`
+              : `<span style="color:var(--text-3);font-size:0.75rem;">● Esgotat</span>`;
+            return `<div class="search-result-item" data-id="${escHtml(p.id)}" data-name="${escHtml(p.name)}">
+              <img src="${escHtml(p.image)}" alt="" onerror="this.src='https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?w=60&q=60'" />
+              <div class="search-result-info">
+                <div class="search-result-name">${escHtml(p.name)}</div>
+                <div class="search-result-meta">${escHtml(p.brand || '')} ${price ? '· ' + price : ''} ${statusDot}</div>
+              </div>
+            </div>`;
+          }).join('');
+        }
+        dropdown.classList.add('open');
+
+        dropdown.querySelectorAll('.search-result-item').forEach(item => {
+          item.addEventListener('click', () => {
+            const id = item.dataset.id;
+            const name = item.dataset.name;
+            dropdown.innerHTML = '';
+            dropdown.classList.remove('open');
+            input.value = '';
+            // If openModal is available and product exists, open it directly
+            if (typeof openModal === 'function' && PRODUCTS.find(p => p.id === id)) {
+              openModal(id);
+            } else {
+              window.location.href = `products.html?q=${encodeURIComponent(name)}`;
+            }
+          });
+        });
+      }, 200);
+    });
+
+    input.addEventListener('keydown', e => {
+      if (e.key === 'Enter' && input.value.trim()) {
+        const q = input.value.trim();
+        dropdown.innerHTML = '';
+        dropdown.classList.remove('open');
+        window.location.href = `products.html?q=${encodeURIComponent(q)}`;
+      }
+      if (e.key === 'Escape') {
+        dropdown.innerHTML = '';
+        dropdown.classList.remove('open');
+      }
+    });
+
+    document.addEventListener('click', e => {
+      if (!input.contains(e.target) && !dropdown.contains(e.target)) {
+        dropdown.innerHTML = '';
+        dropdown.classList.remove('open');
+      }
+    });
+  });
+}
+
 // ===== INIT ALL =====
 function initShared() {
   updatePageTranslations();
   updateCartBadge();
+  initGlobalSearch();
   initNavbarScroll();
 
   document.getElementById("cart-toggle")?.addEventListener("click", openCart);
