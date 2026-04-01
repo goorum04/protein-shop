@@ -39,9 +39,9 @@ async function test() {
     if (type.includes('pre-workout') || type.includes('pre workout') || type.includes('preentrenamiento') || type.includes('pump')) return 'pre-workout';
     if (type.includes('vitamin') || type.includes('omega') || type.includes('mineral') || type.includes('salut') || type.includes('salud') || type.includes('multivita')) return 'vitaminas';
     if (type.includes('masa') || type.includes('gainer') || type.includes('mass') || type.includes('peso')) return 'mass-gainer';
+    if (type.includes('prehormonal') || type.includes('testo') || type.includes('hormonal') || type.includes('zma') || type.includes('andro')) return 'prehormonal';
     if (type.includes('carbohidrat') || type.includes('carb') || type.includes('ciclodextrina')) return 'carbohidratos';
     if (type.includes('control') || type.includes('carnitina') || type.includes('diure') || type.includes('quemador') || type.includes('fat burner')) return 'control-peso';
-    if (type.includes('prehormonal') || type.includes('testo') || type.includes('hormonal') || type.includes('zma') || type.includes('andro')) return 'prehormonal';
     return 'vitaminas';
   }
 
