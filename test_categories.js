@@ -41,7 +41,7 @@ async function test() {
     if (type.includes('masa') || type.includes('gainer') || type.includes('mass') || type.includes('peso')) return 'mass-gainer';
     if (type.includes('carbohidrat') || type.includes('carb') || type.includes('ciclodextrina')) return 'carbohidratos';
     if (type.includes('control') || type.includes('carnitina') || type.includes('diure') || type.includes('quemador') || type.includes('fat burner')) return 'control-peso';
-    if (type.includes('prehormonal') || type.includes('testo') || type.includes('hormonal') || type.includes('zma')) return 'prehormonal';
+    if (type.includes('prehormonal') || type.includes('testo') || type.includes('hormonal') || type.includes('zma') || type.includes('andro')) return 'prehormonal';
     return 'vitaminas';
   }
 
