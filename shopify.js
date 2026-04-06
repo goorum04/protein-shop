@@ -114,7 +114,12 @@ function transformProduct(product) {
 }
 
 function mapCategory(productType, title, vendor) {
-  if ((title || '').toLowerCase().startsWith('pack')) return 'packs';
+  const titleLower = (title || '').toLowerCase();
+  if (titleLower.startsWith('pack')) return 'packs';
+
+  // Excepciones por título específico
+  if (titleLower.includes('androbull')) return 'prehormonal';
+  if (titleLower.includes('barr nitromix')) return 'pre-workout';
 
   // Lookup directo del productType de Shopify (tiene prioridad sobre keywords)
   const DIRECT_MAP = {
