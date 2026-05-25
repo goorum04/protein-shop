@@ -16,6 +16,7 @@ const translations = {
     nav_contacte: "Contacte",
 
     // Home
+    home_title: "NL VIP Nutrition – Suplements Esportius a Andorra",
     hero_title: "Assolir els teus objectius",
     hero_subtitle: "Som el teu partner fitness a Andorra. Productes de qualitat, assessorament expert i resultats garantits",
     hero_cta: "Veure productes",
@@ -177,6 +178,7 @@ const translations = {
     nav_assessoria: "Asesoría",
     nav_contacte: "Contacto",
 
+    home_title: "NL VIP Nutrition – Suplementos Deportivos en Andorra",
     hero_title: "Alcanza tus objetivos",
     hero_subtitle: "Somos tu partner fitness en Andorra. Productos de calidad, asesoramiento experto y resultados garantizados",
     hero_cta: "Ver productos",
@@ -327,6 +329,7 @@ const translations = {
     nav_assessoria: "Conseil",
     nav_contacte: "Contact",
 
+    home_title: "NL VIP Nutrition – Suppléments Sportifs en Andorre",
     hero_title: "Atteignez vos objectifs",
     hero_subtitle: "Nous sommes votre partenaire fitness en Andorre. Produits de qualité, conseils experts et résultats garantis",
     hero_cta: "Voir les produits",
@@ -477,6 +480,7 @@ const translations = {
     nav_assessoria: "Coaching",
     nav_contacte: "Contact",
 
+    home_title: "NL VIP Nutrition – Sports Supplements in Andorra",
     hero_title: "Achieve your goals",
     hero_subtitle: "We are your fitness partner in Andorra. Quality products, expert advice and guaranteed results",
     hero_cta: "View products",
@@ -815,6 +819,21 @@ function addToCart(e, id) {
 
   saveCart();
   updateCartBadge();
+
+  const addBtn = e && e.target ? e.target.closest('.btn-add-cart') : null;
+  if (addBtn) {
+    const original = addBtn.innerHTML;
+    addBtn.innerHTML = "✓ Afegit!";
+    addBtn.style.background = "var(--green, #25D366)";
+    addBtn.style.color = "#fff";
+    addBtn.disabled = true;
+    setTimeout(() => {
+      addBtn.innerHTML = original;
+      addBtn.style.background = "";
+      addBtn.style.color = "";
+      addBtn.disabled = false;
+    }, 1500);
+  }
 
   const btn = document.getElementById("cart-toggle");
   if (btn) {

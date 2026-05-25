@@ -82,12 +82,16 @@ function transformProduct(product) {
     title: node.title,
     price: parseFloat(node.price.amount),
     in_stock: node.availableForSale,
-    flavor: node.selectedOptions.find(o =>
-      o.name.toLowerCase() === 'sabor' ||
-      o.name.toLowerCase() === 'flavor' ||
-      o.name.toLowerCase() === 'colour' ||
-      o.name.toLowerCase() === 'color'
-    )?.value || node.title,
+    flavor: (() => {
+      const opt = node.selectedOptions.find(o =>
+        o.name.toLowerCase() === 'sabor' ||
+        o.name.toLowerCase() === 'flavor' ||
+        o.name.toLowerCase() === 'colour' ||
+        o.name.toLowerCase() === 'color'
+      )?.value;
+      const val = opt || node.title;
+      return val === 'Default Title' ? null : val;
+    })(),
     options: node.selectedOptions,
     image: node.image?.url || null
   }));
@@ -107,7 +111,7 @@ function transformProduct(product) {
     in_stock: variants.some(v => v.in_stock),
     variants: variants,
     hasFlavors: hasMultipleVariants,
-    allFlavors: hasMultipleVariants ? [...new Set(variants.map(v => v.flavor).filter(Boolean))] : [],
+    allFlavors: hasMultipleVariants ? [...new Set(variants.map(v => v.flavor).filter(f => f && f !== 'Default Title'))] : [],
     handle: product.handle,
     isPack: isPack
   };

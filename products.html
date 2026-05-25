@@ -415,6 +415,9 @@
                     document.querySelectorAll('.sidebar-cat').forEach(b => b.classList.remove('active'));
                     btn.classList.add('active');
                     renderProducts();
+                    if (window.matchMedia('(max-width: 900px)').matches) {
+                        document.getElementById('products-grid').scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }
                 });
             });
 
