@@ -17,6 +17,11 @@ const translations = {
 
     // Home
     home_title: "NL VIP Nutrition – Suplements Esportius a Andorra",
+    products_title_seo: "Catàleg – NL VIP Nutrition Andorra",
+    about_title_seo: "Nosaltres – NL VIP Nutrition",
+    assessoria_title_seo: "Assessoria – NL VIP Nutrition",
+    machines_title_seo: "Màquines – NL VIP Nutrition",
+    search_placeholder: "Cerca productes...",
     hero_title: "Assolir els teus objectius",
     hero_subtitle: "Som el teu partner fitness a Andorra. Productes de qualitat, assessorament expert i resultats garantits",
     hero_cta: "Veure productes",
@@ -179,6 +184,11 @@ const translations = {
     nav_contacte: "Contacto",
 
     home_title: "NL VIP Nutrition – Suplementos Deportivos en Andorra",
+    products_title_seo: "Catálogo – NL VIP Nutrition Andorra",
+    about_title_seo: "Nosotros – NL VIP Nutrition",
+    assessoria_title_seo: "Asesoría – NL VIP Nutrition",
+    machines_title_seo: "Máquinas – NL VIP Nutrition",
+    search_placeholder: "Buscar productos...",
     hero_title: "Alcanza tus objetivos",
     hero_subtitle: "Somos tu partner fitness en Andorra. Productos de calidad, asesoramiento experto y resultados garantizados",
     hero_cta: "Ver productos",
@@ -330,6 +340,11 @@ const translations = {
     nav_contacte: "Contact",
 
     home_title: "NL VIP Nutrition – Suppléments Sportifs en Andorre",
+    products_title_seo: "Catalogue – NL VIP Nutrition Andorre",
+    about_title_seo: "À propos – NL VIP Nutrition",
+    assessoria_title_seo: "Conseil – NL VIP Nutrition",
+    machines_title_seo: "Machines – NL VIP Nutrition",
+    search_placeholder: "Rechercher des produits...",
     hero_title: "Atteignez vos objectifs",
     hero_subtitle: "Nous sommes votre partenaire fitness en Andorre. Produits de qualité, conseils experts et résultats garantis",
     hero_cta: "Voir les produits",
@@ -481,6 +496,11 @@ const translations = {
     nav_contacte: "Contact",
 
     home_title: "NL VIP Nutrition – Sports Supplements in Andorra",
+    products_title_seo: "Catalogue – NL VIP Nutrition Andorra",
+    about_title_seo: "About us – NL VIP Nutrition",
+    assessoria_title_seo: "Coaching – NL VIP Nutrition",
+    machines_title_seo: "Machines – NL VIP Nutrition",
+    search_placeholder: "Search products...",
     hero_title: "Achieve your goals",
     hero_subtitle: "We are your fitness partner in Andorra. Quality products, expert advice and guaranteed results",
     hero_cta: "View products",
@@ -1328,7 +1348,10 @@ function initShared() {
   if (searchToggle && searchBar) {
     searchToggle.addEventListener("click", () => {
       searchBar.classList.toggle("open");
-      if (searchBar.classList.contains("open")) mobileInput?.focus();
+      if (searchBar.classList.contains("open")) {
+        if (mobileInput) mobileInput.value = '';
+        mobileInput?.focus();
+      }
     });
 
     mobileInput?.addEventListener("input", (e) => {
