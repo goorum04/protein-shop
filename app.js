@@ -61,15 +61,11 @@ function productCard(p, small) {
     const qtyMatch = p.name.match(/(\d+[,.]?\d*\s*(g|gr|kg|ml|caps|càpsules|tablets|tabs|litros|l))/i);
     const quantity = qtyMatch ? `<div class="product-qty" style="color:var(--blue-light);font-size:0.85rem;margin-bottom:8px">Format: <strong>${qtyMatch[0].toLowerCase()}</strong></div>` : '';
 
-    const badge = p.in_stock
-        ? `<span class="product-badge badge-in">En estoc</span>`
-        : `<span class="product-badge badge-out">Esgotat</span>`;
     const addBtn = `<a href="https://wa.me/376645263?text=${encodeURIComponent('Hola! Estic interessat en: ' + p.name)}" class="btn-ghost" style="padding: 6px 12px; font-size: 0.8rem; width:100%; text-align:center" target="_blank" onclick="event.stopPropagation()">Contactar 💬</a>`;
 
     return `
     <article class="product-card" onclick="openModal('${p.id}')" id="card-${p.id}">
       <div class="product-img-wrap">
-        ${badge}
         <img src="${p.image}" alt="${p.name}" loading="lazy" onerror="this.src='https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?w=400&q=70'" />
       </div>
       <div class="product-info">
