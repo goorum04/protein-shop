@@ -132,28 +132,17 @@
                         <div class="sidebar-section">
                             <div class="sidebar-label">Categoria</div>
                             <div class="sidebar-cats" id="sidebar-cats" role="list">
-                                <button class="sidebar-cat active" data-cat="all" role="listitem"><span data-i18n="cat_all">Tots els productes</span>
-                                    <span id="count-all">0</span></button>
-                                <button class="sidebar-cat" data-cat="proteinas"><span data-i18n="cat_proteinas">Proteïnes</span> <span
-                                        id="count-pro">0</span></button>
-                                <button class="sidebar-cat" data-cat="creatina"><span data-i18n="cat_creatina">Creatina</span> <span
-                                        id="count-cre">0</span></button>
-                                <button class="sidebar-cat" data-cat="pre-workout"><span data-i18n="cat_preworkout">Pre-Workout</span> <span
-                                        id="count-pre">0</span></button>
-                                <button class="sidebar-cat" data-cat="mass-gainer"><span data-i18n="cat_massgainer">Mass Gainer</span> <span
-                                        id="count-mas">0</span></button>
-                                <button class="sidebar-cat" data-cat="vitaminas"><span data-i18n="cat_vitaminas">Vitamines</span> <span
-                                        id="count-vit">0</span></button>
-                                <button class="sidebar-cat" data-cat="alimentacion"><span data-i18n="cat_alimentacion">Alimentació</span> <span
-                                        id="count-ali">0</span></button>
-                                <button class="sidebar-cat" data-cat="control-peso"><span data-i18n="cat_controlpeso">Control Pes</span> <span
-                                        id="count-con">0</span></button>
-                                <button class="sidebar-cat" data-cat="carbohidratos"><span data-i18n="cat_carbohidratos">Carbohidrats</span> <span
-                                        id="count-car">0</span></button>
-                                <button class="sidebar-cat" data-cat="prehormonal"><span data-i18n="cat_prehormonal">Prehormonal</span> <span
-                                        id="count-hor">0</span></button>
-                                <button class="sidebar-cat" data-cat="packs">✨ Packs <span
-                                        id="count-pac">0</span></button>
+                                <button class="sidebar-cat active" data-cat="all" role="listitem"><span data-i18n="cat_all">Tots els productes</span></button>
+                                <button class="sidebar-cat" data-cat="proteinas"><span data-i18n="cat_proteinas">Proteïnes</span></button>
+                                <button class="sidebar-cat" data-cat="creatina"><span data-i18n="cat_creatina">Creatina</span></button>
+                                <button class="sidebar-cat" data-cat="pre-workout"><span data-i18n="cat_preworkout">Pre-Workout</span></button>
+                                <button class="sidebar-cat" data-cat="mass-gainer"><span data-i18n="cat_massgainer">Mass Gainer</span></button>
+                                <button class="sidebar-cat" data-cat="vitaminas"><span data-i18n="cat_vitaminas">Vitamines</span></button>
+                                <button class="sidebar-cat" data-cat="alimentacion"><span data-i18n="cat_alimentacion">Alimentació</span></button>
+                                <button class="sidebar-cat" data-cat="control-peso"><span data-i18n="cat_controlpeso">Control Pes</span></button>
+                                <button class="sidebar-cat" data-cat="carbohidratos"><span data-i18n="cat_carbohidratos">Carbohidrats</span></button>
+                                <button class="sidebar-cat" data-cat="prehormonal"><span data-i18n="cat_prehormonal">Prehormonal</span></button>
+                                <button class="sidebar-cat" data-cat="packs">✨ Packs</button>
                             </div>
                         </div>
                         <div class="sidebar-section">
@@ -315,13 +304,7 @@
         let onlyStock = false;
         let searchQuery = '';
 
-        const CAT_COUNTS = {
-            'proteinas': 'count-pro', 'creatina': 'count-cre', 'pre-workout': 'count-pre',
-            'mass-gainer': 'count-mas', 'vitaminas': 'count-vit', 'alimentacion': 'count-ali',
-            'control-peso': 'count-con', 'carbohidratos': 'count-car', 'prehormonal': 'count-hor',
-            'packs': 'count-pac'
-        };
-        const CAT_NAMES = {
+const CAT_NAMES = {
             all: 'Tots els productes', proteinas: 'Proteïnes', creatina: 'Creatina',
             'pre-workout': 'Pre-Workout', 'mass-gainer': 'Mass Gainer', vitaminas: 'Vitamines i Salut',
             alimentacion: 'Alimentació', 'control-peso': 'Control Pes', carbohidratos: 'Carbohydrats',
@@ -360,14 +343,6 @@
             grid.innerHTML = list.map(renderCard).join('');
         }
 
-        function updateCounts() {
-            document.getElementById('count-all').textContent = PRODUCTS.length;
-            Object.entries(CAT_COUNTS).forEach(([cat, id]) => {
-                const el = document.getElementById(id);
-                if (el) el.textContent = PRODUCTS.filter(p => p.category === cat).length;
-            });
-        }
-
         document.addEventListener('DOMContentLoaded', async () => {
             initShared();
 
@@ -391,8 +366,6 @@
             } catch (e) {
                 console.error('Error loading Shopify products:', e);
             }
-
-            updateCounts();
 
             // Read URL param
             const params = new URLSearchParams(location.search);
