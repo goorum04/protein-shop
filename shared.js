@@ -173,7 +173,7 @@ const translations = {
     footer_about: "Sobre nosaltres",
     footer_rights: "Tots els drets reservats",
     cart_total_label: "Total:",
-    cart_checkout_btn: "Finalitzar compra a Shopify 🛒"
+    cart_checkout_btn: "Finalizar compra"
   },
 
   es: {
@@ -329,7 +329,7 @@ const translations = {
     footer_about: "Sobre nosotros",
     footer_rights: "Todos los derechos reservados",
     cart_total_label: "Total:",
-    cart_checkout_btn: "Finalizar compra en Shopify 🛒"
+    cart_checkout_btn: "Finalizar compra"
   },
 
   fr: {
@@ -485,7 +485,7 @@ const translations = {
     footer_about: "À propos de nous",
     footer_rights: "Tous droits réservés",
     cart_total_label: "Total:",
-    cart_checkout_btn: "Finaliser l’achat sur Shopify 🛒"
+    cart_checkout_btn: "Finalizar compra"
   },
 
   en: {
@@ -641,7 +641,7 @@ const translations = {
     footer_about: "About us",
     footer_rights: "All rights reserved",
     cart_total_label: "Total:",
-    cart_checkout_btn: "Checkout on Shopify 🛒"
+    cart_checkout_btn: "Finalizar compra"
   }
 };
 
@@ -771,8 +771,6 @@ function escHtml(s) {
 
 // ===== RENDER PRODUCT CARD =====
 function renderCard(p) {
-  const statusClass = p.in_stock ? "status-in" : "status-out";
-  const statusText = p.in_stock ? "En estoc" : "Esgotat";
 
   const qtyMatch = p.name.match(/(\d+[,.]?\d*\s*(g|gr|kg|ml|caps|càpsules|tablets|tabs|litres|l))/i);
   const quantity = qtyMatch
@@ -804,7 +802,6 @@ function renderCard(p) {
   return `
     <article class="${cardClass}" onclick="openModal('${escHtml(p.id)}')" role="listitem" aria-label="${productName}" tabindex="0" onkeydown="if(event.key==='Enter')openModal('${escHtml(p.id)}')">
       ${packBadge}
-      <span class="product-status ${statusClass}">${statusText}</span>
       <div class="product-img">
         <img src="${escHtml(p.image)}" alt="${escHtml(p.name)}" loading="lazy" onerror="this.src='https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?w=400&q=70'" />
       </div>
