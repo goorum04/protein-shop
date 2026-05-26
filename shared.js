@@ -173,7 +173,7 @@ const translations = {
     footer_about: "Sobre nosaltres",
     footer_rights: "Tots els drets reservats",
     cart_total_label: "Total:",
-    cart_checkout_btn: "Finalitzar compra a Shopify 🛒"
+    cart_checkout_btn: "Finalizar compra"
   },
 
   es: {
@@ -329,7 +329,7 @@ const translations = {
     footer_about: "Sobre nosotros",
     footer_rights: "Todos los derechos reservados",
     cart_total_label: "Total:",
-    cart_checkout_btn: "Finalizar compra en Shopify 🛒"
+    cart_checkout_btn: "Finalizar compra"
   },
 
   fr: {
@@ -485,7 +485,7 @@ const translations = {
     footer_about: "À propos de nous",
     footer_rights: "Tous droits réservés",
     cart_total_label: "Total:",
-    cart_checkout_btn: "Finaliser l’achat sur Shopify 🛒"
+    cart_checkout_btn: "Finalizar compra"
   },
 
   en: {
@@ -641,7 +641,7 @@ const translations = {
     footer_about: "About us",
     footer_rights: "All rights reserved",
     cart_total_label: "Total:",
-    cart_checkout_btn: "Checkout on Shopify 🛒"
+    cart_checkout_btn: "Finalizar compra"
   }
 };
 
