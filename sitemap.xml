@@ -34,4 +34,12 @@
     <xhtml:link rel="alternate" hreflang="ca" href="https://nlvipnutrition.com/machines.html"/>
   </url>
 
+  <url>
+    <loc>https://nlvipnutrition.com/assessoria.html</loc>
+    <lastmod>2025-03-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="ca" href="https://nlvipnutrition.com/assessoria.html"/>
+  </url>
+
 </urlset>
