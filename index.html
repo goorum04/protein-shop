@@ -200,52 +200,187 @@
     <!-- ===== MAIN CONTENT ===== -->
     <main class="page" id="main-content">
 
-        <!-- HERO -->
-        <section class="hero" id="hero" aria-label="Secció principal">
-            <div class="hero-bg">
-                <div class="hero-rays"></div>
-                <div class="hero-blob hero-blob-1"></div>
-                <div class="hero-blob hero-blob-2"></div>
-                <div class="hero-grid-lines"></div>
+        <!-- HERO (split layout — imatge Higgsfield) -->
+        <style>
+          .hero-split {
+            min-height: 92vh;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            position: relative;
+            overflow: hidden;
+            background: #06080f;
+          }
+          .hero-split-copy {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 80px 56px 80px 80px;
+            position: relative;
+            z-index: 2;
+          }
+          .hero-split-media { position: relative; overflow: hidden; }
+          .hero-split-media img {
+            width: 100%; height: 100%; object-fit: cover; object-position: center;
+            animation: bottleBreathe 7s ease-in-out infinite;
+          }
+          /* resplendor blau (bot esquerre) + verd (bot dret) que batega sobre els botes */
+          .hero-split-media::before {
+            content: ''; position: absolute; inset: 0; z-index: 1; pointer-events: none;
+            background:
+              radial-gradient(circle at 40% 52%, rgba(0,130,255,0.40), transparent 40%),
+              radial-gradient(circle at 62% 50%, rgba(40,255,150,0.34), transparent 40%);
+            mix-blend-mode: screen;
+            animation: bottleGlow 5s ease-in-out infinite;
+          }
+          /* destell de llum que recorre la imatge */
+          .hero-split-media::after {
+            content: ''; position: absolute; top: -10%; bottom: -10%; left: -60%; width: 45%;
+            z-index: 2; pointer-events: none;
+            background: linear-gradient(105deg, transparent, rgba(255,255,255,0.22), transparent);
+            transform: skewX(-12deg); mix-blend-mode: screen;
+            animation: bottleShine 7s ease-in-out infinite;
+          }
+          @keyframes bottleBreathe {
+            0%, 100% { transform: scale(1); filter: brightness(1) saturate(1.05); }
+            50% { transform: scale(1.04); filter: brightness(1.14) saturate(1.25); }
+          }
+          @keyframes bottleGlow {
+            0%, 100% { opacity: 0.5; }
+            50% { opacity: 0.95; }
+          }
+          @keyframes bottleShine {
+            0% { left: -60%; }
+            55%, 100% { left: 125%; }
+          }
+          @keyframes bottleElectricPulse {
+            0%, 100% { box-shadow: 0 0 20px rgba(0,130,255,0.3), 0 0 40px rgba(40,255,150,0.1); }
+            25% { box-shadow: 0 0 30px rgba(0,130,255,0.5), 0 0 60px rgba(40,255,150,0.2); }
+            50% { box-shadow: 0 0 25px rgba(0,130,255,0.4), 0 0 50px rgba(40,255,150,0.15); }
+            75% { box-shadow: 0 0 35px rgba(0,130,255,0.6), 0 0 70px rgba(40,255,150,0.25); }
+          }
+          .hero-split-media {
+            animation: bottleElectricPulse 4s ease-in-out infinite;
+          }
+          .hero-split-fade {
+            position: absolute; inset: 0; z-index: 1;
+            background: linear-gradient(to right, #06080f 0%, transparent 28%);
+          }
+          .hero-split-pill {
+            position: absolute; bottom: 28px; left: 50%; transform: translateX(-50%);
+            background: rgba(6,8,15,0.75); backdrop-filter: blur(12px);
+            border: 1px solid rgba(255,255,255,0.1); border-radius: 100px;
+            padding: 8px 18px; font-size: 0.75rem; font-weight: 600; color: #cdd6ec;
+            white-space: nowrap; display: flex; align-items: center; gap: 8px;
+          }
+          @keyframes scrollline { 0% { opacity: 1; transform: scaleY(1);} 100% { opacity: 0; transform: scaleY(0);} }
+          @media (max-width: 860px) {
+            .hero-split { grid-template-columns: 1fr; min-height: 90vh; position: relative; }
+            /* imatge a tota la pantalla, fosa amb el fons negre, de fons */
+            .hero-split-media { position: absolute; inset: 0; min-height: 0; z-index: 0; }
+            /* contain = botes sencers i més petits, sense retallar */
+            .hero-split-media img { height: 100%; object-fit: contain; object-position: center 34%; opacity: 0.5; }
+            .hero-split-fade {
+              background:
+                linear-gradient(to bottom, #06080f 0%, rgba(6,8,15,0.35) 30%, rgba(6,8,15,0.45) 60%, #06080f 96%),
+                linear-gradient(to right, rgba(6,8,15,0.55), rgba(6,8,15,0.15));
+            }
+            /* text per sobre de la imatge */
+            .hero-split-copy { order: 1; position: relative; z-index: 2; padding: 72px 24px 56px; }
+            .hero-split-pill { display: none; }
+            .hero-split-scroll { display: none !important; }
+          }
+        </style>
+        <section class="hero-split" id="hero" aria-label="Secció principal" style="font-family:'Outfit',sans-serif;color:#eef2fb">
+
+          <!-- Columna esquerra: copy -->
+          <div class="hero-split-copy animate-up">
+            <div style="display:inline-flex;align-items:center;gap:8px;font-size:0.74rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#7fa9ff;margin-bottom:22px">
+              <span style="width:8px;height:8px;border-radius:50%;background:#2f6bff;display:inline-block;animation:blink 2s ease infinite"></span>
+              <span data-i18n="hero_eyebrow">Nova col·lecció 2026</span>
             </div>
-            <div class="container">
-                <div class="hero-layout">
-                    <div class="hero-left animate-up" style="position: relative; z-index: 2;">
-                        <div class="hero-eyebrow">
-                            <span class="hero-dot"></span>
-                            <span data-i18n="hero_eyebrow">Nova col·lecció 2026</span>
-                        </div>
-                        <h1 class="hero-title">
-                            <span data-i18n="hero_title_1">Supera</span><br />
-                            <span class="hero-title-blue" data-i18n="hero_title_2">els teus</span><br />
-                            <span class="hero-title-outline" data-i18n="hero_title_3">límits</span>
-                        </h1>
-                        <p class="hero-desc" data-i18n="hero_desc">
-                            La botiga de suplements esportius <strong>número 1 a Andorra</strong>. Proteïnes, creatina, pre-workout i molt més de les millors marques del món.
-                        </p>
-                        <div class="hero-notice">
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="#25D366"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-                            <span data-i18n="hero_notice">Tenim molts <strong>més productes</strong> dels que apareixen a la web. <a href="https://wa.me/376645263" target="_blank" rel="noopener">Escriu-nos per WhatsApp →</a></span>
-                        </div>
-                        <div class="hero-btns">
-                            <a href="products.html" class="btn-primary" data-i18n="hero_cta_shop">Explorar productes</a>
-                            <a href="https://wa.me/376645263" target="_blank" rel="noopener noreferrer" class="btn-wa">
-                                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-                                <span data-i18n="hero_cta_wa">Assessorament gratuït</span>
-                            </a>
-                        </div>
-                        <div class="hero-stats">
-                            <div class="hero-stat"><strong>500+</strong><span data-i18n="stat_products">Productes</span></div>
-                            <div class="hero-stat-sep"></div>
-                            <div class="hero-stat"><strong>2.000+</strong><span data-i18n="stat_clients">Clients</span></div>
-                            <div class="hero-stat-sep"></div>
-                            <div class="hero-stat"><strong>100%</strong><span data-i18n="stat_quality">Qualitat</span></div>
-                        </div>
-                    </div>
-                </div>
+            <h1 style="font-size:clamp(3rem,4.5vw,5rem);font-weight:900;line-height:0.95;letter-spacing:-0.04em;margin-bottom:24px">
+              <span data-i18n="hero_title_1">Supera</span><br/>
+              <span data-i18n="hero_title_2" style="background:linear-gradient(120deg,#5b8bff,#00bfff);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent">els teus</span><br/>
+              <span data-i18n="hero_title_3" style="-webkit-text-stroke:1.5px rgba(255,255,255,0.4);color:transparent">límits</span>
+            </h1>
+            <p data-i18n="hero_desc" style="font-size:1rem;line-height:1.7;color:#9baac5;max-width:38ch;margin-bottom:28px">
+              La botiga de suplements esportius <strong style="color:#eef2fb">número 1 a Andorra</strong>. Proteïnes, creatina, pre-workout i molt més.
+            </p>
+            <div style="display:flex;align-items:center;gap:10px;background:rgba(37,211,102,0.06);border:1px solid rgba(37,211,102,0.2);border-radius:12px;padding:12px 16px;margin-bottom:32px;max-width:400px">
+              <span style="font-size:1rem;flex-shrink:0">💬</span>
+              <span data-i18n="hero_notice" style="font-size:0.84rem;color:#c3f0d4;line-height:1.5">Tenim molts <strong>més productes</strong> dels que apareixen a la web. <a href="https://wa.me/376645263" target="_blank" rel="noopener" style="color:#4ade80;font-weight:700">Escriu-nos per WhatsApp →</a></span>
             </div>
-            <div class="hero-scroll" aria-hidden="true"><div class="hero-scroll-line"></div></div>
+            <div style="display:flex;gap:14px;margin-bottom:52px;flex-wrap:wrap">
+              <a href="products.html" data-i18n="hero_cta_shop" style="padding:14px 28px;border-radius:12px;background:linear-gradient(135deg,#2f6bff,#1238a8);font-size:0.92rem;font-weight:700;color:#fff;text-decoration:none;box-shadow:0 8px 28px rgba(47,107,255,0.35)">Explorar productes</a>
+              <a href="https://wa.me/376645263" target="_blank" rel="noopener noreferrer" data-i18n="hero_cta_wa" style="padding:14px 24px;border-radius:12px;border:1.5px solid rgba(255,255,255,0.18);font-size:0.92rem;font-weight:600;color:#cdd6ec;text-decoration:none">Assessorament gratuït</a>
+            </div>
+            <div style="display:flex;align-items:center">
+              <div style="text-align:left;padding-right:28px">
+                <strong style="display:block;font-size:2.1rem;font-weight:900;color:#7fa9ff;line-height:1">500+</strong>
+                <span data-i18n="stat_products" style="font-size:0.75rem;color:#7a86a3;margin-top:3px;display:block">Productes</span>
+              </div>
+              <div style="width:1px;height:36px;background:rgba(255,255,255,0.1)"></div>
+              <div style="text-align:left;padding:0 28px">
+                <strong style="display:block;font-size:2.1rem;font-weight:900;color:#7fa9ff;line-height:1">2.000+</strong>
+                <span data-i18n="stat_clients" style="font-size:0.75rem;color:#7a86a3;margin-top:3px;display:block">Clients</span>
+              </div>
+              <div style="width:1px;height:36px;background:rgba(255,255,255,0.1)"></div>
+              <div style="text-align:left;padding-left:28px">
+                <strong style="display:block;font-size:2.1rem;font-weight:900;color:#7fa9ff;line-height:1">100%</strong>
+                <span data-i18n="stat_quality" style="font-size:0.75rem;color:#7a86a3;margin-top:3px;display:block">Qualitat</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Columna dreta: vídeo animat Higgsfield o imatge estàtica -->
+          <div class="hero-split-media">
+            <!-- Vídeo animat (si està disponible) -->
+            <video
+              class="hero-split-video"
+              autoplay
+              muted
+              loop
+              playsinline
+              poster="assets/hero-nxt-split.jpg"
+              style="width:100%;height:100%;object-fit:cover;object-position:center;display:none"
+            >
+              <!-- El vídeo s'afegirà aquí quan estigui generat per Higgsfield -->
+            </video>
+
+            <!-- Imatge estàtica com a fallback -->
+            <picture>
+              <source srcset="assets/hero-nxt-split.webp" type="image/webp" />
+              <img src="assets/hero-nxt-split.jpg" alt="NXT Beef Protein Isolate – botes blau i verd, proteïna de vedella premium" width="1264" height="848" />
+            </picture>
+            <div class="hero-split-fade"></div>
+            <div class="hero-split-pill">
+              <span style="width:7px;height:7px;border-radius:50%;background:#46e08a;box-shadow:0 0 8px #46e08a"></span>
+              NXT Beef Protein Isolate · 27g proteïna / servei
+            </div>
+          </div>
+
+          <!-- indicador de scroll -->
+          <div class="hero-split-scroll" style="position:absolute;bottom:32px;left:80px;display:flex;flex-direction:column;align-items:center;gap:6px;z-index:3">
+            <div style="width:1px;height:48px;background:linear-gradient(to bottom,rgba(255,255,255,0.35),transparent);animation:scrollline 2s ease infinite;transform-origin:top"></div>
+          </div>
+
         </section>
+
+        <script>
+          // Enable video playback when available
+          const heroVideo = document.querySelector('.hero-split-video');
+          if (heroVideo) {
+            // Check if video has sources
+            const videoSources = heroVideo.querySelectorAll('source');
+            if (videoSources.length > 0) {
+              heroVideo.style.display = 'block';
+              heroVideo.play().catch(() => {
+                // Fallback to static image if video fails
+                console.log('Video playback failed, using static image fallback');
+              });
+            }
+          }
+        </script>
 
         <!-- BRANDS TAPE -->
         <section class="brands-tape" aria-label="Marques">
