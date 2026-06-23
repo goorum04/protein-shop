@@ -48,15 +48,22 @@
         #nlv-hero .nlv-img{height:100%}
 
         @media (max-width:860px){
-            #nlv-hero{grid-template-columns:1fr;min-height:auto}
-            #nlv-hero .nlv-img{order:-1;height:240px;background:#06080f}
-            #nlv-hero .nlv-img img{object-fit:contain !important;object-position:center !important}
-            #nlv-hero .nlv-imggrad{display:none !important}
-            #nlv-hero .nlv-img > div:last-child{display:none !important}
-            #nlv-hero .nlv-copy{padding:32px 24px 48px;background:#06080f}
-            #nlv-hero .nlv-copy h1{font-size:2.8rem !important;margin-bottom:16px !important}
-            #nlv-hero .nlv-copy p{font-size:0.9rem !important}
-            #nlv-hero .nlv-stats{flex-wrap:wrap;gap:16px !important;margin-top:28px !important;padding-top:20px !important}
+            #nlv-hero{
+                display:block;
+                position:relative;
+                background:#06080f url('images/reals/hero-machines.jpg') top center / 100% auto no-repeat;
+            }
+            #nlv-hero .nlv-img{display:none !important}
+            #nlv-hero .nlv-copy{
+                position:relative;
+                z-index:2;
+                padding:calc(55.81vw - 80px) 24px 44px;
+                background:linear-gradient(to bottom,transparent 0%,rgba(6,8,15,0.7) 30%,#06080f 55%) !important;
+                display:flex;flex-direction:column;justify-content:flex-start;
+            }
+            #nlv-hero .nlv-copy h1{font-size:2.6rem !important;margin-bottom:14px !important}
+            #nlv-hero .nlv-copy p{font-size:0.9rem !important;margin-bottom:20px !important}
+            #nlv-hero .nlv-stats{flex-wrap:wrap;gap:12px !important;margin-top:24px !important;padding-top:18px !important}
         }
 
         .gallery-masonry {
