@@ -293,7 +293,8 @@
             .hero-split { grid-template-columns: 1fr; min-height: 90vh; position: relative; overflow: visible; }
             /* La imatge manté overflow:hidden per no sagnar fora */
             .hero-split-media { position: absolute; inset: 0; min-height: 0; z-index: 0; overflow: hidden; }
-            .hero-split-media img { height: 100%; object-fit: contain; object-position: center 34%; opacity: 0.55; }
+            .hero-split-media img,
+            .hero-split-media video { height: 100%; object-fit: contain !important; object-position: center 34%; opacity: 0.55; }
             .hero-split-fade {
               background:
                 linear-gradient(to bottom, #06080f 0%, rgba(6,8,15,0.3) 30%, rgba(6,8,15,0.4) 65%, #06080f 97%),
@@ -353,25 +354,26 @@
             </div>
           </div>
 
-          <!-- Columna dreta: vídeo animat Higgsfield o imatge estàtica -->
+          <!-- Columna dreta: vídeo animat Higgsfield (Kling 3.0) o imatge estàtica -->
           <div class="hero-split-media">
-            <!-- Vídeo animat (si està disponible) -->
+            <!-- Vídeo animat generat per Higgsfield a partir de la imatge real -->
             <video
               class="hero-split-video"
               autoplay
               muted
               loop
               playsinline
+              preload="auto"
               poster="assets/hero-nxt-split.jpg"
               style="width:100%;height:100%;object-fit:cover;object-position:center;display:none"
             >
-              <!-- El vídeo s'afegirà aquí quan estigui generat per Higgsfield -->
+              <source src="assets/hero-nxt-bottles.mp4" type="video/mp4" />
             </video>
 
-            <!-- Imatge estàtica com a fallback -->
-            <picture>
+            <!-- Imatge estàtica (poster + fallback si el vídeo no carrega) -->
+            <picture class="hero-split-poster">
               <source srcset="assets/hero-nxt-split.webp" type="image/webp" />
-              <img src="assets/hero-nxt-split.jpg" alt="NXT Beef Protein Isolate – botes blau i verd, proteïna de vedella premium" width="1264" height="848" />
+              <img src="assets/hero-nxt-split.jpg" alt="NXT Beef Protein Isolate – botes blau i verd, proteïna de vedella premium" width="1600" height="1074" />
             </picture>
             <div class="hero-split-fade"></div>
             <div class="hero-split-pill">
@@ -487,6 +489,27 @@
             }
           }
           tick();
+        })();
+        </script>
+
+        <script>
+        (function(){
+          // Mostra el vídeo Higgsfield i amaga la imatge estàtica quan comença a reproduir-se
+          const video  = document.querySelector('.hero-split-video');
+          const poster = document.querySelector('.hero-split-poster');
+          if (!video) return;
+          function showVideo() {
+            video.style.display = 'block';
+            if (poster) poster.style.display = 'none';
+          }
+          video.addEventListener('playing', showVideo, { once: true });
+          // Intent de reproducció (alguns navegadors bloquegen l'autoplay fins a interacció)
+          const tryPlay = video.play();
+          if (tryPlay && tryPlay.catch) {
+            tryPlay.catch(() => {
+              // Si l'autoplay falla, mantenim la imatge estàtica com a fallback
+            });
+          }
         })();
         </script>
 
