@@ -48,11 +48,12 @@
         #nlv-hero .nlv-img{height:100%}
 
         @media (max-width:860px){
-            #nlv-hero{display:block;min-height:90vh;position:relative}
-            #nlv-hero .nlv-img{position:absolute !important;inset:0;height:100% !important;width:100%}
-            #nlv-hero .nlv-img img{width:100%;height:100%;object-fit:cover;object-position:center}
-            #nlv-hero .nlv-imggrad{background:linear-gradient(to top,rgba(6,8,15,0.92) 0%,rgba(6,8,15,0.55) 60%,rgba(6,8,15,0.3) 100%) !important}
-            #nlv-hero .nlv-copy{position:relative;z-index:2;padding:100px 24px 48px;background:none;display:flex;flex-direction:column;justify-content:flex-end;min-height:90vh}
+            #nlv-hero{grid-template-columns:1fr;min-height:auto}
+            #nlv-hero .nlv-img{order:-1;height:240px;background:#06080f}
+            #nlv-hero .nlv-img img{object-fit:contain !important;object-position:center !important}
+            #nlv-hero .nlv-imggrad{display:none !important}
+            #nlv-hero .nlv-img > div:last-child{display:none !important}
+            #nlv-hero .nlv-copy{padding:32px 24px 48px;background:#06080f}
             #nlv-hero .nlv-copy h1{font-size:2.8rem !important;margin-bottom:16px !important}
             #nlv-hero .nlv-copy p{font-size:0.9rem !important}
             #nlv-hero .nlv-stats{flex-wrap:wrap;gap:16px !important;margin-top:28px !important;padding-top:20px !important}
