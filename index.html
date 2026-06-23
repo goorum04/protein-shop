@@ -299,9 +299,13 @@
                 linear-gradient(to bottom, #06080f 0%, rgba(6,8,15,0.3) 30%, rgba(6,8,15,0.4) 65%, #06080f 97%),
                 linear-gradient(to right, rgba(6,8,15,0.6), rgba(6,8,15,0.1));
             }
-            .hero-split-copy { order: 1; position: relative; z-index: 2; padding: 72px 24px 64px; }
-            /* Avís WhatsApp: ample just el del contingut */
-            .hero-notice-box { align-items: flex-start !important; align-self: flex-start !important; }
+            .hero-split-copy { order: 1; position: relative; z-index: 2; padding: 72px 24px 64px; width: 100%; min-width: 0; box-sizing: border-box; }
+            /* Avís WhatsApp: emoji alineat a dalt */
+            .hero-notice-box { align-items: flex-start !important; }
+            /* Stats: menys padding per cabre en mòbil */
+            .hero-stats-col-l { padding-right: 16px !important; }
+            .hero-stats-col-m { padding: 0 16px !important; }
+            .hero-stats-col-r { padding-left: 16px !important; }
             .hero-split-pill { display: none; }
             .hero-split-scroll { display: none !important; }
             #hero-canvas { opacity: 0.6; }
@@ -332,17 +336,17 @@
               <a href="https://wa.me/376645263" target="_blank" rel="noopener noreferrer" data-i18n="hero_cta_wa" style="padding:14px 24px;border-radius:12px;border:1.5px solid rgba(255,255,255,0.18);font-size:0.92rem;font-weight:600;color:#cdd6ec;text-decoration:none">Assessorament gratuït</a>
             </div>
             <div style="display:flex;align-items:center">
-              <div style="text-align:left;padding-right:28px">
+              <div class="hero-stats-col-l" style="text-align:left;padding-right:28px">
                 <strong style="display:block;font-size:2.1rem;font-weight:900;color:#7fa9ff;line-height:1">500+</strong>
                 <span data-i18n="stat_products" style="font-size:0.75rem;color:#7a86a3;margin-top:3px;display:block">Productes</span>
               </div>
               <div style="width:1px;height:36px;background:rgba(255,255,255,0.1)"></div>
-              <div style="text-align:left;padding:0 28px">
+              <div class="hero-stats-col-m" style="text-align:left;padding:0 28px">
                 <strong style="display:block;font-size:2.1rem;font-weight:900;color:#7fa9ff;line-height:1">2.000+</strong>
                 <span data-i18n="stat_clients" style="font-size:0.75rem;color:#7a86a3;margin-top:3px;display:block">Clients</span>
               </div>
               <div style="width:1px;height:36px;background:rgba(255,255,255,0.1)"></div>
-              <div style="text-align:left;padding-left:28px">
+              <div class="hero-stats-col-r" style="text-align:left;padding-left:28px">
                 <strong style="display:block;font-size:2.1rem;font-weight:900;color:#7fa9ff;line-height:1">100%</strong>
                 <span data-i18n="stat_quality" style="font-size:0.75rem;color:#7a86a3;margin-top:3px;display:block">Qualitat</span>
               </div>
