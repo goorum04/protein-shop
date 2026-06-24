@@ -40,39 +40,99 @@
     <link rel="stylesheet" href="style.css" />
     <style>
         .assessoria-hero {
-            background: linear-gradient(135deg, #000 0%, #0a0a1a 50%, #000 100%);
-            padding: 140px 0 80px;
-            text-align: center;
             position: relative;
             overflow: hidden;
+            min-height: 620px;
+            display: flex;
+            align-items: center;
+            padding: 120px 0;
+            background: #06080f url('images/hero-nacho-d.jpg') right center / cover no-repeat;
+            text-align: left;
         }
 
+        /* Capa de oscurecimiento para legibilidad del texto */
         .assessoria-hero::before {
             content: '';
             position: absolute;
-            top: -50%;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 800px;
-            height: 600px;
-            background: radial-gradient(ellipse, rgba(0, 87, 255, 0.15) 0%, transparent 70%);
+            inset: 0;
+            background:
+                linear-gradient(90deg, #06080f 0%, rgba(6, 8, 15, 0.94) 26%, rgba(6, 8, 15, 0.62) 52%, rgba(6, 8, 15, 0.15) 100%),
+                linear-gradient(to top, rgba(6, 8, 15, 0.85) 0%, transparent 55%);
             pointer-events: none;
+            z-index: 1;
+        }
+
+        /* Resplandor azul de marca */
+        .assessoria-hero::after {
+            content: '';
+            position: absolute;
+            top: -20%;
+            left: -10%;
+            width: 700px;
+            height: 700px;
+            background: radial-gradient(ellipse, rgba(0, 87, 255, 0.22) 0%, transparent 70%);
+            pointer-events: none;
+            z-index: 1;
+            filter: blur(20px);
+        }
+
+        .assessoria-hero .container {
+            position: relative;
+            z-index: 2;
+        }
+
+        .assessoria-hero .breadcrumb {
+            justify-content: flex-start;
         }
 
         .assessoria-hero h1 {
-            font-size: clamp(2.5rem, 6vw, 4.5rem);
+            font-size: clamp(2.8rem, 6vw, 5rem);
             font-weight: 900;
-            margin-bottom: 20px;
+            margin-bottom: 22px;
             position: relative;
+            color: var(--text-1, #eef2fb);
+            line-height: 1.04;
+            letter-spacing: -0.02em;
+            max-width: 16ch;
         }
 
         .assessoria-hero p {
-            font-size: 1.15rem;
-            color: var(--text-2);
-            max-width: 600px;
-            margin: 0 auto;
-            line-height: 1.8;
+            font-size: 1.2rem;
+            color: var(--text-2, #c2cce0);
+            max-width: 44ch;
+            margin: 0;
+            line-height: 1.75;
         }
+
+        @media (max-width: 768px) {
+            /* Mòbil: imatge del hero passa a fons (banda superior) i el títol queda a sobre,
+               igual que a l'inici i a NLVIPMachines */
+            .assessoria-hero {
+                display: block;
+                min-height: auto;
+                padding: 0;
+                background: #06080f url('images/hero-nacho-d.jpg') top center / 100% auto no-repeat;
+                text-align: left;
+            }
+            .assessoria-hero::before {
+                background: linear-gradient(to bottom, transparent 0%, rgba(6, 8, 15, 0.35) 28%, rgba(6, 8, 15, 0.9) 46%, #06080f 60%);
+            }
+            .assessoria-hero::after {
+                width: 380px;
+                height: 380px;
+            }
+            .assessoria-hero .container {
+                padding-top: calc(42.86vw - 28px);
+                padding-bottom: 56px;
+            }
+            .assessoria-hero h1 { font-size: 2.5rem; max-width: 100%; margin-bottom: 16px; }
+            .assessoria-hero p { font-size: 1rem; max-width: 100%; }
+        }
+
+        /* Scroll reveal */
+        .reveal { opacity: 0; transform: translateY(28px); transition: opacity .7s cubic-bezier(.16,1,.3,1), transform .7s cubic-bezier(.16,1,.3,1); will-change: opacity, transform; }
+        .reveal.in { opacity: 1; transform: none; }
+        @media (prefers-reduced-motion: reduce) { .reveal { opacity: 1 !important; transform: none !important; transition: none !important; } }
 
         .service-card-featured {
             background: var(--surface);
@@ -432,13 +492,13 @@
                         "Transforma el teu físic i la teva ment amb un entrenador real que t'entén."</p>
                 </div>
 
-                <div class="transformation-box">
+                <div class="transformation-box" data-reveal>
                     <div style="border-radius:var(--r);overflow:hidden;">
                         <div class="transformation-container">
                             <div style="flex:1;position:relative;">
                                 <img src="https://nacholostao.my.canva.site/_assets/media/3e77803c98f5a3724c2326e05b06a6f5.jpg"
                                     alt="Nacho Lostao - Abans"
-                                    style="width:100%;height:100%;object-fit:cover;filter:grayscale(20%) brightness(0.85);" />
+                                    style="width:100%;height:100%;object-fit:cover;filter:contrast(1.04) saturate(1.05);" />
                                 <span
                                     style="position:absolute;bottom:12px;left:12px;background:rgba(0,0,0,0.75);color:white;padding:5px 14px;border-radius:20px;font-size:0.75rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;">ABANS</span>
                             </div>
@@ -479,7 +539,7 @@
                     </div>
                 </div>
 
-                <div
+                <div data-reveal
                     style="background:var(--surface);border:1px solid var(--border);border-radius:var(--r);overflow:hidden;margin-bottom:48px;">
                     <div style="background:linear-gradient(135deg,var(--blue) 0%,#1a3fbf 100%);padding:32px 40px;">
                         <div class="section-tag"
@@ -492,38 +552,38 @@
                     <div
                         style="padding:40px;display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px;">
                         <div style="display:flex;gap:16px;align-items:flex-start;"><span
-                                style="font-size:1.4rem;flex-shrink:0;">🔸</span>
+                                style="flex-shrink:0;width:44px;height:44px;border-radius:12px;background:rgba(0,87,255,0.12);border:1px solid rgba(0,87,255,0.28);display:flex;align-items:center;justify-content:center;color:#38b6ff;"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="3.5" width="14" height="17" rx="2"/><path d="M9 3.5h6v3H9z"/><path d="M8.5 11h7M8.5 15h4.5"/></svg></span>
                             <p style="color:var(--text-2);line-height:1.7;font-size:0.95rem;"><strong
                                     style="color:var(--white);">Formulari previ</strong> a la trucada per conèixer-te
                                 millor, possibles al·lèrgies, intoleràncies i lesions.</p>
                         </div>
                         <div style="display:flex;gap:16px;align-items:flex-start;"><span
-                                style="font-size:1.4rem;flex-shrink:0;">🔸</span>
+                                style="flex-shrink:0;width:44px;height:44px;border-radius:12px;background:rgba(0,87,255,0.12);border:1px solid rgba(0,87,255,0.28);display:flex;align-items:center;justify-content:center;color:#38b6ff;"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6.5 6.5v11M3.5 9v5M17.5 6.5v11M20.5 9v5M6.5 12h11"/></svg></span>
                             <p style="color:var(--text-2);line-height:1.7;font-size:0.95rem;"><strong
                                     style="color:var(--white);">Entrenaments adaptats</strong> al teu nivell, temps i
                                 objectius.</p>
                         </div>
                         <div style="display:flex;gap:16px;align-items:flex-start;"><span
-                                style="font-size:1.4rem;flex-shrink:0;">🔸</span>
+                                style="flex-shrink:0;width:44px;height:44px;border-radius:12px;background:rgba(0,87,255,0.12);border:1px solid rgba(0,87,255,0.28);display:flex;align-items:center;justify-content:center;color:#38b6ff;"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 8c-1.5-2.5-6-2-6 2.5 0 4 3 8.5 6 8.5s6-4.5 6-8.5c0-4.5-4.5-5-6-2.5z"/><path d="M12 8c0-1.5.5-3 2-4"/></svg></span>
                             <p style="color:var(--text-2);line-height:1.7;font-size:0.95rem;"><strong
                                     style="color:var(--white);">Pla nutricional flexible</strong> que encaixa amb la
                                 teva
                                 vida: receptes ràpides, fàcils i bones.</p>
                         </div>
                         <div style="display:flex;gap:16px;align-items:flex-start;"><span
-                                style="font-size:1.4rem;flex-shrink:0;">🔸</span>
+                                style="flex-shrink:0;width:44px;height:44px;border-radius:12px;background:rgba(0,87,255,0.12);border:1px solid rgba(0,87,255,0.28);display:flex;align-items:center;justify-content:center;color:#38b6ff;"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="5" width="16" height="16" rx="2"/><path d="M4 9.5h16M8.5 3v4M15.5 3v4M9 14.5l2 2 4-4.5"/></svg></span>
                             <p style="color:var(--text-2);line-height:1.7;font-size:0.95rem;"><strong
                                     style="color:var(--white);">Seguiment setmanal</strong> per WhatsApp i revisions
                                 1:1.</p>
                         </div>
                         <div style="display:flex;gap:16px;align-items:flex-start;"><span
-                                style="font-size:1.4rem;flex-shrink:0;">🔸</span>
+                                style="flex-shrink:0;width:44px;height:44px;border-radius:12px;background:rgba(0,87,255,0.12);border:1px solid rgba(0,87,255,0.28);display:flex;align-items:center;justify-content:center;color:#38b6ff;"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8h8M16 8h4M4 16h4M12 16h8"/><circle cx="14" cy="8" r="2"/><circle cx="10" cy="16" r="2"/></svg></span>
                             <p style="color:var(--text-2);line-height:1.7;font-size:0.95rem;"><strong
                                     style="color:var(--white);">Ajustos constants</strong> segons els teus progressos i
                                 necessitats.</p>
                         </div>
                         <div style="display:flex;gap:16px;align-items:flex-start;"><span
-                                style="font-size:1.4rem;flex-shrink:0;">🔸</span>
+                                style="flex-shrink:0;width:44px;height:44px;border-radius:12px;background:rgba(0,87,255,0.12);border:1px solid rgba(0,87,255,0.28);display:flex;align-items:center;justify-content:center;color:#38b6ff;"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13v-1a7 7 0 0114 0v1"/><rect x="3.5" y="13" width="3.5" height="6" rx="1.5"/><rect x="17" y="13" width="3.5" height="6" rx="1.5"/><path d="M19 19a3.5 3.5 0 01-3.5 3H13"/></svg></span>
                             <p style="color:var(--text-2);line-height:1.7;font-size:0.95rem;"><strong
                                     style="color:var(--white);">Suport durant tot el procés.</strong> L'acompanyament
                                 i la motivació són claus per aconseguir els teus objectius.</p>
@@ -563,16 +623,16 @@
                     <h2 class="section-title">Transforma el teu cos <span class="highlight">amb professionals</span>
                     </h2>
                 </div>
-                <div
+                <div data-reveal-group
                     style="display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:24px;margin-bottom:32px;">
 
                     <!-- Tarjeta Blanca -->
                     <div
                         style="background:var(--surface);border:1px solid var(--border-2);border-radius:var(--r);overflow:hidden;">
-                        <div style="position:relative;height:500px;">
+                        <div style="position:relative;height:400px;">
                             <img src="images/transformations/ana-before.jpg"
                                 alt="Blanca - Transformació"
-                                style="width:100%;height:100%;object-fit:contain;background:#000;" />
+                                style="width:100%;height:100%;object-fit:contain;background:radial-gradient(ellipse at center,#15171f 0%,#06080f 100%);" />
                         </div>
                         <div style="padding:20px;text-align:center;">
                             <p style="color:var(--text-2);font-size:0.9rem;line-height:1.6;">"En 3 mesos he canviat la
@@ -589,7 +649,7 @@
                             <div style="flex:1;position:relative;">
                                 <img src="images/transformations/client2-comp.png"
                                     alt="Clienta - Transformació"
-                                    style="width:100%;height:100%;object-fit:contain;background:#000;" />
+                                    style="width:100%;height:100%;object-fit:contain;background:radial-gradient(ellipse at center,#15171f 0%,#06080f 100%);" />
                                 <span style="position:absolute;bottom:10px;left:10px;background:rgba(0,0,0,0.7);color:white;padding:4px 12px;border-radius:20px;font-size:0.75rem;font-weight:600;">ABANS</span>
                                 <span style="position:absolute;bottom:10px;right:10px;background:var(--green);color:white;padding:4px 12px;border-radius:20px;font-size:0.75rem;font-weight:600;">DESPRÉS</span>
                             </div>
@@ -609,14 +669,14 @@
                             <div style="flex:1;position:relative;">
                                 <img src="images/transformations/client4-abans.jpg"
                                     alt="Clienta - Abans"
-                                    style="width:100%;height:100%;object-fit:contain;background:#000;filter:grayscale(30%) brightness(0.9);" />
+                                    style="width:100%;height:100%;object-fit:contain;background:radial-gradient(ellipse at center,#15171f 0%,#06080f 100%);filter:contrast(1.04) saturate(1.05);" />
                                 <span
                                     style="position:absolute;bottom:10px;left:10px;background:rgba(0,0,0,0.7);color:white;padding:4px 12px;border-radius:20px;font-size:0.75rem;font-weight:600;">ABANS</span>
                             </div>
                             <div style="flex:1;position:relative;">
                                 <img src="images/transformations/client1-despres.png"
                                     alt="Clienta - Després"
-                                    style="width:100%;height:100%;object-fit:contain;background:#000;" />
+                                    style="width:100%;height:100%;object-fit:contain;background:radial-gradient(ellipse at center,#15171f 0%,#06080f 100%);" />
                                 <span
                                     style="position:absolute;bottom:10px;right:10px;background:var(--green);color:white;padding:4px 12px;border-radius:20px;font-size:0.75rem;font-weight:600;">DESPRÉS</span>
                             </div>
@@ -641,11 +701,11 @@
                     <p style="color:var(--text-2);max-width:520px;margin:0 auto">T'oferim serveis integrals per assolir
                         els teus objectius fitness. Tot el que necessites en un sol lloc.</p>
                 </div>
-                <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:24px;">
+                <div data-reveal-group style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:24px;">
                     <!-- Entrenamiento Personal + Asesoría Nutricional -->
                     <div class="service-card-featured" style="border-color:var(--green);">
                         <div class="service-img-featured">
-                            <img src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=600&q=80"
+                            <img src="images/serv-entrenament.jpg"
                                 alt="Entrenament Personal + Assessoria Nutricional" />
                         </div>
                         <div style="padding:28px;">
@@ -677,7 +737,7 @@
                     <!-- Fisioteràpia i Massatges -->
                     <div class="service-card-featured">
                         <div class="service-img-featured">
-                            <img src="https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=600&q=80"
+                            <img src="images/serv-fisio.jpg"
                                 alt="Fisioteràpia i Massatges" />
                         </div>
                         <div style="padding:28px;">
@@ -732,7 +792,7 @@
                     <!-- Chef a Domicili -->
                     <div class="service-card-featured">
                         <div class="service-img-featured">
-                            <img src="https://images.unsplash.com/photo-1556910103-1c02745aae4d?w=600&q=80"
+                            <img src="images/serv-chef.jpg"
                                 alt="Chef a domicili" />
                         </div>
                         <div style="padding:28px;">
@@ -865,6 +925,16 @@
     <script src="products.js"></script>
     <script src="shared.js"></script>
     <script>document.addEventListener('DOMContentLoaded', initShared);</script>
+    <script>
+    (function(){
+      if(!('IntersectionObserver' in window)) return;
+      var io = new IntersectionObserver(function(es){ es.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } }); }, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
+      function reg(el, delay){ if(el.classList.contains('reveal')) return; el.classList.add('reveal'); if(delay) el.style.transitionDelay = delay + 's'; io.observe(el); }
+      document.querySelectorAll('[data-reveal]').forEach(function(el){ reg(el, 0); });
+      document.querySelectorAll('.section .container > div[style*="text-align:center"]').forEach(function(el){ reg(el, 0); });
+      document.querySelectorAll('[data-reveal-group]').forEach(function(g){ Array.prototype.forEach.call(g.children, function(c, i){ reg(c, i * 0.1); }); });
+    })();
+    </script>
 </body>
 
 </html>
