@@ -35,45 +35,54 @@ async function shopifyFetch(query, variables = {}) {
   }
 }
 
+const PRODUCTS_CACHE_KEY = 'nlvip_products_v1';
+const PRODUCTS_CACHE_TTL = 5 * 60 * 1000; // 5 min, igual que la caché de l'edge
+
+function readProductsCache() {
+  try {
+    const raw = sessionStorage.getItem(PRODUCTS_CACHE_KEY);
+    if (!raw) return null;
+    const { ts, data } = JSON.parse(raw);
+    if (!data || (Date.now() - ts) > PRODUCTS_CACHE_TTL) return null;
+    return data;
+  } catch (e) { return null; }
+}
+
+function writeProductsCache(data) {
+  try {
+    sessionStorage.setItem(PRODUCTS_CACHE_KEY, JSON.stringify({ ts: Date.now(), data }));
+  } catch (e) { /* sessionStorage ple o no disponible: ignorar */ }
+}
+
 async function fetchProductsFromShopify() {
-  const query = `
-    query {
-      products(first: 250) {
-        edges {
-          node {
-            id
-            title
-            handle
-            description
-            productType
-            vendor
-            priceRange {
-              minVariantPrice { amount currencyCode }
-            }
-            images(first: 1) {
-              edges { node { url altText } }
-            }
-            variants(first: 30) {
-              edges {
-                node {
-                  id
-                  title
-                  price { amount currencyCode }
-                  availableForSale
-                  selectedOptions { name value }
-                  image { url }
-                }
-              }
-            }
-            options { name values }
-          }
-        }
-      }
+  // 1) Caché de sessió: retorn immediat sense xarxa si és fresca.
+  const cached = readProductsCache();
+  if (cached) return cached;
+
+  // 2) Endpoint GET cachejat per la CDN de Vercel (/api/products).
+  try {
+    const response = await fetch('/api/products');
+    if (!response.ok) {
+      console.error('Products API error:', response.status);
+      return null;
     }
-  `;
-  const data = await shopifyFetch(query);
-  if (!data || !data.products) return null;
-  return data.products.edges.map(({ node }) => transformProduct(node));
+    const json = await response.json();
+    if (json.errors) {
+      console.error('Shopify GraphQL Errors:', json.errors);
+      return null;
+    }
+    const data = json.data;
+    if (!data || !data.products) return null;
+    const products = data.products.edges.map(({ node }) => transformProduct(node));
+    writeProductsCache(products);
+    return products;
+  } catch (e) {
+    console.error('Products fetch network error:', e);
+    if (location.hostname === 'localhost' || location.hostname === '127.0.0.1') {
+      console.warn('Entorn local: fes servir "vercel dev" perquè /api/products funcioni.');
+    }
+    return null;
+  }
 }
 
 function transformProduct(product) {

@@ -770,6 +770,10 @@ function escHtml(s) {
 }
 
 // ===== RENDER PRODUCT CARD =====
+// Placeholder neutre (SVG inline, sense petició extra). Evita que una imatge que falla
+// arrossegui totes les altres a la mateixa foto genèrica.
+const IMG_PLACEHOLDER = 'data:image/svg+xml;base64,' + btoa('<svg xmlns="http://www.w3.org/2000/svg" width="400" height="400"><rect width="400" height="400" fill="#0f1320"/><text x="50%" y="52%" fill="#3a4255" font-family="Arial, sans-serif" font-size="30" font-weight="700" text-anchor="middle">NL VIP</text></svg>');
+
 function renderCard(p) {
 
   const qtyMatch = p.name.match(/(\d+[,.]?\d*\s*(g|gr|kg|ml|caps|càpsules|tablets|tabs|litres|l))/i);
@@ -803,7 +807,7 @@ function renderCard(p) {
     <article class="${cardClass}" onclick="openModal('${escHtml(p.id)}')" role="listitem" aria-label="${productName}" tabindex="0" onkeydown="if(event.key==='Enter')openModal('${escHtml(p.id)}')">
       ${packBadge}
       <div class="product-img">
-        <img src="${escHtml(p.image)}" alt="${escHtml(p.name)}" loading="lazy" onerror="this.src='https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?w=400&q=70'" />
+        <img src="${escHtml(p.image)}" alt="${escHtml(p.name)}" loading="lazy" onerror="this.onerror=null;this.src='${IMG_PLACEHOLDER}'" />
       </div>
       <div class="product-body">
         <div class="product-brand-tag">${escHtml(p.brand || "")}</div>

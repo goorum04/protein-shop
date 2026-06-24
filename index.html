@@ -799,35 +799,44 @@
     <script src="products.js"></script>
     <script src="shared.js"></script>
     <script>
+        function renderHome() {
+            const grid = document.getElementById('featured-grid');
+            if (grid) {
+                if (PRODUCTS.length > 0) {
+                    // Show first 8 non-pack products that are in stock
+                    const featured = PRODUCTS.filter(p => p.in_stock && !p.isPack).slice(0, 8);
+                    grid.innerHTML = featured.map(renderCard).join('');
+                } else {
+                    grid.innerHTML = '<p style="grid-column:1/-1;text-align:center;color:var(--text-3)">No hi ha productes disponibles</p>';
+                }
+            }
+
+            const packsGrid = document.getElementById('packs-grid');
+            const packsSection = document.getElementById('packs-section');
+            const packs = PRODUCTS.filter(p => p.isPack);
+            if (packs.length > 0) {
+                if (packsGrid) packsGrid.innerHTML = packs.map(renderCard).join('');
+                if (packsSection) packsSection.style.display = '';
+            } else if (packsSection) {
+                packsSection.style.display = 'none';
+            }
+        }
+
         document.addEventListener('DOMContentLoaded', async () => {
             initShared();
 
-            // Load products from Shopify
+            // Pinta a l'instant amb els productes en memòria (hardcode/caché de sessió)
+            renderHome();
+
+            // Hidrata des de Shopify en segon pla i torna a pintar quan arribi
             try {
                 const shopifyProducts = await fetchProductsFromShopify();
                 if (shopifyProducts && shopifyProducts.length > 0) {
                     PRODUCTS = groupProductsByFlavor(shopifyProducts);
-                    console.log('Home: Products loaded from Shopify:', PRODUCTS.length);
+                    renderHome();
                 }
             } catch (e) {
                 console.error('Home: Error loading Shopify products:', e);
-            }
-
-            const grid = document.getElementById('featured-grid');
-            if (PRODUCTS.length > 0) {
-                // Show first 8 non-pack products that are in stock
-                const featured = PRODUCTS.filter(p => p.in_stock && !p.isPack).slice(0, 8);
-                grid.innerHTML = featured.map(renderCard).join('');
-            } else {
-                grid.innerHTML = '<p style="grid-column:1/-1;text-align:center;color:var(--text-3)">No hi ha productes disponibles</p>';
-            }
-
-            const packsGrid = document.getElementById('packs-grid');
-            const packs = PRODUCTS.filter(p => p.isPack);
-            if (packs.length > 0) {
-                packsGrid.innerHTML = packs.map(renderCard).join('');
-            } else {
-                document.getElementById('packs-section').style.display = 'none';
             }
         });
     </script>

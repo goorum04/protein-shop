@@ -354,27 +354,6 @@ const CAT_NAMES = {
         document.addEventListener('DOMContentLoaded', async () => {
             initShared();
 
-            // Load products from Shopify
-            const loadingEl = document.getElementById('products-grid');
-            loadingEl.innerHTML = `<div style="grid-column:1/-1;text-align:center;padding:60px;color:var(--text-3)">
-                <div style="width:36px;height:36px;border:3px solid var(--border-2);border-top-color:var(--blue);border-radius:50%;animation:spin 0.8s linear infinite;margin:0 auto 16px"></div>
-                <p>Carregant productes de Shopify...</p>
-            </div>`;
-
-            try {
-                console.log('Attempting to load products from Shopify...');
-                const shopifyProducts = await fetchProductsFromShopify();
-                console.log('Shopify products response:', shopifyProducts);
-                if (shopifyProducts && shopifyProducts.length > 0) {
-                    PRODUCTS = groupProductsByFlavor(shopifyProducts);
-                    console.log('Products loaded from Shopify:', PRODUCTS.length);
-                } else {
-                    console.log('No products from Shopify, using hardcoded products');
-                }
-            } catch (e) {
-                console.error('Error loading Shopify products:', e);
-            }
-
             // Read URL param
             const params = new URLSearchParams(location.search);
             const catParam = params.get('cat');
@@ -383,12 +362,19 @@ const CAT_NAMES = {
                 document.querySelectorAll('.sidebar-cat').forEach(b => b.classList.toggle('active', b.dataset.cat === catParam));
             }
 
-           (async () => {
-  if (typeof initProducts === 'function') {
-    await initProducts();
-  }
-  renderProducts();
-})();
+            // Pinta a l'instant amb els productes en memòria (hardcode/caché de sessió)
+            renderProducts();
+
+            // Hidrata des de Shopify en segon pla i torna a pintar quan arribi
+            try {
+                const shopifyProducts = await fetchProductsFromShopify();
+                if (shopifyProducts && shopifyProducts.length > 0) {
+                    PRODUCTS = groupProductsByFlavor(shopifyProducts);
+                    renderProducts();
+                }
+            } catch (e) {
+                console.error('Error loading Shopify products:', e);
+            }
 
             // Category buttons
             document.querySelectorAll('.sidebar-cat').forEach(btn => {
