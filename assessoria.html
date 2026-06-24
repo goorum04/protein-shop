@@ -185,42 +185,38 @@
         }
 
         @media (max-width: 768px) {
-            .transformation-results {
-                flex-direction: column;
-                height: auto;
-            }
             .transformation-box {
                 grid-template-columns: 1fr;
                 gap: 24px;
-                text-align: center;
+                text-align: left;
                 display: flex;
                 flex-direction: column;
-                align-items: center;
+                align-items: stretch;
             }
 
+            /* Antes/después de Nacho: mantenir costat a costat però més compacte */
             .transformation-container {
-                height: 700px;
-                flex-direction: column;
+                height: 300px;
+                flex-direction: row;
                 width: 100%;
             }
 
-            /* Assign fixed height to children when stacked */
-            .transformation-container>div {
-                height: 350px;
-                width: 100%;
-                flex: none;
+            .transformation-container > div {
+                flex: 1 !important;
+                height: 100% !important;
+                width: auto !important;
             }
 
             .transformation-results {
-                height: 500px;
-                flex-direction: column;
+                height: 300px;
+                flex-direction: row;
                 width: 100%;
             }
 
-            .transformation-results>div {
-                height: 250px;
-                width: 100%;
-                flex: none;
+            .transformation-results > div {
+                flex: 1 !important;
+                height: 100% !important;
+                width: auto !important;
             }
 
             .divider-line {
