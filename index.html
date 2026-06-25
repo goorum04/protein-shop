@@ -302,13 +302,15 @@
             /* La imatge manté overflow:hidden per no sagnar fora */
             .hero-split-media { position: absolute; inset: 0; min-height: 0; z-index: 0; overflow: hidden; }
             .hero-split-media img,
-            .hero-split-media video { height: 100%; object-fit: contain !important; object-position: center 34%; opacity: 0.55; }
+            .hero-split-media video { height: 100%; object-fit: contain !important; object-position: center 20%; opacity: 0.55; }
             .hero-split-fade {
               background:
                 linear-gradient(to bottom, #06080f 0%, rgba(6,8,15,0.3) 30%, rgba(6,8,15,0.4) 65%, #06080f 97%),
                 linear-gradient(to right, rgba(6,8,15,0.6), rgba(6,8,15,0.1));
             }
-            .hero-split-copy { order: 1; position: relative; z-index: 5; padding: 72px 24px 64px; width: 100%; max-width: none; min-width: 0; box-sizing: border-box; }
+            .hero-split-copy { order: 1; position: relative; z-index: 5; padding: 72px 24px 64px; width: 100%; max-width: none; min-width: 0; box-sizing: border-box; align-items: center; text-align: center; }
+            .hero-split-copy > div[style*="flex"] { justify-content: center; }
+            .hero-notice-box { margin-left: auto; margin-right: auto; }
             /* Avís WhatsApp: emoji alineat a dalt */
             .hero-notice-box { align-items: flex-start !important; }
             /* Stats: menys padding per cabre en mòbil */
