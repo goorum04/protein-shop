@@ -1860,6 +1860,47 @@ body::before {
   }
 }
 
+/* Tablets (e.g. iPad, ~769-1300px): the full desktop nav (logo + 6 links +
+   lang select + WhatsApp + cart) no longer fits the viewport width, and
+   since body has overflow-x:hidden the overflow (including the cart
+   button) gets pushed off-screen instead of wrapping. Switch to the same
+   collapsible hamburger nav used on mobile so the cart stays reachable. */
+@media (max-width: 1300px) and (min-width: 769px) {
+  .nav-links {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    background: rgba(0, 0, 0, 0.95);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border);
+    flex-direction: column;
+    align-items: center;
+    padding: 30px 20px;
+    gap: 20px;
+    transform: translateY(-120%);
+    opacity: 0;
+    pointer-events: none;
+    transition: all 0.4s var(--ease);
+    z-index: 499;
+  }
+
+  .nav-links.open {
+    transform: translateY(0);
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .btn-hamburger {
+    display: flex;
+  }
+
+  .btn-wa-nav {
+    display: none;
+  }
+}
+
 @media (max-width: 768px) {
   :root {
     --navbar-h: 68px;
