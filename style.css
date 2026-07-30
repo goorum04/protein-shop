@@ -1866,6 +1866,10 @@ body::before {
    button) gets pushed off-screen instead of wrapping. Switch to the same
    collapsible hamburger nav used on mobile so the cart stays reachable. */
 @media (max-width: 1300px) and (min-width: 769px) {
+  .navbar-inner {
+    justify-content: space-between;
+  }
+
   .nav-links {
     position: absolute;
     top: 100%;
@@ -1904,6 +1908,10 @@ body::before {
 @media (max-width: 768px) {
   :root {
     --navbar-h: 68px;
+  }
+
+  .navbar-inner {
+    justify-content: space-between;
   }
 
   body {
