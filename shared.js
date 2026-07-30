@@ -1923,12 +1923,28 @@ function initGlobalSearch() {
   });
 }
 
+// ===== HYDRATE PRODUCTS FROM SHOPIFY (totes les pàgines) =====
+// Sense això, la cerca global de les pàgines que no criden explícitament
+// fetchProductsFromShopify es queda per sempre amb la llista estàtica de
+// products.js i mai reflecteix productes nous/actualitzats de Shopify.
+function hydrateProductsFromShopify() {
+  if (typeof fetchProductsFromShopify !== 'function') return;
+  fetchProductsFromShopify().then(shopifyProducts => {
+    if (shopifyProducts && shopifyProducts.length > 0) {
+      PRODUCTS = groupProductsByFlavor(shopifyProducts);
+      if (typeof window.renderProducts === 'function') window.renderProducts();
+      if (typeof window.renderHome === 'function') window.renderHome();
+    }
+  }).catch(e => console.error('Error loading Shopify products:', e));
+}
+
 // ===== INIT ALL =====
 function initShared() {
   updatePageTranslations();
   updateCartBadge();
   initGlobalSearch();
   initNavbarScroll();
+  hydrateProductsFromShopify();
 
   document.getElementById("cart-toggle")?.addEventListener("click", openCart);
   document.getElementById("cart-close")?.addEventListener("click", closeCart);
