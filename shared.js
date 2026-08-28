@@ -1319,10 +1319,18 @@ function saveCart() {
   localStorage.setItem("nlvip_cart", JSON.stringify(cart));
 }
 
+// Cada sabor/variant pot tenir un preu diferent (p.ex. Rocher 2,50€ vs Brownie 1,99€).
+// p.price és només el preu mínim del producte; cal buscar el preu real del sabor triat.
+function getVariantPrice(p, flavor) {
+  if (!p) return 0;
+  const variant = flavor ? p.variants?.find((v) => v.flavor === flavor) : null;
+  return variant?.price != null ? variant.price : p.price;
+}
+
 function calcCartSubtotal() {
   return cart.reduce((s, i) => {
     const p = PRODUCTS.find((x) => x.id === i.id);
-    return s + (p ? p.price * (i.qty || 1) : 0);
+    return s + (p ? getVariantPrice(p, i.flavor) * (i.qty || 1) : 0);
   }, 0);
 }
 
@@ -1550,13 +1558,14 @@ function renderCartItems() {
       if (!p) return "";
 
       const flavor = item.flavor || p.defaultFlavor || p.flavor;
+      const unitPrice = getVariantPrice(p, item.flavor);
 
       return `
         <div class="cart-item">
           <img class="cart-item-img" src="${escHtml(p.image)}" alt="${escHtml(p.name)}" onerror="this.src='https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?w=100&q=60'" />
           <div class="cart-item-info">
             <div class="cart-item-name">${escHtml(p.name)}${flavor ? " – " + escHtml(flavor) : ""}</div>
-            <div class="cart-item-price">${(p.price * (item.qty || 1)).toFixed(2).replace(".", ",")} € × ${item.qty || 1}</div>
+            <div class="cart-item-price">${(unitPrice * (item.qty || 1)).toFixed(2).replace(".", ",")} € × ${item.qty || 1}</div>
           </div>
           <button class="btn-remove" onclick="removeFromCart('${escHtml(item.id)}', '${escHtml(item.flavor || "")}')" aria-label="Eliminar ${escHtml(p.name)}">🗑</button>
         </div>
@@ -1729,6 +1738,7 @@ function openModal(id) {
   const displayFlavor = currentFlavor ? ` – ${currentFlavor}` : "";
   const defaultVariant = p.variants?.find(v => v.flavor === p.defaultFlavor);
   const initialImage = defaultVariant?.image || p.image;
+  const initialPrice = defaultVariant?.price != null ? defaultVariant.price : p.price;
 
   inner.innerHTML = `
     <div class="modal-grid">
@@ -1743,7 +1753,7 @@ function openModal(id) {
         ${flavorSelector}
         <span class="modal-status ${statusClass}">${p.in_stock ? "✓ En estoc" : "Esgotat"}</span>
         <div class="modal-desc" style="margin-top:10px;">${escHtml(p.description || "")}</div>
-        ${p.price != null ? `<div class="modal-price">${p.price.toFixed(2).replace(".", ",")} €</div>` : ""}
+        ${initialPrice != null ? `<div class="modal-price">${initialPrice.toFixed(2).replace(".", ",")} €</div>` : ""}
         <div class="modal-actions" style="margin-top:20px;">
           ${p.isPack
             ? `<a href="https://wa.me/376645263?text=${encodeURIComponent(`Hola! M'interessa el ${p.name}`)}" target="_blank" rel="noopener" class="modal-btn-wa" style="font-size:1rem;padding:16px;">💬 Demanar per WhatsApp</a>`
@@ -1766,6 +1776,7 @@ function updateModalFlavor(selectEl) {
   const modalImg = document.getElementById("modal-product-img");
   const modalName = document.querySelector(".modal-name");
   const modalStatus = document.querySelector(".modal-status");
+  const modalPrice = document.querySelector(".modal-price");
   const inner = document.getElementById("modal-inner");
 
   const onclickAttr = inner?.querySelector(".modal-btn-add")?.getAttribute("onclick") || "";
@@ -1783,6 +1794,10 @@ function updateModalFlavor(selectEl) {
 
   if (modalImg) modalImg.src = variant.image || p.image;
   if (modalName) modalName.textContent = `${p.name} – ${variant.flavor}`;
+  if (modalPrice) {
+    const price = variant.price != null ? variant.price : p.price;
+    modalPrice.textContent = `${price.toFixed(2).replace(".", ",")} €`;
+  }
 
   if (variant.in_stock) {
     if (modalStatus) {
