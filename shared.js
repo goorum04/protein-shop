@@ -1410,8 +1410,20 @@ function renderCard(p) {
     ? `<div class="product-qty" style="color:var(--blue-light);font-size:0.85rem;margin-bottom:8px">Format: <strong>${qtyMatch[0].toLowerCase()}</strong></div>`
     : "";
 
-  const priceStr = p.price != null ? `${p.price.toFixed(2).replace(".", ",")} €` : "";
   const hasFlavors = p.allFlavors && p.allFlavors.length > 0;
+
+  // Quan els sabors no costen tots el mateix, mostrem el preu més alt a la
+  // targeta (no el més barat) i avisem que hi ha algun sabor en oferta.
+  // El preu exacte de cada sabor ja es veu bé al modal en triar-lo.
+  const variantPrices = hasFlavors
+    ? (p.variants || []).map((v) => v.price).filter((v) => v != null)
+    : [];
+  const hasPriceVariance =
+    variantPrices.length > 0 &&
+    Math.max(...variantPrices) - Math.min(...variantPrices) > 0.001;
+  const displayPrice = hasPriceVariance ? Math.max(...variantPrices) : p.price;
+  const priceStr = displayPrice != null ? `${displayPrice.toFixed(2).replace(".", ",")} €` : "";
+  const promoBadge = hasPriceVariance ? `<span class="badge-promo">🔥 Oferta en algun sabor</span>` : "";
 
   const flavorText = hasFlavors
     ? `<div class="product-flavor" style="color:var(--text-2);font-size:0.85rem;">${p.allFlavors.length} sabors disponibles</div>`
@@ -1435,6 +1447,7 @@ function renderCard(p) {
   return `
     <article class="${cardClass}" onclick="openModal('${escHtml(p.id)}')" role="listitem" aria-label="${productName}" tabindex="0" onkeydown="if(event.key==='Enter')openModal('${escHtml(p.id)}')">
       ${packBadge}
+      ${promoBadge}
       <div class="product-img">
         <img src="${escHtml(p.image)}" alt="${escHtml(p.name)}" loading="lazy" onerror="this.onerror=null;this.src='${IMG_PLACEHOLDER}'" />
       </div>

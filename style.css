@@ -2599,6 +2599,22 @@ min-width: 0;
 .product-card.is-pack {
   border-color: rgba(245, 158, 11, 0.35);
 }
+
+.badge-promo {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: linear-gradient(135deg, #ef4444, #b91c1c);
+  color: #fff;
+  font-size: 0.68rem;
+  font-weight: 800;
+  padding: 3px 9px;
+  border-radius: 50px;
+  z-index: 2;
+  letter-spacing: 0.02em;
+  pointer-events: none;
+  text-align: right;
+}
 .product-card.is-pack:hover {
   border-color: #f59e0b;
   box-shadow: 0 20px 48px rgba(245, 158, 11, 0.22);
