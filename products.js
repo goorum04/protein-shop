@@ -16,7 +16,8 @@ function groupProductsByFlavor(products) {
             id: v.id,
             flavor: v.flavor,
             image: v.image || p.image,
-            in_stock: v.in_stock
+            in_stock: v.in_stock,
+            price: v.price != null ? v.price : p.price
           });
           if (v.in_stock) groups[key].in_stock = true;
         });
@@ -25,7 +26,8 @@ function groupProductsByFlavor(products) {
           id: p.id,
           flavor: p.flavor,
           image: p.image,
-          in_stock: p.in_stock
+          in_stock: p.in_stock,
+          price: p.price
         });
       }
     }
