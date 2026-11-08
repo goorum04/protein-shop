@@ -2558,6 +2558,9 @@ min-width: 0;
   max-width: 520px;
   height: auto;
   object-fit: contain;
+  /* La foto té fons propi: fonem les vores amb el fons de la secció perquè no es vegi el rectangle */
+  -webkit-mask-image: radial-gradient(ellipse 62% 60% at 50% 50%, #000 55%, transparent 100%);
+  mask-image: radial-gradient(ellipse 62% 60% at 50% 50%, #000 55%, transparent 100%);
   filter: drop-shadow(0 20px 60px rgba(0, 87, 255, 0.35));
   animation: float 6s ease-in-out infinite;
   position: relative;
