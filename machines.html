@@ -36,7 +36,7 @@
     </script>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap"
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&display=swap"
         rel="stylesheet" />
     <link rel="stylesheet" href="style.css" />
     <style>
@@ -51,7 +51,7 @@
             #nlv-hero{
                 display:block;
                 position:relative;
-                background:#06080f url('images/reals/hero-machines.jpg') top center / 100% auto no-repeat;
+                background:#06080f url('images/reals/hero-machines.webp') top center / 100% auto no-repeat;
             }
             #nlv-hero .nlv-img{display:none !important}
             #nlv-hero .nlv-copy{
@@ -144,6 +144,9 @@
     <link rel="icon" type="image/svg+xml" href="favicon.svg?v=3">
     <link rel="icon" type="image/png" href="favicon.png?v=3">
     <link rel="apple-touch-icon" href="favicon.png?v=3">
+    <!-- Vercel Web Analytics (sense cookies). Cal activar-ho al panell de Vercel: Project → Analytics -->
+    <script>window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };</script>
+    <script defer src="/_vercel/insights/script.js"></script>
 </head>
 
 <body>
@@ -249,7 +252,7 @@
 
           <!-- COLUMNA DRETA: imatge Higgsfield -->
           <div class="nlv-img" style="position:relative">
-            <img src="images/reals/hero-machines.jpg" alt="Gimnàs premium muntat per NLVIPMachines" style="width:100%;height:100%;object-fit:cover;object-position:center" />
+            <img src="images/reals/hero-machines.webp" alt="Gimnàs premium muntat per NLVIPMachines" style="width:100%;height:100%;object-fit:cover;object-position:center" />
             <div class="nlv-imggrad" style="position:absolute;inset:0;background:linear-gradient(to right,#06080f 0%,transparent 30%),linear-gradient(to top,rgba(6,8,15,0.7) 0%,transparent 40%)"></div>
             <div style="position:absolute;bottom:32px;right:32px;background:rgba(6,8,15,0.8);backdrop-filter:blur(14px);border:1px solid rgba(255,255,255,0.12);border-radius:14px;padding:14px 18px;display:flex;align-items:center;gap:12px">
               <span style="width:10px;height:10px;border-radius:50%;background:#25d366;box-shadow:0 0 12px #25d366;flex-shrink:0;animation:nlv-pulse 2s ease infinite"></span>
@@ -355,19 +358,19 @@
                 </div>
                 <div class="gallery-masonry">
                     <div class="g-item g-tall">
-                        <img src="images/reals/gym1.jpg" alt="Gimnàs complet muntat per NLVIP" loading="lazy" />
+                        <img src="images/reals/gym1.webp" alt="Gimnàs complet muntat per NLVIP" loading="lazy" />
                     </div>
                     <div class="g-item">
-                        <img src="images/reals/gym2.jpg" alt="Instal·lacions NLVIP Machines" loading="lazy" />
+                        <img src="images/reals/gym2.webp" alt="Instal·lacions NLVIP Machines" loading="lazy" />
                     </div>
                     <div class="g-item">
-                        <img src="images/reals/gym3.jpg" alt="Gimnàs NLVIP Machines" loading="lazy" />
+                        <img src="images/reals/gym3.webp" alt="Gimnàs NLVIP Machines" loading="lazy" />
                     </div>
                     <div class="g-item g-tall">
-                        <img src="images/reals/gym-equipment-1.jpg" alt="Estació multi-funció NLVIP" loading="lazy" />
+                        <img src="images/reals/gym-equipment-1.webp" alt="Estació multi-funció NLVIP" loading="lazy" />
                     </div>
                     <div class="g-item">
-                        <img src="images/reals/gym-equipment-2.jpg" alt="Màquina Smith NLVIP" loading="lazy" />
+                        <img src="images/reals/gym-equipment-2.webp" alt="Màquina Smith NLVIP" loading="lazy" />
                     </div>
                 </div>
             </div>
@@ -431,7 +434,13 @@
                 </div>
             </div>
             <div class="footer-bottom">
-                <p>© 2025 NL VIP Nutrition · Tots els drets reservats · Andorra</p>
+                <p>© 2026 NL VIP Nutrition · Tots els drets reservats · Andorra</p>
+                <nav class="footer-legal-links" aria-label="Legal">
+                    <a href="legal.html" data-i18n="footer_legal">Avís legal</a>
+                    <a href="privacitat.html" data-i18n="footer_privacy">Política de privacitat</a>
+                    <a href="condicions.html" data-i18n="footer_terms">Condicions de venda, enviaments i devolucions</a>
+                    <a href="cookies.html" data-i18n="footer_cookies">Política de cookies</a>
+                </nav>
             </div>
         </div>
     </footer>
