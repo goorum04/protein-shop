@@ -91,6 +91,10 @@ const translations = {
     footer_products: "Productes",
     footer_contact: "Contacte",
     footer_legal: "Avís legal",
+    footer_legal_title: "Legal",
+    footer_privacy: "Política de privacitat",
+    footer_terms: "Condicions de venda, enviaments i devolucions",
+    footer_cookies: "Política de cookies",
     footer_copyright: "©️ 2026 NL VIP Nutrition Andorra",
 
     // Misc
@@ -118,6 +122,7 @@ const translations = {
     checkout_title: "Finalitzar comanda",
     checkout_redirecting: "Redirigint al checkout...",
     checkout_error: "Error al crear el checkout",
+    checkout_discount_not_applied: "El codi de descompte no s'ha pogut aplicar al checkout de Shopify. Vols continuar sense descompte?",
 
     // Home page new keys
     top_strip_shipping: "Enviament gratuït per compres superiors a 70€",
@@ -407,6 +412,10 @@ const translations = {
     footer_products: "Productos",
     footer_contact: "Contacto",
     footer_legal: "Aviso legal",
+    footer_legal_title: "Legal",
+    footer_privacy: "Política de privacidad",
+    footer_terms: "Condiciones de venta, envíos y devoluciones",
+    footer_cookies: "Política de cookies",
     footer_copyright: "©️ 2026 NL VIP Nutrition Andorra",
 
     loading: "Cargando...",
@@ -431,6 +440,7 @@ const translations = {
     checkout_title: "Finalizar pedido",
     checkout_redirecting: "Redirigiendo al checkout...",
     checkout_error: "Error al crear el checkout",
+    checkout_discount_not_applied: "El código de descuento no se ha podido aplicar en el checkout de Shopify. ¿Quieres continuar sin descuento?",
 
     top_strip_shipping: "Envío gratuito en compras superiores a 70€",
     top_strip_store: "Tienda física: Carrer Esteve Dolsa 15, Andorra",
@@ -718,6 +728,10 @@ const translations = {
     footer_products: "Produits",
     footer_contact: "Contact",
     footer_legal: "Mentions légales",
+    footer_legal_title: "Légal",
+    footer_privacy: "Politique de confidentialité",
+    footer_terms: "Conditions de vente, livraisons et retours",
+    footer_cookies: "Politique de cookies",
     footer_copyright: "©️ 2026 NL VIP Nutrition Andorra",
 
     loading: "Chargement...",
@@ -742,6 +756,7 @@ const translations = {
     checkout_title: "Finaliser la commande",
     checkout_redirecting: "Redirection vers le checkout...",
     checkout_error: "Erreur lors de la création du checkout",
+    checkout_discount_not_applied: "Le code de réduction n'a pas pu être appliqué au checkout Shopify. Voulez-vous continuer sans réduction ?",
 
     top_strip_shipping: "Livraison gratuite pour les achats supérieurs à 70€",
     top_strip_store: "Boutique physique: Carrer Esteve Dolsa 15, Andorre",
@@ -1029,6 +1044,10 @@ const translations = {
     footer_products: "Products",
     footer_contact: "Contact",
     footer_legal: "Legal notice",
+    footer_legal_title: "Legal",
+    footer_privacy: "Privacy policy",
+    footer_terms: "Terms of sale, shipping and returns",
+    footer_cookies: "Cookie policy",
     footer_copyright: "©️ 2026 NL VIP Nutrition Andorra",
 
     loading: "Loading...",
@@ -1053,6 +1072,7 @@ const translations = {
     checkout_title: "Checkout",
     checkout_redirecting: "Redirecting to checkout...",
     checkout_error: "Error creating checkout",
+    checkout_discount_not_applied: "The discount code could not be applied at the Shopify checkout. Do you want to continue without the discount?",
 
     top_strip_shipping: "Free shipping on orders over €70",
     top_strip_store: "Physical store: Carrer Esteve Dolsa 15, Andorra",
@@ -1641,6 +1661,10 @@ async function checkoutShopify() {
         cart {
           id
           checkoutUrl
+          discountCodes {
+            code
+            applicable
+          }
         }
         userErrors {
           message
@@ -1650,16 +1674,31 @@ async function checkoutShopify() {
   `;
 
   try {
-    const data = await shopifyFetch(query, {
-      input: {
-        lines: lineItems.map((item) => ({
-          merchandiseId: item.id,
-          quantity: item.quantity
-        }))
-      }
-    });
+    const cartInput = {
+      lines: lineItems.map((item) => ({
+        merchandiseId: item.id,
+        quantity: item.quantity
+      }))
+    };
+    // El codi de descompte s'envia a Shopify perquè el preu del checkout coincideixi
+    // amb el que mostra el carret. Només funciona si el codi també existeix a Shopify.
+    if (activeDiscount) cartInput.discountCodes = [activeDiscount];
+
+    const data = await shopifyFetch(query, { input: cartInput });
 
     if (data?.cartCreate?.cart?.checkoutUrl) {
+      const applied = data.cartCreate.cart.discountCodes || [];
+      const discountOk = !activeDiscount || applied.some((d) => d.applicable && d.code && d.code.toUpperCase() === activeDiscount.toUpperCase());
+      if (!discountOk) {
+        const goOn = confirm(t("checkout_discount_not_applied") || `El codi de descompte ${activeDiscount} no s'ha pogut aplicar al checkout. Vols continuar sense descompte?`);
+        if (!goOn) {
+          if (checkoutBtn) {
+            checkoutBtn.disabled = false;
+            checkoutBtn.textContent = t("cart_checkout") || "Finalitzar comanda";
+          }
+          return;
+        }
+      }
       window.location.href = data.cartCreate.cart.checkoutUrl;
       return;
     } else {
@@ -1692,7 +1731,7 @@ function checkoutWhatsApp() {
 
       const flavor = item.flavor || p.defaultFlavor || p.flavor;
       const name = p.name + (flavor ? ` – ${flavor}` : "");
-      const lineTotal = (p.price * (item.qty || 1)).toFixed(2).replace(".", ",");
+      const lineTotal = (getVariantPrice(p, item.flavor) * (item.qty || 1)).toFixed(2).replace(".", ",");
 
       return `• ${name} ×${item.qty || 1} → ${lineTotal} €`;
     })
@@ -1782,6 +1821,30 @@ function openModal(id) {
 
   overlay.classList.add("open");
   document.body.style.overflow = "hidden";
+  setProductUrlParam(p.id);
+}
+
+// Manté l'URL sincronitzada amb el producte obert (products.html?p=handle) perquè
+// es pugui compartir/enllaçar un producte concret.
+function setProductUrlParam(id) {
+  try {
+    const url = new URL(window.location.href);
+    if (id) url.searchParams.set("p", id);
+    else url.searchParams.delete("p");
+    history.replaceState(history.state, "", url);
+  } catch (e) { /* navegadors sense History API: ignorar */ }
+}
+
+function openProductFromUrl() {
+  try {
+    const id = new URLSearchParams(window.location.search).get("p");
+    if (!id) return false;
+    if (!PRODUCTS.find((x) => x.id === id)) return false;
+    const overlay = document.getElementById("modal-overlay");
+    if (overlay && overlay.classList.contains("open")) return true;
+    openModal(id);
+    return true;
+  } catch (e) { return false; }
 }
 
 function updateModalFlavor(selectEl) {
@@ -1835,6 +1898,7 @@ function updateModalFlavor(selectEl) {
 
 function closeModal() {
   const o = document.getElementById("modal-overlay");
+  if (o && o.classList.contains("open")) setProductUrlParam(null);
   if (o) o.classList.remove("open");
   document.body.style.overflow = "";
 }
@@ -1922,7 +1986,7 @@ function initGlobalSearch() {
             if (typeof openModal === 'function' && PRODUCTS.find(p => p.id === id)) {
               openModal(id);
             } else {
-              window.location.href = `products.html?q=${encodeURIComponent(name)}`;
+              window.location.href = `products.html?p=${encodeURIComponent(id)}`;
             }
           });
         });
@@ -1963,7 +2027,52 @@ function hydrateProductsFromShopify() {
       if (typeof window.renderProducts === 'function') window.renderProducts();
       if (typeof window.renderHome === 'function') window.renderHome();
     }
+    openProductFromUrl();
+    injectProductSchema();
   }).catch(e => console.error('Error loading Shopify products:', e));
+}
+
+// ===== SEO: Product structured data (JSON-LD) =====
+// Els productes només es mostren en un modal, així que injectem un ItemList de
+// Products perquè Google pugui entendre el catàleg (nom, marca, preu, estoc, imatge).
+function injectProductSchema() {
+  if (!/products\.html$/i.test(location.pathname)) return;
+  if (!Array.isArray(PRODUCTS) || !PRODUCTS.length) return;
+  try {
+    const base = location.origin + location.pathname;
+    const items = PRODUCTS.slice(0, 250).map((p, i) => {
+      const prices = (p.variants || []).map((v) => v.price).filter((v) => v != null);
+      const low = prices.length ? Math.min(...prices) : p.price;
+      const high = prices.length ? Math.max(...prices) : p.price;
+      const offer = {
+        "@type": low === high ? "Offer" : "AggregateOffer",
+        "priceCurrency": "EUR",
+        "availability": p.in_stock ? "https://schema.org/InStock" : "https://schema.org/OutOfStock",
+        "url": `${base}?p=${encodeURIComponent(p.id)}`
+      };
+      if (low === high) offer.price = Number(low).toFixed(2);
+      else { offer.lowPrice = Number(low).toFixed(2); offer.highPrice = Number(high).toFixed(2); }
+      const product = {
+        "@type": "Product",
+        "name": p.name,
+        "url": `${base}?p=${encodeURIComponent(p.id)}`,
+        "offers": offer
+      };
+      if (p.image) product.image = p.image;
+      if (p.brand) product.brand = { "@type": "Brand", "name": p.brand };
+      if (p.description) product.description = String(p.description).slice(0, 500);
+      return { "@type": "ListItem", "position": i + 1, "item": product };
+    });
+    const data = { "@context": "https://schema.org", "@type": "ItemList", "itemListElement": items };
+    let el = document.getElementById("product-schema");
+    if (!el) {
+      el = document.createElement("script");
+      el.type = "application/ld+json";
+      el.id = "product-schema";
+      document.head.appendChild(el);
+    }
+    el.textContent = JSON.stringify(data);
+  } catch (e) { /* mai ha de trencar la pàgina */ }
 }
 
 // ===== INIT ALL =====
@@ -1972,6 +2081,7 @@ function initShared() {
   updateCartBadge();
   initGlobalSearch();
   initNavbarScroll();
+  openProductFromUrl();
   hydrateProductsFromShopify();
 
   document.getElementById("cart-toggle")?.addEventListener("click", openCart);

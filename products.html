@@ -34,12 +34,12 @@
   </script>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap"
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&display=swap"
         rel="stylesheet" />
     <link rel="stylesheet" href="style.css" />
     <style>
         .page-hero {
-            background: #06080f url('images/products-hero.jpg') right center / cover no-repeat !important;
+            background: #06080f url('images/products-hero.webp') right center / cover no-repeat !important;
             position: relative;
             overflow: hidden;
         }
@@ -60,6 +60,9 @@
     <link rel="icon" type="image/svg+xml" href="favicon.svg?v=3">
     <link rel="icon" type="image/png" href="favicon.png?v=3">
     <link rel="apple-touch-icon" href="favicon.png?v=3">
+    <!-- Vercel Web Analytics (sense cookies). Cal activar-ho al panell de Vercel: Project → Analytics -->
+    <script>window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };</script>
+    <script defer src="/_vercel/insights/script.js"></script>
 </head>
 
 <body>
@@ -281,7 +284,13 @@
                 </div>
             </div>
             <div class="footer-bottom">
-                <p>© 2025 NL VIP Nutrition · Andorra</p>
+                <p>© 2026 NL VIP Nutrition · Andorra</p>
+                <nav class="footer-legal-links" aria-label="Legal">
+                    <a href="legal.html" data-i18n="footer_legal">Avís legal</a>
+                    <a href="privacitat.html" data-i18n="footer_privacy">Política de privacitat</a>
+                    <a href="condicions.html" data-i18n="footer_terms">Condicions de venda, enviaments i devolucions</a>
+                    <a href="cookies.html" data-i18n="footer_cookies">Política de cookies</a>
+                </nav>
             </div>
         </div>
     </footer>
@@ -379,6 +388,13 @@ const CAT_NAMES = {
             if (catParam) {
                 currentCat = catParam;
                 document.querySelectorAll('.sidebar-cat').forEach(b => b.classList.toggle('active', b.dataset.cat === catParam));
+            }
+            // ?q=text arriba des del cercador d'altres pàgines
+            const qParam = (params.get('q') || '').trim();
+            if (qParam) {
+                searchQuery = qParam.toLowerCase();
+                const si = document.getElementById('search-input');
+                if (si) si.value = qParam;
             }
 
             // Pinta a l'instant amb els productes en memòria (hardcode/caché de sessió)

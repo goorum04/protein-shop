@@ -1,9 +1,8 @@
 // ===========================================
 // CONFIGURACION DE SHOPIFY
 // ===========================================
-
-const SHOPIFY_DOMAIN = '0bb404-4.myshopify.com';
-const STOREFRONT_TOKEN = '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';
+// El token de Shopify viu NOMÉS al servidor (api/shopify.js, variable d'entorn
+// SHOPIFY_STOREFRONT_TOKEN). Aquest fitxer s'envia al navegador: mai hi posis secrets.
 
 async function shopifyFetch(query, variables = {}) {
   try {
@@ -54,12 +53,24 @@ function writeProductsCache(data) {
   } catch (e) { /* sessionStorage ple o no disponible: ignorar */ }
 }
 
+// Si diverses parts de la pàgina demanen els productes alhora (p.ex. initShared i
+// el propi script de products.html), compartim la mateixa petició en curs.
+let productsInFlight = null;
+
 async function fetchProductsFromShopify() {
   // 1) Caché de sessió: retorn immediat sense xarxa si és fresca.
   const cached = readProductsCache();
   if (cached) return cached;
 
-  // 2) Endpoint GET cachejat per la CDN de Vercel (/api/products).
+  // 2) Petició ja en curs: reutilitza-la en lloc de tornar a demanar.
+  if (productsInFlight) return productsInFlight;
+
+  productsInFlight = fetchProductsFromNetwork().finally(() => { productsInFlight = null; });
+  return productsInFlight;
+}
+
+async function fetchProductsFromNetwork() {
+  // Endpoint GET cachejat per la CDN de Vercel (/api/products).
   try {
     const response = await fetch('/api/products');
     if (!response.ok) {
@@ -167,30 +178,4 @@ function mapCategory(productType, title, vendor) {
   if (type.includes('control') || type.includes('carnitina') || type.includes('diure') || type.includes('quemador') || type.includes('fat burner')) return 'control-peso';
   if (type.includes('prehormonal') || type.includes('testo') || type.includes('hormonal') || type.includes('zma') || type.includes('andro')) return 'prehormonal';
   return 'vitaminas';
-}
-
-async function createCheckout(items) {
-  const lineItems = items.map(item => ({
-    variantId: item.variantId,
-    quantity: item.qty || 1
-  }));
-
-  const query = `
-    mutation checkoutCreate($input: CheckoutCreateInput!) {
-      checkoutCreate(input: $input) {
-        checkout { id webUrl }
-        checkoutUserErrors { message }
-      }
-    }
-  `;
-
-  const data = await shopifyFetch(query, {
-    input: { lineItems }
-  });
-
-  if (data?.checkoutCreate?.checkout) {
-    return data.checkoutCreate.checkout.webUrl;
-  }
-  console.error('Checkout error:', data?.checkoutCreate?.checkoutUserErrors);
-  return null;
 }

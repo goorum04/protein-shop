@@ -48,7 +48,7 @@
         "name": "¿Qué proteínas vendéis en Andorra?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Disponemos de una amplia selección de proteínas: whey protein, proteína de carne (NXT Beef), proteína vegana, hidrolizadas y más. Trabajamos con marcas como GN Nutrition, NXT BEEF, Dynamix e IO Genix. Más de 44 referencias disponibles en tienda."
+          "text": "Disponemos de una amplia selección de proteínas: whey protein, proteína de carne (NXT Beef), proteína vegana, hidrolizadas y más. Trabajamos con marcas como GN Nutrition, NXT BEEF, Dynamix e IO Genix. En tienda disponemos de muchas más referencias de las que aparecen en la web."
         }
       },
       {
@@ -131,12 +131,15 @@
     <!-- ===== FONTS & CSS ===== -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="style.css" />
     <link rel="stylesheet" href="home.css" />
     <link rel="icon" type="image/svg+xml" href="favicon.svg?v=3">
     <link rel="icon" type="image/png" href="favicon.png?v=3">
     <link rel="apple-touch-icon" href="favicon.png?v=3">
+    <!-- Vercel Web Analytics (sense cookies). Cal activar-ho al panell de Vercel: Project → Analytics -->
+    <script>window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };</script>
+    <script defer src="/_vercel/insights/script.js"></script>
 </head>
 
 <body>
@@ -672,7 +675,7 @@
                     </div>
                     <div class="why-visual">
                         <div class="why-img-wrap">
-                            <img src="images/reals/botiga_interior.jpg" alt="Botiga NL VIP Nutrition Andorra" width="600" height="500" loading="lazy" />
+                            <img src="images/reals/botiga_interior.webp" alt="Botiga NL VIP Nutrition Andorra" width="600" height="500" loading="lazy" />
                             <div class="why-img-badge"><div><strong>+2.000</strong><span data-i18n="why_badge">clients satisfets</span></div></div>
                         </div>
                     </div>
@@ -695,7 +698,7 @@
                     </details>
                     <details style="background:var(--surface);border:1px solid var(--border-2);border-radius:var(--r);padding:20px 24px;">
                         <summary style="font-weight:600;cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center;">¿Qué proteínas vendéis en Andorra? <span>+</span></summary>
-                        <p style="margin-top:12px;color:var(--text-2);line-height:1.7;">Disponemos de whey protein, proteína de carne (NXT Beef), proteína vegana, hidrolizadas y más. Trabajamos con marcas como <strong>GN Nutrition, NXT BEEF, Dynamix e IO Genix</strong>. Más de 44 referencias disponibles en tienda.</p>
+                        <p style="margin-top:12px;color:var(--text-2);line-height:1.7;">Disponemos de whey protein, proteína de carne (NXT Beef), proteína vegana, hidrolizadas y más. Trabajamos con marcas como <strong>GN Nutrition, NXT BEEF, Dynamix e IO Genix</strong>. En tienda disponemos de muchas más referencias de las que aparecen en la web.</p>
                     </details>
                     <details style="background:var(--surface);border:1px solid var(--border-2);border-radius:var(--r);padding:20px 24px;">
                         <summary style="font-weight:600;cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center;">¿Hacéis envíos de suplementos fuera de Andorra? <span>+</span></summary>
@@ -785,6 +788,12 @@
             <div class="footer-bottom">
                 <p>©️ 2026 NL VIP Nutrition · <span data-i18n="footer_rights">Tots els drets reservats</span> · Andorra</p>
                 <p style="font-size:0.75rem;color:var(--text-3);margin-top:8px;">Tienda de suplementación deportiva en Andorra · Suplements esportius Andorra · Sports nutrition supplements</p>
+                <nav class="footer-legal-links" aria-label="Legal">
+                    <a href="legal.html" data-i18n="footer_legal">Avís legal</a>
+                    <a href="privacitat.html" data-i18n="footer_privacy">Política de privacitat</a>
+                    <a href="condicions.html" data-i18n="footer_terms">Condicions de venda, enviaments i devolucions</a>
+                    <a href="cookies.html" data-i18n="footer_cookies">Política de cookies</a>
+                </nav>
             </div>
         </div>
     </footer>

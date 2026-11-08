@@ -34,13 +34,13 @@
   </script>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap"
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&display=swap"
         rel="stylesheet" />
     <link rel="stylesheet" href="style.css" />
     <style>
         /* Page hero with background image */
         .page-hero {
-            background: #06080f url('images/about-hero.jpg') right center / cover no-repeat !important;
+            background: #06080f url('images/about-hero.webp') right center / cover no-repeat !important;
             position: relative;
             overflow: hidden;
             min-height: 420px;
@@ -265,6 +265,9 @@
     <link rel="icon" type="image/svg+xml" href="favicon.svg?v=3">
     <link rel="icon" type="image/png" href="favicon.png?v=3">
     <link rel="apple-touch-icon" href="favicon.png?v=3">
+    <!-- Vercel Web Analytics (sense cookies). Cal activar-ho al panell de Vercel: Project → Analytics -->
+    <script>window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };</script>
+    <script defer src="/_vercel/insights/script.js"></script>
 </head>
 
 <body>
@@ -373,7 +376,7 @@
                                 </div>
                             </div>
                             <div class="about-thumbs">
-                                <div class="about-thumb"><img src="images/about-botiga.jpg" alt="Interior botiga" loading="lazy" /></div>
+                                <div class="about-thumb"><img src="images/about-botiga.webp" alt="Interior botiga" loading="lazy" /></div>
                                 <div class="about-thumb"><img src="images/about-suplements.jpg" alt="Gamma de suplements" loading="lazy" /></div>
                             </div>
                         </div>
@@ -583,7 +586,13 @@
                 </div>
             </div>
             <div class="footer-bottom">
-                <p>© 2025 NL VIP Nutrition · Tots els drets reservats · Andorra</p>
+                <p>© 2026 NL VIP Nutrition · Tots els drets reservats · Andorra</p>
+                <nav class="footer-legal-links" aria-label="Legal">
+                    <a href="legal.html" data-i18n="footer_legal">Avís legal</a>
+                    <a href="privacitat.html" data-i18n="footer_privacy">Política de privacitat</a>
+                    <a href="condicions.html" data-i18n="footer_terms">Condicions de venda, enviaments i devolucions</a>
+                    <a href="cookies.html" data-i18n="footer_cookies">Política de cookies</a>
+                </nav>
             </div>
         </div>
     </footer>
